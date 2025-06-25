@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2025-06-25T17:19:38 IST" name="TiraBeautyTestSuite" finished-at="2025-06-25T17:19:48 IST" duration-ms="10359">
+    <groups>
+    </groups>
+    <test started-at="2025-06-25T17:19:38 IST" name="LoginToCheckoutFlow" finished-at="2025-06-25T17:19:48 IST" duration-ms="10359">
+      <class name="tests.HomePageTest">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.HomePageTest@7e057f43]" started-at="2025-06-25T17:19:23 IST" name="setUp" finished-at="2025-06-25T17:19:38 IST" duration-ms="14137" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- setUp -->
+        <test-method signature="testLoginToOrderFlow()[pri:0, instance:tests.HomePageTest@7e057f43]" started-at="2025-06-25T17:19:38 IST" name="testLoginToOrderFlow" finished-at="2025-06-25T17:19:48 IST" duration-ms="10296" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testLoginToOrderFlow -->
+      </class> <!-- tests.HomePageTest -->
+    </test> <!-- LoginToCheckoutFlow -->
+  </suite> <!-- TiraBeautyTestSuite -->
+</testng-results>

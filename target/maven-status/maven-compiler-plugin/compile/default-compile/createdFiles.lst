@@ -1,0 +1,11 @@
+pages/CartPage.class
+utils/ConfigReader.class
+pages/CheckoutPage.class
+pages/ProductPage.class
+utils/ScreenshotUtil.class
+pages/HomePage.class
+pages/PlpPage.class
+pages/CategoryPage.class
+pages/SelectPaymentPage.class
+pages/LoginPage.class
+pages/SearchPage.class

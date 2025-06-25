@@ -1,0 +1,1 @@
+{"uuid":"f6f7e001-69c3-42f4-94ff-c5db39a9391a","name":"TiraBeautyTestSuite","children":["a9efb54e-ac2e-4e89-a0ff-64b28012b0be"],"befores":[{"name":"setUp","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1750846911399,"stop":1750846916441}],"afters":[],"start":1750846911393,"stop":1750846916558}
