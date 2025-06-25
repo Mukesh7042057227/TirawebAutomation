@@ -44,7 +44,6 @@ public class HomePageTest extends BaseTest {
 
             WebElement currentCategory = currentLinks.get(i);
             String expectedSlug = currentCategory.getAttribute("href");
-            //String expectedSlug = toUrlSlug(name);
 
             System.out.println("🔍 Checking category: " + expectedSlug);
             currentCategory.click();
@@ -63,7 +62,7 @@ public class HomePageTest extends BaseTest {
 
             // Go back to homepage and wait for categories to reappear
 //            home.navigateBack();
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='category-navigation']//a")));
+           // wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='category-navigation']//a")));
         }
     }
 
