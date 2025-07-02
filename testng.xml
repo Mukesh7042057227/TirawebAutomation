@@ -4,13 +4,13 @@
 <test name="LoginToCheckoutFlow">
   <classes>
     <class name="tests.HomePageTest"/>
-<!--    <class name="tests.LoginPageTest"/>-->
-<!--    <class name="tests.CategoryPageTest"/>-->
-<!--    <class name="tests.PlpPageTest"/>-->
-<!--    <class name="tests.ProductPageTest"/>-->
-<!--    <class name="tests.CartPageTest"/>-->
-<!--    <class name="tests.CheckoutPageTest"/>-->
-
+    <class name="tests.LoginPageTest"/>
+    <class name="tests.CategoryPageTest"/>
+    <class name="tests.PlpPageTest"/>
+    <class name="tests.ProductPageTest"/>
+    <class name="tests.CartPageTest"/>
+    <class name="tests.CheckoutPageTest"/>
+    <class name="tests.ThankYouPageTest"/>
   </classes>
 </test>
 

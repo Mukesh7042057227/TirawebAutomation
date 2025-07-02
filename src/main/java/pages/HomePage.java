@@ -26,10 +26,6 @@ public class HomePage {
     public String getCurrentUrl() {
         return driver.getCurrentUrl();
     }
-
-    public void navigateBack() {
-        driver.navigate().back();
-    }
     public void clickLogin() {
         driver.findElement(loginIcon).click();
     }

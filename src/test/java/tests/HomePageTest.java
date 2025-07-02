@@ -60,11 +60,10 @@ public class HomePageTest extends BaseTest {
             Assert.assertTrue(actualUrl.contains(expectedSlug),
                     "❌ URL mismatch for category [" + expectedSlug + "]. Expected to contain: [" + expectedSlug + "], but got: " + actualUrl);
 
-            // Go back to homepage and wait for categories to reappear
-//            home.navigateBack();
-           // wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//div[@class='category-navigation']//a")));
         }
+        home.clickLogin();
     }
+
 
 }
 

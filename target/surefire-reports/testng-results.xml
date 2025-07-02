@@ -1,21 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testng-results ignored="0" total="1" passed="1" failed="0" skipped="0">
+<testng-results ignored="0" total="8" passed="8" failed="0" skipped="0">
   <reporter-output>
   </reporter-output>
-  <suite started-at="2025-06-25T17:19:38 IST" name="TiraBeautyTestSuite" finished-at="2025-06-25T17:19:48 IST" duration-ms="10359">
+  <suite started-at="2025-07-02T09:53:48 IST" name="TiraBeautyTestSuite" finished-at="2025-07-02T09:54:28 IST" duration-ms="39893">
     <groups>
     </groups>
-    <test started-at="2025-06-25T17:19:38 IST" name="LoginToCheckoutFlow" finished-at="2025-06-25T17:19:48 IST" duration-ms="10359">
+    <test started-at="2025-07-02T09:53:48 IST" name="LoginToCheckoutFlow" finished-at="2025-07-02T09:54:28 IST" duration-ms="39893">
+      <class name="tests.ThankYouPageTest">
+        <test-method signature="testLoginToOrderFlow()[pri:0, instance:tests.ThankYouPageTest@247310d0]" started-at="2025-07-02T09:54:24 IST" name="testLoginToOrderFlow" finished-at="2025-07-02T09:54:28 IST" duration-ms="3839" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testLoginToOrderFlow -->
+      </class> <!-- tests.ThankYouPageTest -->
+      <class name="tests.CheckoutPageTest">
+        <test-method signature="testLoginToOrderFlow()[pri:0, instance:tests.CheckoutPageTest@7c37508a]" started-at="2025-07-02T09:54:21 IST" name="testLoginToOrderFlow" finished-at="2025-07-02T09:54:24 IST" duration-ms="3728" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testLoginToOrderFlow -->
+      </class> <!-- tests.CheckoutPageTest -->
+      <class name="tests.CartPageTest">
+        <test-method signature="testLoginToOrderFlow()[pri:0, instance:tests.CartPageTest@6be968ce]" started-at="2025-07-02T09:54:18 IST" name="testLoginToOrderFlow" finished-at="2025-07-02T09:54:21 IST" duration-ms="2736" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testLoginToOrderFlow -->
+      </class> <!-- tests.CartPageTest -->
+      <class name="tests.CategoryPageTest">
+        <test-method signature="testLoginToOrderFlow()[pri:0, instance:tests.CategoryPageTest@496bc455]" started-at="2025-07-02T09:54:10 IST" name="testLoginToOrderFlow" finished-at="2025-07-02T09:54:13 IST" duration-ms="3444" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testLoginToOrderFlow -->
+      </class> <!-- tests.CategoryPageTest -->
       <class name="tests.HomePageTest">
-        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.HomePageTest@7e057f43]" started-at="2025-06-25T17:19:23 IST" name="setUp" finished-at="2025-06-25T17:19:38 IST" duration-ms="14137" status="PASS">
+        <test-method is-config="true" signature="setUp()[pri:0, instance:tests.HomePageTest@7d9d0818]" started-at="2025-07-02T09:53:41 IST" name="setUp" finished-at="2025-07-02T09:53:48 IST" duration-ms="6870" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- setUp -->
-        <test-method signature="testLoginToOrderFlow()[pri:0, instance:tests.HomePageTest@7e057f43]" started-at="2025-06-25T17:19:38 IST" name="testLoginToOrderFlow" finished-at="2025-06-25T17:19:48 IST" duration-ms="10296" status="PASS">
+        <test-method signature="testLoginToOrderFlow()[pri:0, instance:tests.HomePageTest@7d9d0818]" started-at="2025-07-02T09:53:48 IST" name="testLoginToOrderFlow" finished-at="2025-07-02T09:54:08 IST" duration-ms="20084" status="PASS">
           <reporter-output>
           </reporter-output>
         </test-method> <!-- testLoginToOrderFlow -->
       </class> <!-- tests.HomePageTest -->
+      <class name="tests.LoginPageTest">
+        <test-method signature="testLogin()[pri:0, instance:tests.LoginPageTest@70ed52de]" started-at="2025-07-02T09:54:08 IST" name="testLogin" finished-at="2025-07-02T09:54:10 IST" duration-ms="1153" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testLogin -->
+      </class> <!-- tests.LoginPageTest -->
+      <class name="tests.ProductPageTest">
+        <test-method signature="testLoginToOrderFlow()[pri:0, instance:tests.ProductPageTest@7188af83]" started-at="2025-07-02T09:54:18 IST" name="testLoginToOrderFlow" finished-at="2025-07-02T09:54:18 IST" duration-ms="103" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testLoginToOrderFlow -->
+      </class> <!-- tests.ProductPageTest -->
+      <class name="tests.PlpPageTest">
+        <test-method signature="testLoginToOrderFlow()[pri:0, instance:tests.PlpPageTest@59402b8f]" started-at="2025-07-02T09:54:13 IST" name="testLoginToOrderFlow" finished-at="2025-07-02T09:54:18 IST" duration-ms="4679" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- testLoginToOrderFlow -->
+      </class> <!-- tests.PlpPageTest -->
     </test> <!-- LoginToCheckoutFlow -->
   </suite> <!-- TiraBeautyTestSuite -->
 </testng-results>

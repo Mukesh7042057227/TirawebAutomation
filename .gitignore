@@ -1,0 +1,58 @@
+# -------------------------
+# Java + Maven + IntelliJ
+# -------------------------
+
+# Maven target folder
+/target/
+
+# Logs
+*.log
+
+# Build output
+*.class
+*.jar
+*.war
+*.ear
+
+# IntelliJ project files
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+
+# Eclipse project files (optional)
+.project
+.classpath
+.settings/
+
+# VS Code (optional)
+.vscode/
+
+# Allure results & reports
+/allure-results/
+/allure-report/
+
+# Screenshots
+/screenshots/
+
+# Test output
+/test-output/
+
+# OS-specific
+.DS_Store
+Thumbs.db
+
+# Credentials or config files (optional)
+*.env
+*.local
+*.secret
+
+# Node or frontend if added later
+node_modules/
+dist/
+
+# Temporary files
+*.tmp
+*.swp
+*.bak
