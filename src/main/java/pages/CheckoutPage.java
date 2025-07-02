@@ -51,9 +51,9 @@ public class CheckoutPage {
         System.out.println("Selected COD MOP");
     }
     public  void clickOnBuyNow() throws InterruptedException {
-       // WebElement element = wait.until(ExpectedConditions.elementToBeClickable((buyNowClick)));
+        WebElement element = wait.until(ExpectedConditions.elementToBeClickable((buyNowClick)));
 
-        driver.findElement(buyNowClick).click();
+        element.click();
         System.out.println("Clicked on buyNow Button");
     }
 }

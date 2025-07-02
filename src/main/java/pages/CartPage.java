@@ -3,9 +3,15 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class CartPage {
     WebDriver driver;
+    WebDriverWait wait;
 
     By openCart=By.xpath("//div/img[@title='Cart']");
     By proceedToCheckout = By.xpath("//button[text()=' Checkout ']");
@@ -14,6 +20,7 @@ public class CartPage {
     public CartPage(WebDriver driver)
     {
         this.driver = driver;
+        this.wait=new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
     public void openCart()
@@ -24,7 +31,9 @@ public class CartPage {
 
     public void proceedToCheckout()
     {
-        driver.findElement(proceedToCheckout).click();
+        WebElement checkoutButton = wait.until(
+                ExpectedConditions.visibilityOfElementLocated(proceedToCheckout));
+        checkoutButton.click();
         System.out.println("successfull clicked on checkout button");
 
     }
