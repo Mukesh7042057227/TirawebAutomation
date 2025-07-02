@@ -11,6 +11,7 @@
     <class name="tests.CartPageTest"/>
     <class name="tests.CheckoutPageTest"/>
     <class name="tests.ThankYouPageTest"/>
+    <class name="tests.MyOrderPageTest"/>
   </classes>
 </test>
 

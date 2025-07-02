@@ -1,0 +1,73 @@
+package pages;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
+public class MyOrderPage {
+
+    WebDriver driver;
+    WebDriverWait wait;
+
+    By shipmentClick = By.xpath("//details[1]/div/div/div[1]/p");
+    By getOrderId = By.xpath("//details[1]/summary/h3");
+    By cancelButtonClick = By.xpath("//button[text()=' Cancel  ']");
+    By cancelReason = By.xpath("//div[text()=' Cancel Reason']");
+    By selectCancelReason = By.xpath("//span[text()=\"Delivery Time Too Long\"]");
+    By cancelShipment = By.xpath("//button[text()=\" cancel \"]");
+    By confirmationPopUp= By.xpath("//div[contains(text(),'Are you sure you want to cancel the product?')]");
+    By clickYesButton = By.xpath("//button[text()='Yes']");
+
+    public MyOrderPage(WebDriver driver) {
+        this.driver = driver;
+        this.wait=new WebDriverWait(driver, Duration.ofSeconds(15));
+    }
+
+    public void shipmentClick()
+    {
+        WebElement order_id = driver.findElement(getOrderId);
+        String getOrder_id = order_id.getText();
+        System.out.println("OrderId is : " +getOrder_id);
+        System.out.println("OrderId is : " +order_id);
+
+        WebElement clickonshipment = wait.until(ExpectedConditions.visibilityOfElementLocated(shipmentClick));
+        clickonshipment.click();
+    }
+    public void cancelButtonClick() throws InterruptedException {
+        WebElement clickCancelButton = wait.until(ExpectedConditions.visibilityOfElementLocated(cancelButtonClick));
+        clickCancelButton.click();
+        System.out.println("clicked on cancel button");
+        //click on cancellation reason
+        WebElement clickCancelReason = wait.until(ExpectedConditions.visibilityOfElementLocated(cancelReason));
+        clickCancelReason.click();
+        System.out.println("clicked on cancel reason");
+        //select cancellation reason
+        WebElement selectCancellationReason = wait.until(ExpectedConditions.visibilityOfElementLocated(selectCancelReason));
+        selectCancellationReason.click();
+        System.out.println("clicked on cancel reason");
+        //Click on cancel button after select the reason
+
+        WebElement button = wait.until(ExpectedConditions.visibilityOfElementLocated(cancelShipment));
+
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
+        Thread.sleep(500); // wait for any animation or overlay
+
+        button.click();
+        System.out.println("✅ Clicked on 'cancel' button after scroll.");
+
+        //con
+        // Wait for popup to be visible
+        WebElement popup = wait.until(ExpectedConditions.visibilityOfElementLocated(confirmationPopUp));
+        System.out.println("✅ Confirmation popup appeared.");
+
+        WebElement yesButton = driver.findElement(clickYesButton);
+        yesButton.click();
+        System.out.println("✅ Clicked Yes to confirm cancellation.");
+
+    }
+}
