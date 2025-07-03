@@ -5,7 +5,6 @@ import listeners.TestListener;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.MyOrderPage;
-import pages.ThankYouPage;
 
 @Listeners(TestListener.class)
 public class MyOrderPageTest extends BaseTest {

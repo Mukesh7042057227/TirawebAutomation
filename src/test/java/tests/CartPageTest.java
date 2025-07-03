@@ -2,10 +2,9 @@ package tests;
 
 import base.BaseTest;
 import listeners.TestListener;
-import org.testng.Assert;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
-import pages.*;
+import pages.CartPage;
 
 @Listeners(TestListener.class)
 public class CartPageTest extends BaseTest {
