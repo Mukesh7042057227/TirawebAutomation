@@ -6,14 +6,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
+import static locators.Locators.PlpPage.*;
+
 public class PlpPage {
     WebDriver driver;
     WebDriverWait wait;
-
-    // Locators
-    By sortByDropdown = By.xpath("//span[text()='Relevance']");
-    By priceHighToLow = By.xpath("//span[text()='Price High to Low']");
-    By clickOnProduct = By.xpath("//div[1]/a/div/div[1][@class='product-card']");
 
     public PlpPage(WebDriver driver) {
         this.driver = driver;

@@ -9,12 +9,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static locators.Locators.CartPage.openCart;
+import static locators.Locators.CartPage.proceedToCheckout;
+
 public class CartPage {
     WebDriver driver;
     WebDriverWait wait;
-
-    By openCart=By.xpath("//div/img[@title='Cart']");
-    By proceedToCheckout = By.xpath("//button[text()=' Checkout ']");
 
 
     public CartPage(WebDriver driver)

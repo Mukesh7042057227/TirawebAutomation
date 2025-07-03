@@ -9,19 +9,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static locators.Locators.MyOrderPage.*;
+
 public class MyOrderPage {
 
     WebDriver driver;
     WebDriverWait wait;
 
-    By shipmentClick = By.xpath("//details[1]/div/div/div[1]/p");
-    By getOrderId = By.xpath("//details[1]/summary/h3");
-    By cancelButtonClick = By.xpath("//button[text()=' Cancel  ']");
-    By cancelReason = By.xpath("//div[text()=' Cancel Reason']");
-    By selectCancelReason = By.xpath("//span[text()=\"Delivery Time Too Long\"]");
-    By cancelShipment = By.xpath("//button[text()=\" cancel \"]");
-    By confirmationPopUp= By.xpath("//div[contains(text(),'Are you sure you want to cancel the product?')]");
-    By clickYesButton = By.xpath("//button[text()='Yes']");
 
     public MyOrderPage(WebDriver driver) {
         this.driver = driver;

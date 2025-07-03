@@ -1,0 +1,66 @@
+package locators;
+
+import org.openqa.selenium.By;
+
+public class Locators {
+
+    public static class HomePage {
+        public static final By LOGIN_ICON = By.xpath("//a/div[@class='profile-icons profile-logout']");
+        public static final By CATEGORY_LINKS = By.xpath("//div[@class='category-navigation']//a");
+    }
+    public static class LoginPage {
+        public static final By mobileInput = By.xpath("//input[@name='mobile-number']"); // replace with correct locator
+        public static final By selectCheckbox = By.xpath("//img[@alt='checkbox']");
+        public static final By clickSendOtpButton = By.xpath("//button[text()=' Send OTP ']");
+        public static final By enterOtp= By.xpath("//div/input[@class='otp-input']");
+        public static final By verifyOtp = By.xpath("//button[text()=' Verify OTP ']");
+    }
+    public static class CategoryPage {
+        public static final By menuMakeup = By.linkText("Makeup"); // May need better locator
+        public static final By subCategoryNail = By.partialLinkText("Nail");
+    }
+    public static class CheckoutPage {
+        // Locator for review order / payment button
+        public static final By reviewOrder = By.xpath("//button[text()=' Select Payment Method ']");
+        public static final By sidebarContainer = By.cssSelector("div.sidebar-container");
+        public static final By buyNowClick=By.xpath("//div[1]/button[text()=\" Buy Now \"]");
+
+        // Element to scroll into view, for example: Buy Now button
+        public static final By scrollToElement = By.xpath("//span/div[text()=\"Cash on Delivery\"]");
+
+
+    }
+    public static class CartPage {
+        public static final By openCart=By.xpath("//div/img[@title='Cart']");
+        public static final By proceedToCheckout = By.xpath("//button[text()=' Checkout ']");
+    }
+    public static class PlpPage {
+        public static final By sortByDropdown = By.xpath("//span[text()='Relevance']");
+        public static final By priceHighToLow = By.xpath("//span[text()='Price High to Low']");
+        public static final By clickOnProduct = By.xpath("//div[1]/a/div/div[1][@class='product-card']");
+
+
+    }
+    public static class ProductPage {
+        public static final By addToCartBtn = By.xpath("//span[text()='Add to Bag']");
+
+    }
+    public static class MyOrderPage {
+        public static final By shipmentClick = By.xpath("//details[1]/div/div/div[1]/p");
+        public static final By getOrderId = By.xpath("//details[1]/summary/h3");
+        public static final By cancelButtonClick = By.xpath("//button[text()=' Cancel  ']");
+        public static final By cancelReason = By.xpath("//div[text()=' Cancel Reason']");
+        public static final By selectCancelReason = By.xpath("//span[text()=\"Delivery Time Too Long\"]");
+        public static final By cancelShipment = By.xpath("//button[text()=\" cancel \"]");
+        public static final By confirmationPopUp= By.xpath("//div[contains(text(),'Are you sure you want to cancel the product?')]");
+        public static final By clickYesButton = By.xpath("//button[text()='Yes']");
+
+    }
+    public static class ThankYouPage {
+        public static final By getOrderId=By.xpath("//div[contains(text(),'OrderID')]");
+        public static final By myOrderClick=By.xpath("//div[text()=\"Go to My Orders\"]");
+    }
+
+
+
+}

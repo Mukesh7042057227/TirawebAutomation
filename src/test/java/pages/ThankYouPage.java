@@ -8,13 +8,14 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static locators.Locators.ThankYouPage.myOrderClick;
+
 public class ThankYouPage {
 
     WebDriver driver;
     WebDriverWait wait;
 
-    By getOrderId=By.xpath("//div[contains(text(),'OrderID')]");
-    By myOrderClick=By.xpath("//div[text()=\"Go to My Orders\"]");
+
 
     public ThankYouPage(WebDriver driver) {
         this.driver = driver;

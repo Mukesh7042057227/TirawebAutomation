@@ -1,6 +1,7 @@
 
 package pages;
 
+import locators.Locators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,12 +11,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static locators.Locators.CategoryPage.menuMakeup;
+import static locators.Locators.CategoryPage.subCategoryNail;
+
 public class CategoryPage {
     WebDriver driver;
     WebDriverWait wait;
-
-    By menuMakeup = By.linkText("Makeup"); // May need better locator
-    By subCategoryNail = By.partialLinkText("Nail");
 
     public CategoryPage(WebDriver driver)
     {

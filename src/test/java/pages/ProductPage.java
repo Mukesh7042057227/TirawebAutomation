@@ -11,11 +11,13 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
+import static locators.Locators.ProductPage.addToCartBtn;
+
 public class ProductPage {
     WebDriver driver;
 
 
-   By addToCartBtn = By.xpath("//span[text()='Add to Bag']"); // Update as needed
+    // Update as needed
 
     public ProductPage(WebDriver driver)
     {

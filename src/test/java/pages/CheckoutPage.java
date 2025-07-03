@@ -7,17 +7,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
+import static locators.Locators.CheckoutPage.*;
+
 public class CheckoutPage {
     WebDriver driver;
     WebDriverWait wait;
-
-    // Locator for review order / payment button
-    By reviewOrder = By.xpath("//button[text()=' Select Payment Method ']");
-    By sidebarContainer = By.cssSelector("div.sidebar-container");
-    By buyNowClick=By.xpath("//div[1]/button[text()=\" Buy Now \"]");
-
-    // Element to scroll into view, for example: Buy Now button
-    By scrollToElement = By.xpath("//span/div[text()=\"Cash on Delivery\"]");
 
 
     // Constructor to receive driver from test

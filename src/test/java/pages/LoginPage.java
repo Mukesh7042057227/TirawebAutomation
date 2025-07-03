@@ -1,18 +1,14 @@
 package pages;
 
+import locators.Locators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import utils.ConfigReader;
 
+import static locators.Locators.LoginPage.*;
+
 public class LoginPage {
     WebDriver driver;
-
-    // Sample locators (replace with actual ones from the DOM)
-    By mobileInput = By.xpath("//input[@name='mobile-number']"); // replace with correct locator
-    By selectCheckbox = By.xpath("//img[@alt='checkbox']");
-    By clickSendOtpButton = By.xpath("//button[text()=' Send OTP ']");
-    By enterOtp= By.xpath("//div/input[@class='otp-input']");
-    By verifyOtp = By.xpath("//button[text()=' Verify OTP ']");
 
 
     public LoginPage(WebDriver driver) {
