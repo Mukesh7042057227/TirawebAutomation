@@ -5,10 +5,11 @@ import org.openqa.selenium.By;
 public class Locators {
 
     public static class HomePage {
-        public static final By LOGIN_ICON = By.xpath("//a/div[@class='profile-icons profile-logout']");
-        public static final By CATEGORY_LINKS = By.xpath("//div[@class='category-navigation']//a");
+
+        public static final By categoryLink = By.xpath("//div[@class='category-navigation']//a");
     }
     public static class LoginPage {
+        public static final By loginIcon = By.xpath("//a/div[@class='profile-icons profile-logout']");
         public static final By mobileInput = By.xpath("//input[@name='mobile-number']"); // replace with correct locator
         public static final By selectCheckbox = By.xpath("//img[@alt='checkbox']");
         public static final By clickSendOtpButton = By.xpath("//button[text()=' Send OTP ']");

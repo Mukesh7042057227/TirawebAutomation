@@ -1,7 +1,5 @@
 package pages;
 
-import locators.Locators;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import utils.ConfigReader;
 
@@ -16,6 +14,8 @@ public class LoginPage {
     }
 
     public void mockLogin() {
+        driver.findElement(loginIcon).click();
+
         String mobile = ConfigReader.get("mobile");
         String otp = ConfigReader.get("otp");
 
