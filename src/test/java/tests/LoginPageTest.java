@@ -7,13 +7,12 @@ import pages.LoginPage;
 
 //@Listeners(TestListener.class)
 public class LoginPageTest extends BaseTest {
-//    LoginPage login = new LoginPage(driver);
-//    HomePage home = new HomePage(driver);
 
     @Test
-    public void testUserLogin() throws InterruptedException {
+    public void loginPageTestCase() throws InterruptedException {
         LoginPage login = new LoginPage(driver);
         HomePage home = new HomePage(driver);
+        login.loginPageValidation();
         login.mockLogin();
         home.assertHomePageLoaded();
     }

@@ -10,7 +10,7 @@ public class SearchPageTest extends BaseTest {
 
 
     @Test
-    public void testLoginToOrderFlow() throws InterruptedException {
+    public void searchPageTestCase() throws InterruptedException {
 
     }
 }

@@ -11,11 +11,10 @@ public class ProductPageTest extends BaseTest {
 
 
     @Test
-    public void testLoginToOrderFlow() throws InterruptedException {
+    public void productPageTestCase() throws InterruptedException {
 
         ProductPage product = new ProductPage(driver);
-
-
+        product.validatePdpPage();
         product.setAddToCartBtn();
 
     }

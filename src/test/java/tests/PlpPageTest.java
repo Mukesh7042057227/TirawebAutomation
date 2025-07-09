@@ -11,12 +11,10 @@ public class PlpPageTest extends BaseTest {
 
 
     @Test
-    public void testLoginToOrderFlow() throws InterruptedException {
+    public void plpPageTestCase() throws InterruptedException {
 
         PlpPage plp=new PlpPage(driver);
-
-
-
+        plp.validatePlpPage();
         plp.sortBy();
         plp.clickOnProduct();
 

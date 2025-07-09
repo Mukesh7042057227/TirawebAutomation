@@ -11,13 +11,13 @@ public class CartPageTest extends BaseTest {
 
 
     @Test
-    public void testLoginToOrderFlow() throws InterruptedException {
+    public void cartPageTestCase() throws InterruptedException {
 
 
         CartPage cart = new CartPage(driver);
 
-
         cart.openCart();
+        cart.validateCartPage();
         cart.proceedToCheckout();
 
     }

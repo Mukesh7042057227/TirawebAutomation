@@ -18,7 +18,7 @@ import java.util.List;
 public class HomePageTest extends BaseTest {
 
     @Test
-    public void testCategoryNavigation() {
+    public void homePageTestCase() {
         HomePage home = new HomePage(driver);
         home.assertHomePageLoaded();
         home.validateCategoryNavigation();

@@ -6,10 +6,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import java.time.Duration;
 
 import static locators.Locators.MyOrderPage.*;
+import static locators.Locators.PlpPage.validatePlpPage;
 
 public class MyOrderPage {
 
@@ -27,7 +29,6 @@ public class MyOrderPage {
         WebElement order_id = driver.findElement(getOrderId);
         String getOrder_id = order_id.getText();
         System.out.println("OrderId is : " +getOrder_id);
-        System.out.println("OrderId is : " +order_id);
 
         WebElement clickonshipment = wait.until(ExpectedConditions.visibilityOfElementLocated(shipmentClick));
         clickonshipment.click();
@@ -63,5 +64,21 @@ public class MyOrderPage {
         yesButton.click();
         System.out.println("✅ Clicked Yes to confirm cancellation.");
 
+    }
+    public void validateMyOrderPage(){
+
+        WebElement messageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(validateOrderPage));
+        String expectedText = "My Account";
+        String actualText = messageElement.getText();
+        Assert.assertTrue(actualText.contains(expectedText), "❌ Expected text not found.");
+        System.out.println("✅ Verified message: " + actualText);
+    }
+    public void validateShipmentDetailPage(){
+
+        WebElement messageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(validateShipmentDetailsPage));
+        String expectedText = "Shipment Details";
+        String actualText = messageElement.getText();
+        Assert.assertTrue(actualText.contains(expectedText), "❌ Expected text not found.");
+        System.out.println("✅ Verified message: " + actualText);
     }
 }

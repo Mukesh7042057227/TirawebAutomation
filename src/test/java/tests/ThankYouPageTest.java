@@ -11,7 +11,7 @@ import pages.ThankYouPage;
 public class ThankYouPageTest extends BaseTest {
 
     @Test
-    public void testLoginToOrderFlow() throws InterruptedException {
+    public void thankYouPageTestCase() throws InterruptedException {
         ThankYouPage thankyou = new ThankYouPage(driver);
         thankyou.isThankYouPageLoaded();
         thankyou.myOrderClick();

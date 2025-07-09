@@ -4,9 +4,11 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import java.time.Duration;
 
+import static locators.Locators.CartPage.validateCartPage;
 import static locators.Locators.CheckoutPage.*;
 
 public class CheckoutPage {
@@ -49,5 +51,14 @@ public class CheckoutPage {
 
         element.click();
         System.out.println("Clicked on buyNow Button");
+    }
+    public void validateCheckoutPage(){
+        System.out.println("review");
+        WebElement messageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(validateCheckoutPage));
+        String expectedText = "Review Order Details";
+        String actualText = messageElement.getText();
+        Assert.assertTrue(actualText.contains(expectedText), "❌ Expected text not found.");
+        System.out.println("✅ Verified message: " + actualText);
+
     }
 }

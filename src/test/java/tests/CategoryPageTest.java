@@ -11,7 +11,7 @@ public class CategoryPageTest extends BaseTest {
 
 
     @Test
-    public void testLoginToOrderFlow() throws InterruptedException {
+    public void categoryPageTestCase() throws InterruptedException {
 
         CategoryPage category = new CategoryPage(driver);
 

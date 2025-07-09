@@ -6,11 +6,12 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import java.time.Duration;
 
-import static locators.Locators.CartPage.openCart;
-import static locators.Locators.CartPage.proceedToCheckout;
+import static locators.Locators.CartPage.*;
+import static locators.Locators.LoginPage.validateLoginPage;
 
 public class CartPage {
     WebDriver driver;
@@ -36,5 +37,13 @@ public class CartPage {
         checkoutButton.click();
         System.out.println("successfull clicked on checkout button");
 
+    }
+    public void validateCartPage()
+    {
+        WebElement messageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(validateCartPage));
+        String expectedText = "Coupons & Bank Offers";
+        String actualText = messageElement.getText();
+        Assert.assertTrue(actualText.contains(expectedText), "❌ Expected text not found.");
+        System.out.println("✅ Verified message: " + actualText);
     }
 }
