@@ -13,11 +13,7 @@ public class CategoryPageTest extends BaseTest {
     @Test
     public void categoryPageTestCase() throws InterruptedException {
 
-        CategoryPage category = new CategoryPage(driver);
-
-
-
-        category.navigateToLipstickCategory();
+        CategoryPage.navigateToLipstickCategory();
 
     }
 }

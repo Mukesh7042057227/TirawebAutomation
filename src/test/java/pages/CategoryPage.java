@@ -1,6 +1,7 @@
 
 package pages;
 
+import base.BaseTest;
 import locators.Locators;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,15 +16,15 @@ import static locators.Locators.CategoryPage.menuMakeup;
 import static locators.Locators.CategoryPage.subCategoryNail;
 
 public class CategoryPage {
-    WebDriver driver;
-    WebDriverWait wait;
 
-    public CategoryPage(WebDriver driver)
-    {
-        this.driver = driver;
-        this.wait=new WebDriverWait(driver, Duration.ofSeconds(15));
+    private static final WebDriverWait wait;
+    private static final WebDriver driver;
+
+    static {
+        driver = BaseTest.driver;
+        wait=new WebDriverWait(driver, Duration.ofSeconds(15));
     }
-    public void navigateToLipstickCategory() {
+    public static void navigateToLipstickCategory() {
         driver.findElement(menuMakeup).click();
         driver.findElement(subCategoryNail).click();
     }

@@ -1,5 +1,6 @@
 package pages;
 
+import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,16 +14,15 @@ import java.time.Duration;
 import static locators.Locators.LoginPage.*;
 
 public class LoginPage {
-    WebDriver driver;
-    WebDriverWait wait;
+    private static final WebDriver driver;
+    private static final WebDriverWait wait;
 
-
-    public LoginPage(WebDriver driver) {
-        this.driver = driver;
-        this.wait=new WebDriverWait(driver, Duration.ofSeconds(15));
+    static {
+        driver = BaseTest.driver;
+        wait=new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
-    public void mockLogin() {
+    public static void mockLogin() {
 
         String mobile = ConfigReader.get("mobile");
         String otp = ConfigReader.get("otp");
@@ -42,7 +42,7 @@ public class LoginPage {
         driver.findElement(verifyOtp).click();
         System.out.println("✅ Submitted login form.");
     }
-    public void loginPageValidation()
+    public static void loginPageValidation()
     {
         driver.findElement(loginIcon).click(); //login icon click
         //Login page validation

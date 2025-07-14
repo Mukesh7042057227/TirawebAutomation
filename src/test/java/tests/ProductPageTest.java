@@ -13,9 +13,8 @@ public class ProductPageTest extends BaseTest {
     @Test
     public void productPageTestCase() throws InterruptedException {
 
-        ProductPage product = new ProductPage(driver);
-        product.validatePdpPage();
-        product.setAddToCartBtn();
+        ProductPage.validatePdpPage();
+        ProductPage.setAddToCartBtn();
 
     }
 }

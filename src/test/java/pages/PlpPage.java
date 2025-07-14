@@ -1,5 +1,6 @@
 package pages;
 
+import base.BaseTest;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -12,15 +13,15 @@ import static locators.Locators.LoginPage.validateLoginPage;
 import static locators.Locators.PlpPage.*;
 
 public class PlpPage {
-    WebDriver driver;
-    WebDriverWait wait;
+    private static final WebDriver driver;
+    private static final WebDriverWait wait;
 
-    public PlpPage(WebDriver driver) {
-        this.driver = driver;
-        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+    static {
+        driver = BaseTest.driver;
+        wait=new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
-    public void sortBy() {
+    public static void sortBy() {
         try {
             // Step 1: Click sort dropdown
             wait.until(ExpectedConditions.elementToBeClickable(sortByDropdown)).click();
@@ -36,7 +37,7 @@ public class PlpPage {
         }
     }
 
-    public void clickOnProduct() {
+    public static void clickOnProduct() {
         for (int attempt = 0; attempt < 2; attempt++) {
             try {
                 WebElement product = wait.until(ExpectedConditions.elementToBeClickable(clickOnProduct));
@@ -73,7 +74,7 @@ public class PlpPage {
             }
         }
     }
-    public void validatePlpPage()
+    public static void validatePlpPage()
     {
 
         WebElement messageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(validatePlpPage));

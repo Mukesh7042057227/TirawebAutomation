@@ -1,6 +1,7 @@
 
 package pages;
 
+import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,23 +15,22 @@ import static locators.Locators.CartPage.*;
 import static locators.Locators.LoginPage.validateLoginPage;
 
 public class CartPage {
-    WebDriver driver;
-    WebDriverWait wait;
+    private static final WebDriverWait wait;
+    private static final WebDriver driver;
 
-
-    public CartPage(WebDriver driver)
-    {
-        this.driver = driver;
-        this.wait=new WebDriverWait(driver, Duration.ofSeconds(15));
+    static {
+        driver = BaseTest.driver;
+       wait=new WebDriverWait(driver, Duration.ofSeconds(15));
     }
 
-    public void openCart()
+
+    public static void openCart()
     {
         driver.findElement(openCart).click();
         System.out.println("cart page opened successfully");
     }
 
-    public void proceedToCheckout()
+    public static void proceedToCheckout()
     {
         WebElement checkoutButton = wait.until(
                 ExpectedConditions.visibilityOfElementLocated(proceedToCheckout));
@@ -38,7 +38,7 @@ public class CartPage {
         System.out.println("successfull clicked on checkout button");
 
     }
-    public void validateCartPage()
+    public static void validateCartPage()
     {
         WebElement messageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(validateCartPage));
         String expectedText = "Coupons & Bank Offers";

@@ -19,8 +19,7 @@ public class HomePageTest extends BaseTest {
 
     @Test
     public void homePageTestCase() {
-        HomePage home = new HomePage(driver);
-        home.assertHomePageLoaded();
-        home.validateCategoryNavigation();
+        HomePage.assertHomePageLoaded();
+        HomePage.validateCategoryNavigation();
     }
 }

@@ -1,5 +1,6 @@
 package pages;
 
+import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -15,16 +16,14 @@ import static locators.Locators.PlpPage.validatePlpPage;
 
 public class MyOrderPage {
 
-    WebDriver driver;
-    WebDriverWait wait;
+    private static final WebDriver driver;
+    private static final WebDriverWait wait;
 
-
-    public MyOrderPage(WebDriver driver) {
-        this.driver = driver;
-        this.wait=new WebDriverWait(driver, Duration.ofSeconds(15));
+    static {
+        driver = BaseTest.driver;
+        wait=new WebDriverWait(driver, Duration.ofSeconds(15));
     }
-
-    public void shipmentClick()
+    public static void shipmentClick()
     {
         WebElement order_id = driver.findElement(getOrderId);
         String getOrder_id = order_id.getText();
@@ -33,7 +32,7 @@ public class MyOrderPage {
         WebElement clickonshipment = wait.until(ExpectedConditions.visibilityOfElementLocated(shipmentClick));
         clickonshipment.click();
     }
-    public void cancelButtonClick() throws InterruptedException {
+    public static void cancelButtonClick() throws InterruptedException {
         WebElement clickCancelButton = wait.until(ExpectedConditions.visibilityOfElementLocated(cancelButtonClick));
         clickCancelButton.click();
         System.out.println("clicked on cancel button");
@@ -65,7 +64,7 @@ public class MyOrderPage {
         System.out.println("✅ Clicked Yes to confirm cancellation.");
 
     }
-    public void validateMyOrderPage(){
+    public static void validateMyOrderPage(){
 
         WebElement messageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(validateOrderPage));
         String expectedText = "My Account";
@@ -73,7 +72,7 @@ public class MyOrderPage {
         Assert.assertTrue(actualText.contains(expectedText), "❌ Expected text not found.");
         System.out.println("✅ Verified message: " + actualText);
     }
-    public void validateShipmentDetailPage(){
+    public static void validateShipmentDetailPage(){
 
         WebElement messageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(validateShipmentDetailsPage));
         String expectedText = "Shipment Details";

@@ -13,10 +13,9 @@ public class PlpPageTest extends BaseTest {
     @Test
     public void plpPageTestCase() throws InterruptedException {
 
-        PlpPage plp=new PlpPage(driver);
-        plp.validatePlpPage();
-        plp.sortBy();
-        plp.clickOnProduct();
+        PlpPage.validatePlpPage();
+        PlpPage.sortBy();
+        PlpPage.clickOnProduct();
 
     }
 }

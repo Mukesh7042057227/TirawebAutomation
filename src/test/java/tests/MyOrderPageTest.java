@@ -11,11 +11,9 @@ public class MyOrderPageTest extends BaseTest {
 
     @Test
     public void myOrderPageTestCase() throws InterruptedException {
-        MyOrderPage orderlist = new MyOrderPage(driver);
-        orderlist.validateMyOrderPage();
-        orderlist.shipmentClick();
-        orderlist.validateShipmentDetailPage();
-        System.out.println("clicked on shipment");
-        orderlist.cancelButtonClick();
+        MyOrderPage.validateMyOrderPage();
+        MyOrderPage.shipmentClick();
+        MyOrderPage.validateShipmentDetailPage();
+        MyOrderPage.cancelButtonClick();
     }
 }

@@ -13,11 +13,13 @@ public class BaseTest {
 
     @BeforeSuite
     public void setUp() {
+
         // ✅ Load config
         ConfigReader.loadConfig();
-
         // ✅ Setup ChromeDriver
         WebDriverManager.chromedriver().setup();
+
+
         driver = new ChromeDriver();
 
         // ✅ Set up browser
