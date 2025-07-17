@@ -11,6 +11,8 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+import static locators.Locators.LoginPage.loginIcon;
+
 public class HomePage {
     WebDriver driver;
     WebDriverWait wait;
@@ -76,6 +78,9 @@ public class HomePage {
             driver.navigate().back();
             wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(Locators.HomePage.categoryLink));
         }
+    }
+    public void clickLoginIcon(){
+        driver.findElement(loginIcon).click();
     }
 
 }

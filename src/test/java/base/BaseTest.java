@@ -23,11 +23,11 @@ public class BaseTest {
     }
 
     @AfterClass
-    public void tearDown() {
-        if (driver != null) {
-            driver.quit();
+   public void tearDown() {
+       if (driver != null) {
+           driver.quit();
         }
-    }
+   }
 
     public WebDriver getDriver() {
         return driver;

@@ -70,7 +70,11 @@ public class Locators {
         public static final By getOrderId=By.xpath("//div[contains(text(),'OrderID')]");
         public static final By myOrderClick=By.xpath("//div[text()=\"Go to My Orders\"]");
     }
-
+    public static class SearchPage {
+        public static final By searchInput = By.id("search"); // update as per DOM
+        public static final By resultItems = By.xpath("//div[1]/a/div/div[1][@class='product-card']");
+        public static final By noResultsMessage = By.xpath("//p[contains(text(),' Nothing to find here ')]");
+    }
 
 
 }

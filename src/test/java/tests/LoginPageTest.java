@@ -16,8 +16,9 @@ public class LoginPageTest extends BaseTest {
         HomePage home = new HomePage(driver);
         home.assertHomePageLoaded();
         home.validateCategoryNavigation();
+         home.clickLoginIcon();
     }
-    @Test(dependsOnMethods = {"homePageTestCase"})
+    @Test(priority = 1)
     public void loginPageTestCase() throws InterruptedException
     {
         LoginPage login = new LoginPage(driver);

@@ -22,19 +22,18 @@ public class ProductPage {
 
     // Update as needed
 
-    public ProductPage(WebDriver driver)
-    {
+    public ProductPage(WebDriver driver) {
         this.driver = driver;
-        this.wait=new WebDriverWait(driver, Duration.ofSeconds(15));
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
     }
-    public void setAddToCartBtn()
-    {
+
+    public void setAddToCartBtn() {
 
         driver.findElement(addToCartBtn).click();
         System.out.println("Product added to cart successfully");
     }
-    public void validatePdpPage()
-    {
+
+    public void validatePdpPage() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement messageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(validatePdpPage));
         String expectedText = "Add to Bag";

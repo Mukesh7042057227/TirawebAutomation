@@ -27,7 +27,6 @@ public class LoginPage {
     }
 
     public void loginPageValidation() {
-        driver.findElement(loginIcon).click();
 
          String actualText = driver.findElement(validateLoginPage).getText();
          Assert.assertTrue(actualText.contains("Phone Number"), "Text mismatch");

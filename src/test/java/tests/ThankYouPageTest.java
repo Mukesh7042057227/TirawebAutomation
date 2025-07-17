@@ -11,27 +11,29 @@ import pages.*;
 @Listeners({ExtentReportListener.class, TestListener.class})
 public class ThankYouPageTest extends BaseTest {
 
-    @Test()
+    @Test(priority = 1)
     public void homePageTestCase() throws InterruptedException {
         HomePage home = new HomePage(driver);
         home.assertHomePageLoaded();
         home.validateCategoryNavigation();
+        home.clickLoginIcon();
+
     }
-    @Test(dependsOnMethods = {"homePageTestCase"})
+    @Test(priority = 2)
     public void loginPageTestCase() throws InterruptedException
     {
         LoginPage login = new LoginPage(driver);
         login.loginPageValidation();
         login.mockLogin();
     }
-    @Test(dependsOnMethods = {"loginPageTestCase"})
+    @Test(priority = 3)
     public void categoryPageTestCase() throws InterruptedException {
         //Calling Category page
         CategoryPage category= new CategoryPage(driver);
         category.navigateToLipstickCategory();
 
     }
-    @Test(dependsOnMethods = {"categoryPageTestCase"})
+    @Test(priority = 4)
     public void plpPageTestCase() throws InterruptedException {
         //Calling PLP page
         PlpPage plp = new PlpPage(driver);
@@ -39,13 +41,13 @@ public class ThankYouPageTest extends BaseTest {
         plp.sortBy();
         plp.clickOnProduct();
     }
-    @Test(dependsOnMethods = {"plpPageTestCase"})
+    @Test(priority = 5)
     public void productPageTestCase() throws InterruptedException {
         ProductPage product = new ProductPage(driver);
         product.validatePdpPage();
         product.setAddToCartBtn();
     }
-    @Test(dependsOnMethods = {"productPageTestCase"})
+    @Test(priority = 6)
     public void cartPageTestCase() throws InterruptedException {
         //calling Cart Page
         CartPage cart= new CartPage(driver);
@@ -54,7 +56,7 @@ public class ThankYouPageTest extends BaseTest {
         cart.proceedToCheckout();
 
     }
-    @Test(dependsOnMethods = {"cartPageTestCase"})
+    @Test(priority = 7)
     public void checkoutPageTestCase() throws InterruptedException {
 
         CheckoutPage checkout = new CheckoutPage(driver);
@@ -64,7 +66,7 @@ public class ThankYouPageTest extends BaseTest {
         checkout.scrollSidebarTillElementVisible();
         checkout.clickOnBuyNow();
     }
-    @Test(dependsOnMethods = {"checkoutPageTestCase"})
+    @Test(priority = 8)
     public void thankYouPageTestCase() throws InterruptedException {
         //Thank you page calling
         ThankYouPage thankYou = new ThankYouPage(driver);
