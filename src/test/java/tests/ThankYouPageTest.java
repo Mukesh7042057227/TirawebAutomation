@@ -1,40 +1,75 @@
 package tests;
 
 import base.BaseTest;
+import listeners.ExtentReportListener;
 import listeners.TestListener;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.*;
 
-@Listeners(TestListener.class)
+@Listeners({ExtentReportListener.class, TestListener.class})
 public class ThankYouPageTest extends BaseTest {
 
-    @Test
+    @Test()
+    public void homePageTestCase() throws InterruptedException {
+        HomePage home = new HomePage(driver);
+        home.assertHomePageLoaded();
+        home.validateCategoryNavigation();
+    }
+    @Test(dependsOnMethods = {"homePageTestCase"})
+    public void loginPageTestCase() throws InterruptedException
+    {
+        LoginPage login = new LoginPage(driver);
+        login.loginPageValidation();
+        login.mockLogin();
+    }
+    @Test(dependsOnMethods = {"loginPageTestCase"})
+    public void categoryPageTestCase() throws InterruptedException {
+        //Calling Category page
+        CategoryPage category= new CategoryPage(driver);
+        category.navigateToLipstickCategory();
+
+    }
+    @Test(dependsOnMethods = {"categoryPageTestCase"})
+    public void plpPageTestCase() throws InterruptedException {
+        //Calling PLP page
+        PlpPage plp = new PlpPage(driver);
+        plp.validatePlpPage();
+        plp.sortBy();
+        plp.clickOnProduct();
+    }
+    @Test(dependsOnMethods = {"plpPageTestCase"})
+    public void productPageTestCase() throws InterruptedException {
+        ProductPage product = new ProductPage(driver);
+        product.validatePdpPage();
+        product.setAddToCartBtn();
+    }
+    @Test(dependsOnMethods = {"productPageTestCase"})
+    public void cartPageTestCase() throws InterruptedException {
+        //calling Cart Page
+        CartPage cart= new CartPage(driver);
+        cart.openCart();
+        cart.validateCartPage();
+        cart.proceedToCheckout();
+
+    }
+    @Test(dependsOnMethods = {"cartPageTestCase"})
+    public void checkoutPageTestCase() throws InterruptedException {
+
+        CheckoutPage checkout = new CheckoutPage(driver);
+        //Calling checkout page
+        checkout.validateCheckoutPage();
+        checkout.reviewOrder();
+        checkout.scrollSidebarTillElementVisible();
+        checkout.clickOnBuyNow();
+    }
+    @Test(dependsOnMethods = {"checkoutPageTestCase"})
     public void thankYouPageTestCase() throws InterruptedException {
-        //Home Page calling
-        HomePage.assertHomePageLoaded();
-        HomePage.validateCategoryNavigation();
-       //Login Page calling
-        LoginPage.loginPageValidation();
-        LoginPage.mockLogin();
-        //Category Page calling
-        CategoryPage.navigateToLipstickCategory();
-       //PLP page calling
-        PlpPage.validatePlpPage();
-        PlpPage.sortBy();
-        PlpPage.clickOnProduct();
-        //PDP Page calling
-        ProductPage.validatePdpPage();
-        ProductPage.setAddToCartBtn();
-        //checkout Page calling
-        CheckoutPage.validateCheckoutPage();
-        CheckoutPage.reviewOrder();
-        CheckoutPage.scrollSidebarTillElementVisible();
-        CheckoutPage.clickOnBuyNow();
         //Thank you page calling
-        ThankYouPage.isThankYouPageLoaded();
-        ThankYouPage.myOrderClick();
+        ThankYouPage thankYou = new ThankYouPage(driver);
+        thankYou.isThankYouPageLoaded();
+        thankYou.myOrderClick();
     }
 }
 

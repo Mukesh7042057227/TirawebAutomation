@@ -1,18 +1,27 @@
 package tests;
 
 import base.BaseTest;
+import listeners.ExtentReportListener;
+import listeners.TestListener;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LoginPage;
 
-//@Listeners(TestListener.class)
+@Listeners({ExtentReportListener.class, TestListener.class})
 public class LoginPageTest extends BaseTest {
 
-    @Test
-    public void loginPageTestCase() throws InterruptedException {
-
-        LoginPage.loginPageValidation();
-        LoginPage.mockLogin();
-        HomePage.assertHomePageLoaded();
+    @Test()
+    public void homePageTestCase() throws InterruptedException {
+        HomePage home = new HomePage(driver);
+        home.assertHomePageLoaded();
+        home.validateCategoryNavigation();
+    }
+    @Test(dependsOnMethods = {"homePageTestCase"})
+    public void loginPageTestCase() throws InterruptedException
+    {
+        LoginPage login = new LoginPage(driver);
+        login.loginPageValidation();
+        login.mockLogin();
     }
 }

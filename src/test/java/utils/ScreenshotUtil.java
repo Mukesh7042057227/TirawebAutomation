@@ -3,30 +3,26 @@ package utils;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
 
 import java.io.File;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
+import static base.BaseTest.driver;
 
 public class ScreenshotUtil {
 
-    public static void takeScreenshot(WebDriver driver, String testName) {
-        String timestamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String dirPath = "screenshots";
-        String filePath = dirPath + "/" + testName + "_" + timestamp + ".png";
-
+    public static String takeScreenshot(String fileName) {
         try {
-            File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            File folder = new File(dirPath);
-            if (!folder.exists()) {
-                folder.mkdirs();
-            }
-            FileUtils.copyFile(src, new File(filePath));
-            System.out.println("📸 Screenshot saved at: " + filePath);
+            TakesScreenshot ts = (TakesScreenshot) driver;
+            File src = ts.getScreenshotAs(OutputType.FILE);
+            String path = System.getProperty("user.dir") + "/test-output/screenshots/" + fileName + ".png";
+            File dest = new File(path);
+            FileUtils.copyFile(src, dest);
+            return path;
         } catch (IOException e) {
             e.printStackTrace();
+            return null;
         }
     }
+
 }

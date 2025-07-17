@@ -1,6 +1,5 @@
 package pages;
 
-import base.BaseTest;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,15 +12,17 @@ import static locators.Locators.CartPage.validateCartPage;
 import static locators.Locators.CheckoutPage.*;
 
 public class CheckoutPage {
-    private static final WebDriver driver;
-    private static final WebDriverWait wait;
+    WebDriver driver;
+    WebDriverWait wait;
 
-    static {
-        driver = BaseTest.driver;
-        wait=new WebDriverWait(driver, Duration.ofSeconds(15));
+
+    // Constructor to receive driver from test
+    public CheckoutPage(WebDriver driver) {
+        this.driver= driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    public static void reviewOrder() {
+    public void reviewOrder() {
 
         wait.until(ExpectedConditions.elementToBeClickable(reviewOrder));
 
@@ -30,7 +31,7 @@ public class CheckoutPage {
     }
 
 
-    public static void scrollSidebarTillElementVisible() throws InterruptedException {
+    public void scrollSidebarTillElementVisible() throws InterruptedException {
         WebElement sidebar = wait.until(ExpectedConditions.visibilityOfElementLocated(sidebarContainer));
         WebElement targetElement = wait.until(ExpectedConditions.visibilityOfElementLocated(scrollToElement));
 
@@ -45,13 +46,13 @@ public class CheckoutPage {
         driver.findElement(scrollToElement).click();
         System.out.println("Selected COD MOP");
     }
-    public static void clickOnBuyNow() throws InterruptedException {
+    public  void clickOnBuyNow() throws InterruptedException {
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable((buyNowClick)));
 
         element.click();
         System.out.println("Clicked on buyNow Button");
     }
-    public static void validateCheckoutPage(){
+    public void validateCheckoutPage(){
 
         WebElement messageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(validateCheckoutPage));
         String expectedText = "Review Order Details";

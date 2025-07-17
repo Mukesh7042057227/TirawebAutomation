@@ -18,7 +18,7 @@ public class Locators {
         public static final By validateLoginPage=By.xpath("//span[contains(text(),'Phone Number')]");
     }
     public static class CategoryPage {
-        public static final By menuMakeup = By.linkText("Makeup"); // May need better locator
+        public static final By menuMakeup = By.xpath("//div[2]/div[2]/div/div/div[2]/div/div/a"); // May need better locator
         public static final By subCategoryNail = By.partialLinkText("Nail");
     }
     public static class CheckoutPage {

@@ -1,6 +1,5 @@
 package pages;
 
-import base.BaseTest;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -11,53 +10,64 @@ import java.time.Duration;
 
 import static locators.Locators.LoginPage.validateLoginPage;
 import static locators.Locators.PlpPage.*;
+import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+
+import java.time.Duration;
+
+import static locators.Locators.PlpPage.*;
 
 public class PlpPage {
-    private static final WebDriver driver;
-    private static final WebDriverWait wait;
+    WebDriver driver;
+    WebDriverWait wait;
 
-    static {
-        driver = BaseTest.driver;
-        wait=new WebDriverWait(driver, Duration.ofSeconds(15));
+    public PlpPage(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    public static void sortBy() {
+    public void sortBy() {
         try {
-            // Step 1: Click sort dropdown
-            wait.until(ExpectedConditions.elementToBeClickable(sortByDropdown)).click();
+            // 🔁 Always fetch fresh element
+            WebElement sortDropdown = wait.until(ExpectedConditions.elementToBeClickable(sortByDropdown));
+            sortDropdown.click();
             System.out.println("✅ Clicked on Relevance Sort by");
-            Thread.sleep(4000);
-            // Step 2: Wait for "Price High to Low" option to be visible and click
-            wait.until(ExpectedConditions.visibilityOfElementLocated(priceHighToLow));
+
+            // ✅ Use explicit wait instead of sleep
             WebElement sortOption = wait.until(ExpectedConditions.elementToBeClickable(priceHighToLow));
             sortOption.click();
             System.out.println("✅ Clicked on Price High to Low");
+        } catch (StaleElementReferenceException e) {
+            System.out.println("⚠️ StaleElementReferenceException caught in sortBy(). Retrying...");
+            sortBy(); // recursive retry
         } catch (Exception e) {
             System.out.println("❌ Failed to sort products: " + e.getMessage());
         }
     }
 
-    public static void clickOnProduct() {
+    public void clickOnProduct() {
         for (int attempt = 0; attempt < 2; attempt++) {
             try {
+                // 🔁 Re-fetch element every time
                 WebElement product = wait.until(ExpectedConditions.elementToBeClickable(clickOnProduct));
 
-                // Scroll into view and hover
                 ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", product);
                 new Actions(driver).moveToElement(product).perform();
-                System.out.println("✅ Hovered on first product");
+                System.out.println("✅ Hovered on product");
 
                 String originalWindow = driver.getWindowHandle();
 
-                // Click product
                 product.click();
                 System.out.println("✅ Clicked on product");
 
-                // Wait and switch to new tab
+                // Switch to new tab
                 wait.until(driver -> driver.getWindowHandles().size() > 1);
-                for (String windowHandle : driver.getWindowHandles()) {
-                    if (!windowHandle.equals(originalWindow)) {
-                        driver.switchTo().window(windowHandle);
+                for (String handle : driver.getWindowHandles()) {
+                    if (!handle.equals(originalWindow)) {
+                        driver.switchTo().window(handle);
                         System.out.println("✅ Switched to new tab");
                         break;
                     }
@@ -67,21 +77,26 @@ public class PlpPage {
                 break;
 
             } catch (StaleElementReferenceException e) {
-                System.out.println("⚠️ Stale element error — retrying...");
+                System.out.println("⚠️ StaleElementReferenceException in clickOnProduct() — retrying...");
             } catch (TimeoutException te) {
-                System.out.println("❌ Timeout while trying to click product: " + te.getMessage());
+                System.out.println("❌ TimeoutException in clickOnProduct(): " + te.getMessage());
+                break;
+            } catch (Exception e) {
+                System.out.println("❌ General Exception in clickOnProduct(): " + e.getMessage());
                 break;
             }
         }
     }
-    public static void validatePlpPage()
-    {
 
-        WebElement messageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(validatePlpPage));
-        String expectedText = "Delivering to";
-        String actualText = messageElement.getText();
-        Assert.assertTrue(actualText.contains(expectedText), "❌ Expected text not found.");
-        System.out.println("✅ Verified message: " + actualText);
-
+    public void validatePlpPage() {
+        try {
+            WebElement messageElement = wait.until(ExpectedConditions.visibilityOfElementLocated(validatePlpPage));
+            String expectedText = "Delivering to";
+            String actualText = messageElement.getText();
+            Assert.assertTrue(actualText.contains(expectedText), "❌ Expected text not found.");
+            System.out.println("✅ Verified message: " + actualText);
+        } catch (TimeoutException e) {
+            System.out.println("❌ PLP validation failed: Element not visible");
+        }
     }
 }

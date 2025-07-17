@@ -12,13 +12,14 @@ public class TestListener implements ITestListener {
     public void onTestFailure(ITestResult result) {
         System.out.println("❌ Test failed: " + result.getName());
 
-        Object testClass = result.getInstance();
-        WebDriver driver = BaseTest.driver;  // Safe typecast
+        Object currentClass = result.getInstance();
+        WebDriver driver = ((BaseTest) currentClass).getDriver();
 
         if (driver != null) {
-            ScreenshotUtil.takeScreenshot(driver, result.getName());
+            ScreenshotUtil.takeScreenshot(result.getName());
         } else {
-            System.out.println("⚠️ Driver was null. Could not capture screenshot.");
+            System.out.println("⚠️ WebDriver is null. Screenshot not captured.");
         }
     }
+
 }

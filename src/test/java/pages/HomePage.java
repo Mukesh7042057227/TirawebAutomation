@@ -1,70 +1,85 @@
 package pages;
 
-import base.BaseTest;
+import locators.Locators;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import locators.Locators;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomePage {
+    WebDriver driver;
+    WebDriverWait wait;
 
-    private static final WebDriver driver;
-    private static final WebDriverWait wait;
-
-    static {
-        driver = BaseTest.driver;
-        wait=new WebDriverWait(driver, Duration.ofSeconds(15));
+    public HomePage(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(25));
     }
 
-    public static List<WebElement> getCategoryLinks() {
+    public List<WebElement> getCategoryLinks() {
         return driver.findElements(Locators.HomePage.categoryLink);
     }
 
-    public static String getCurrentUrl() {
+    public String getCurrentUrl() {
         return driver.getCurrentUrl();
     }
 
-    public static void assertHomePageLoaded() {
+    public void assertHomePageLoaded() throws InterruptedException {
         String title = driver.getTitle();
         boolean isHomePageLoaded = title.contains("Tira") || title.contains("Beauty");
-        Assert.assertTrue(isHomePageLoaded, "Home Page did not load correctly");
+        Assert.assertTrue(isHomePageLoaded, "❌ Home Page did not load correctly");
         System.out.println("✅ Home page loaded successfully.");
     }
 
-    public static void validateCategoryNavigation() {
+    public void validateCategoryNavigation() {
         List<WebElement> initialCategoryLinks = getCategoryLinks();
         List<String> categoryNames = new ArrayList<>();
 
         for (WebElement el : initialCategoryLinks) {
-            categoryNames.add(el.getText().trim());
+            String name = el.getText().trim();
+            if (!name.isEmpty()) {
+                categoryNames.add(name);
+            }
         }
 
-        for (int i = 1; i < categoryNames.size(); i++) {
+        for (String categoryName : categoryNames) {
+            // Refresh homepage and locate fresh category link by name
             List<WebElement> currentLinks = getCategoryLinks();
+            WebElement currentCategory = currentLinks.stream()
+                    .filter(link -> link.getText().trim().equals(categoryName))
+                    .findFirst()
+                    .orElse(null);
 
-            WebElement currentCategory = currentLinks.get(i);
+            if (currentCategory == null) {
+                System.out.println("⚠️ Category not found: " + categoryName);
+                continue;
+            }
+
             String expectedSlug = currentCategory.getAttribute("href");
-
             System.out.println("🔍 Checking category: " + expectedSlug);
+
             currentCategory.click();
 
-            new WebDriverWait(driver, Duration.ofSeconds(10))
-                    .until(ExpectedConditions.urlContains(expectedSlug));
-
+            // Wait for URL to contain expectedSlug
+            wait.until(ExpectedConditions.urlContains(expectedSlug));
             String actualUrl = getCurrentUrl();
-            System.out.println("🔗 Navigated URL: " + actualUrl);
 
-            Assert.assertNotNull(expectedSlug, "❌ Category href is null at index " + i);
+            Assert.assertNotNull(expectedSlug, "❌ Category href is null");
             Assert.assertTrue(actualUrl.contains(expectedSlug),
                     "❌ URL mismatch. Expected: " + expectedSlug + ", Got: " + actualUrl);
-        }
 
-        System.out.println("✅ Clicked on login icon.");
+            // Go back to home and wait for category links again
+            driver.navigate().back();
+            wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(Locators.HomePage.categoryLink));
+        }
     }
+
 }
+
+
+
+

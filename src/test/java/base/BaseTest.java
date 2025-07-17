@@ -11,35 +11,25 @@ import java.time.Duration;
 public class BaseTest {
     public static WebDriver driver;
 
-    @BeforeSuite
+    @BeforeClass
     public void setUp() {
-
-        // ✅ Load config
         ConfigReader.loadConfig();
-        // ✅ Setup ChromeDriver
         WebDriverManager.chromedriver().setup();
-
-
         driver = new ChromeDriver();
 
-        // ✅ Set up browser
         driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
-
-        // ✅ Launch base URL
-        String baseUrl = ConfigReader.get("baseUrl");
-        System.out.println("Launching: " + baseUrl);
-        driver.get(baseUrl);
+        driver.get(ConfigReader.get("baseUrl"));
     }
 
-    public WebDriver getDriver() {
-        return driver;
-    }
-
-    @AfterSuite
+    @AfterClass
     public void tearDown() {
         if (driver != null) {
             driver.quit();
         }
+    }
+
+    public WebDriver getDriver() {
+        return driver;
     }
 }
