@@ -22,7 +22,7 @@ public class CheckoutPageTest extends BaseTest {
     {
         LoginPage login = new LoginPage(driver);
         login.loginPageValidation();
-        login.mockLogin();
+        login.loginWithValidDetail();
     }
     @Test(priority = 3)
     public void categoryPageTestCase() throws InterruptedException {

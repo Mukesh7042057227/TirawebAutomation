@@ -15,7 +15,13 @@ public class Locators {
         public static final By clickSendOtpButton = By.xpath("//button[text()=' Send OTP ']");
         public static final By enterOtp= By.xpath("//div/input[@class='otp-input']");
         public static final By verifyOtp = By.xpath("//button[text()=' Verify OTP ']");
-        public static final By validateLoginPage=By.xpath("//span[contains(text(),'Phone Number')]");
+        public static final By validateLoginPage=By.xpath("//p[contains(text(),'Sign up now')]");
+        public static final By validateInvalidPhone=By.xpath("//span[contains(text(),' Invalid Phone Number ')]");
+        public static final By validateInvalidOtp=By.xpath("//span[contains(text(),'Entered OTP is invalid, please retry')]");
+        public static final By outSideClickOnLoginPage=By.xpath("//input[contains(@class, 'common-x-input') and contains(@class, 'country-code')]");
+        public static final By clickOnEditMobile=By.xpath("//button[contains(text(),'Edit Number')]");
+        public static final By wishlistIcon=By.xpath("//div[@class=\"profile-icons hover-profile\"]");
+
     }
     public static class CategoryPage {
         public static final By menuMakeup = By.xpath("//div[2]/div[2]/div/div/div[2]/div/div/a"); // May need better locator
