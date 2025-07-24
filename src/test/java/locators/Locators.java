@@ -23,6 +23,21 @@ public class Locators {
         public static final By wishlistIcon=By.xpath("//div[@class=\"profile-icons hover-profile\"]");
 
     }
+    public static class WishlistPage
+    {
+        public static final By clickOnWishlistIconFromHome = By.xpath("//img[@title='Wishlist']");
+        public static final By removeProductfromWishlist = By.xpath("//div/a/div/div[1]/div[1]/div[1]/div/div/div/img[1][@alt='remove from wishlist icon']");
+        public static final By moveToBag= By.xpath("//div/button[text()=' Move to Bag ']");
+        public static final By blankWishlistPage= By.xpath("//p[contains(text(),' Your wishlist is empty! ')]");
+        public static final By shopNowClick= By.xpath("//span[text()='Shop now']");
+        public static final By hoveredOnProduct= By.xpath("//div[contains(@class, 'product-card')]");
+        public static final By productRemoveToastMsg= By.xpath("//div[contains(text(),'Product has been')]");
+        public static final By productMoveToBagFromWishlist= By.xpath("//div[contains(text(),'Product has been added to cart')]");
+
+
+
+        // May need better locator
+    }
     public static class CategoryPage {
         public static final By menuMakeup = By.xpath("//div[2]/div[2]/div/div/div[2]/div/div/a"); // May need better locator
         public static final By subCategoryNail = By.partialLinkText("Nail");
@@ -51,6 +66,9 @@ public class Locators {
         public static final By priceHighToLow = By.xpath("//span[text()='Price High to Low']");
         public static final By clickOnProduct = By.xpath("//div[1]/a/div/div[1][@class='product-card']");
         public static final By validatePlpPage= By.xpath("//div[2]/div/div[1]/div[1]/div/div/p[contains(text(),'Delivering to')]");
+        public static final By clickOnWishlistIconFromPlp= By.xpath("//div[1]/a/div/div[1]/div[1]/div[1]/div/div/div/img");
+        public static final By productAddToWishlistToastMsg= By.xpath("//div[contains(text(),'Product has been')]");
+
 
 
     }

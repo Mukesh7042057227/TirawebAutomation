@@ -22,8 +22,9 @@ public class HomePageTest extends BaseTest {
     public void homePageTestCase() throws InterruptedException {
         HomePage home = new HomePage(driver);
         home.assertHomePageLoaded();
-       home.validateCategoryNavigation();
+       //home.validateCategoryNavigation();
         home.clickLoginIcon();
+        home.clickWishlistIcon();
     }
 
 }

@@ -8,7 +8,7 @@
         <classes>
 
 <!--            <class name="tests.HomePageTest"/>-->
-            <class name="tests.LoginPageTest"/>
+<!--            <class name="tests.LoginPageTest"/>-->
 <!--            <class name="tests.CategoryPageTest"/>-->
 <!--            <class name="tests.PlpPageTest"/>-->
 <!--            <class name="tests.ProductPageTest"/>-->
@@ -17,6 +17,7 @@
 <!--            <class name="tests.ThankYouPageTest"/>-->
 <!--            <class name="tests.MyOrderPageTest"/>-->
 <!--            <class name="tests.SearchPageTest"/>-->
+            <class name="tests.WishlistPageTest"/>
 
         </classes>
     </test>

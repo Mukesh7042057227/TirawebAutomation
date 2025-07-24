@@ -8,17 +8,9 @@ import org.testng.Assert;
 
 import java.time.Duration;
 
-import static locators.Locators.LoginPage.validateLoginPage;
 import static locators.Locators.PlpPage.*;
-import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
 
-import java.time.Duration;
-
-import static locators.Locators.PlpPage.*;
+import java.util.List;
 
 public class PlpPage {
     WebDriver driver;
@@ -98,5 +90,20 @@ public class PlpPage {
         } catch (TimeoutException e) {
             System.out.println("❌ PLP validation failed: Element not visible");
         }
+    }
+    public void clickOnWishlistIconOnPlp()
+    {
+        WebElement iconClick = wait.until(ExpectedConditions.visibilityOfElementLocated(clickOnWishlistIconFromPlp));
+        iconClick.click();
+    }
+    public void validationProductAddToWishlistFromPlp()
+    {
+        WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(productAddToWishlistToastMsg));
+        String actualText = element.getText();
+        Assert.assertTrue(actualText.contains("Product has been added to Wishlist."),
+                "❌ Text mismatch: Expected 'Product has been added to Wishlist.' but got: " + actualText);
+        System.out.println("🔍 Actual Toast Message: " + actualText);
+
+
     }
 }

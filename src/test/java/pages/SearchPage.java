@@ -40,9 +40,14 @@ public class SearchPage {
     }
 
     public boolean isNoResultMessageDisplayed() {
-        return !driver.findElements(noResultsMessage).isEmpty();
-    }
-    public void searchMultipleKeywords(List<String> keywords) {
+        try {
+            wait.until(ExpectedConditions.presenceOfElementLocated(noResultsMessage));
+            return driver.findElement(noResultsMessage).isDisplayed();
+        } catch (TimeoutException e) {
+            return false;
+        }
+
+    }public void searchMultipleKeywords(List<String> keywords) {
         for (String keyword : keywords) {
             try {
                 WebElement Input = wait.until(ExpectedConditions.visibilityOfElementLocated(searchInput));

@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static locators.Locators.LoginPage.loginIcon;
+import static locators.Locators.PlpPage.clickOnWishlistIconFromPlp;
+import static locators.Locators.WishlistPage.clickOnWishlistIconFromHome;
 
 public class HomePage {
     WebDriver driver;
@@ -81,6 +83,12 @@ public class HomePage {
     }
     public void clickLoginIcon(){
         driver.findElement(loginIcon).click();
+    }
+
+    public void clickWishlistIcon(){
+
+        WebElement IconClick = wait.until(ExpectedConditions.visibilityOfElementLocated(clickOnWishlistIconFromHome));
+        IconClick.click();
     }
 
 }

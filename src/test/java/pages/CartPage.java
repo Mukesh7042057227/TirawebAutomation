@@ -32,8 +32,7 @@ public class CartPage {
 
     public void proceedToCheckout()
     {
-        WebElement checkoutButton = wait.until(
-                ExpectedConditions.visibilityOfElementLocated(proceedToCheckout));
+        WebElement checkoutButton = wait.until(ExpectedConditions.visibilityOfElementLocated(proceedToCheckout));
         checkoutButton.click();
         System.out.println("successfull clicked on checkout button");
 

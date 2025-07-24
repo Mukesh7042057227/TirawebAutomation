@@ -1,11 +1,9 @@
 package pages;
 
 import locators.Locators;
-import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
@@ -30,12 +28,12 @@ public class LoginPage {
         String otp = ConfigReader.get("otp");
         WebElement outSideCLick = wait.until(ExpectedConditions.visibilityOfElementLocated(mobileInput));
         outSideCLick.sendKeys(mobile);
-        WebElement selectCheckbox = wait.until(ExpectedConditions.visibilityOfElementLocated(mobileInput));
-        selectCheckbox.sendKeys(mobile);
-        driver.findElement(clickSendOtpButton).click();
+        WebElement selectCheckbox = wait.until(ExpectedConditions.visibilityOfElementLocated(Locators.LoginPage.selectCheckbox));
+        selectCheckbox.click();
+        this.driver.findElement(clickSendOtpButton).click();
         WebElement submitOtp = wait.until(ExpectedConditions.visibilityOfElementLocated(enterOtp));
         submitOtp.sendKeys(otp);
-        driver.findElement(verifyOtp).click();
+        this.driver.findElement(verifyOtp).click();
         System.out.println("✅ Login flow completed.");
     }
 

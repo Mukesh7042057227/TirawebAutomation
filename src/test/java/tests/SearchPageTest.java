@@ -14,7 +14,7 @@ import java.util.List;
 public class SearchPageTest extends BaseTest {
 
 
-    @Test(description = "Verify search returns valid results")
+    @Test (priority = 1, description = "Verify search returns valid results")
     public void testSearchWithResults() {
         SearchPage searchPage = new SearchPage(driver);
 
@@ -22,13 +22,13 @@ public class SearchPageTest extends BaseTest {
         Assert.assertTrue(searchPage.isResultPresent(), "❌ Expected search results but found none.");
     }
 
-    @Test(description = "Verify no results message for invalid search")
+    @Test(priority = 2, description = "Verify no results message for invalid search")
     public void testSearchWithNoResults() {
         SearchPage searchPage = new SearchPage(driver);
         searchPage.search("invalid-search-123");
         Assert.assertTrue(searchPage.isNoResultMessageDisplayed(), "❌ No result message not displayed.");
     }
-    @Test
+    @Test(priority = 3)
     public void testSearchFunctionality() {
         List<String> keywords = Arrays.asList("lipstick", "moisturizer", "kajal", "foundation");
         SearchPage searchPage = new SearchPage(driver);

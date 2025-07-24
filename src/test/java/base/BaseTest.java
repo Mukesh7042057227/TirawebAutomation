@@ -11,7 +11,7 @@ import java.time.Duration;
 public class BaseTest {
     public static WebDriver driver;
 
-    @BeforeClass
+    @BeforeMethod
     public void setUp() {
         ConfigReader.loadConfig();
         WebDriverManager.chromedriver().setup();
@@ -22,7 +22,7 @@ public class BaseTest {
         driver.get(ConfigReader.get("baseUrl"));
     }
 
-    @AfterClass
+    @AfterMethod
    public void tearDown() {
        if (driver != null) {
            driver.quit();
