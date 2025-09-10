@@ -62,12 +62,19 @@ public class Locators {
 
     }
     public static class PlpPage {
-        public static final By sortByDropdown = By.xpath("//span[text()='Relevance']");
+        public static final By sortByDropdown = By.xpath("//div[@class='selected-options']");
+       // public static final By sortByDropdown1 = By.xpath("//span/img");
         public static final By priceHighToLow = By.xpath("//span[text()='Price High to Low']");
         public static final By clickOnProduct = By.xpath("//div[1]/a/div/div[1][@class='product-card']");
         public static final By validatePlpPage= By.xpath("//div[2]/div/div[1]/div[1]/div/div/p[contains(text(),'Delivering to')]");
         public static final By clickOnWishlistIconFromPlp= By.xpath("//div[1]/a/div/div[1]/div[1]/div[1]/div/div/div/img");
         public static final By productAddToWishlistToastMsg= By.xpath("//div[contains(text(),'Product has been')]");
+//        public static By optionXpath(int value) {
+//            return By.xpath("(//div[contains(@class,'dropdown-options')])[\" + value + \"]");
+//        }
+        public static final By sortOptionList= By.xpath("//div[contains(@class,'dropdown-options')]");
+        public static final By allOptions= By.xpath("//li[@role='option']");
+        public static final By selectedSortText = By.xpath("//span[@class='text-line-clamp']");
 
 
 
