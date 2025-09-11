@@ -57,8 +57,8 @@ public class PlpPageTest extends BaseTest {
         category.navigateToLipstickCategory();
         PlpPage plp = new PlpPage(driver);
         plp.validatePlpPage();
-        plp.AnkushCode();
-       // plp.validateSortOptions();
+        //plp.AnkushCode();
+        plp.validateSortOptions();
        //plp.getSortOptionCount(driver);
       // System.out.println(plp.getSortOptionCount(driver));
     }

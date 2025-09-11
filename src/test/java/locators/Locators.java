@@ -75,6 +75,10 @@ public class Locators {
         public static final By sortOptionList= By.xpath("//div[contains(@class,'dropdown-options')]");
         public static final By allOptions= By.xpath("//li[@role='option']");
         public static final By selectedSortText = By.xpath("//span[@class='text-line-clamp']");
+        
+        public static By sortOptionList(int index) {
+            return By.xpath("(//li[@role='option'])[" + index + "]");
+        }
 
 
 
