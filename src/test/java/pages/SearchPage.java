@@ -5,6 +5,7 @@ import locators.Locators;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 
 import java.time.Duration;
 import java.util.List;
@@ -47,7 +48,9 @@ public class SearchPage {
             return false;
         }
 
-    }public void searchMultipleKeywords(List<String> keywords) {
+    }
+
+    public void searchMultipleKeywords(List<String> keywords) {
         for (String keyword : keywords) {
             try {
                 WebElement Input = wait.until(ExpectedConditions.visibilityOfElementLocated(searchInput));
@@ -65,6 +68,17 @@ public class SearchPage {
                 System.out.println("❌ Failed to search for: " + keyword + " -> " + e.getMessage());
             }
         }
+    }
+
+    // Assertion methods
+    public void assertSearchResultsPresent() {
+        Assert.assertTrue(isResultPresent(), "❌ Expected search results but found none.");
+        System.out.println("✅ Search results are present");
+    }
+
+    public void assertNoResultMessageDisplayed() {
+        Assert.assertTrue(isNoResultMessageDisplayed(), "❌ No result message not displayed.");
+        System.out.println("✅ No result message is displayed");
     }
 }
 

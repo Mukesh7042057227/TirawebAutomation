@@ -115,7 +115,7 @@ public class PlpPage {
             dropdown.click();
             int count = driver.findElements(allOptions).size();
             System.out.println("Total sort options: " + count);
-            
+
             // Close dropdown before starting loop
             driver.switchTo().activeElement().sendKeys(Keys.ESCAPE);
             wait.until(ExpectedConditions.invisibilityOfElementLocated(allOptions));
@@ -125,7 +125,7 @@ public class PlpPage {
                     // Open dropdown fresh each time
                     dropdown = wait.until(ExpectedConditions.elementToBeClickable(sortByDropdown));
                     dropdown.click();
-                    
+
                     // Wait for dropdown options to be visible
                     wait.until(ExpectedConditions.visibilityOfElementLocated(allOptions));
 
@@ -136,19 +136,19 @@ public class PlpPage {
 
                     // Click the option
                     currentOption.click();
-                    
+
                     // Wait for dropdown to close after selection
                     wait.until(ExpectedConditions.invisibilityOfElementLocated(allOptions));
 
                     // Verify the selection by checking the dropdown display text
                     WebElement selectedDisplay = wait.until(ExpectedConditions.visibilityOfElementLocated(selectedSortText));
                     String displayedText = selectedDisplay.getText().trim();
-                    
+
                     // Basic validation that option was selected (dropdown closed and text changed)
-                    Assert.assertFalse(displayedText.isEmpty(), 
+                    Assert.assertFalse(displayedText.isEmpty(),
                             "❌ No sort option text displayed after clicking: " + optionText);
                     System.out.println("✅ Sort option selected: " + optionText + " | Displayed: " + displayedText);
-                    
+
                 } catch (Exception e) {
                     System.out.println("❌ Failed to click option " + i + ": " + e.getMessage());
                     // Try to close dropdown if it's still open
@@ -167,50 +167,36 @@ public class PlpPage {
         }
     }
 
-//    public void AnkushCode()
-//        {
-//            for (int i = 1; i <= 5; i++) {
-//            // Open dropdown
-//                WebElement sortDropdown = wait.until(ExpectedConditions.elementToBeClickable(sortByDropdown));
-//            sortDropdown.click();
-//            String optionText =sortDropdown.getText().trim();
-//            System.out.println("option text is " +optionText);
-//
-//            // Build the xpath for the option
-//                String optionXpath = "//li[" + i + "]/div[contains(@class,'dropdown-options')]";
-//
-//            // Wait until visible
-//                WebElement option = wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(optionXpath)));
-//
-//            // Wait until clickable and then click
-//                WebElement optionClick = wait.until(ExpectedConditions.elementToBeClickable(option));
-//                String selectedText= optionClick.getText().trim();
-//                System.out.println("selectedText is " +selectedText);
-//
-//            // Wait for dropdown to close and product grid to refresh
-//                //wait.until(ExpectedConditions.invisibilityOfElementLocated(sortOptionList));
-//            wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[contains(@class,'product-card')]")));
-//                Assert.assertEquals(selectedText, optionText,
-//                        "❌ Mismatch: Clicked '" + optionText + "', but selected '" + selectedText + "'");
-//                System.out.println("✅ Sort verified: " + selectedText);
-//            System.out.println("Clicked option " + i);
-//        }
-//
-//
-//    }
-//
-//
-//    public int getSortOptionCount(WebDriver driver) {
-//        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//        driver.findElement(sortByDropdown).click();
-//        List<WebElement> options = wait.until(
-//                ExpectedConditions.presenceOfAllElementsLocatedBy(allOptions)
-//        );
-//        return options.size();
-//
-//
-//
-//    }
+    public void clickOnPincodeAndVerifySidebar() {
+        try {
+            // Click on pincode button
+            WebElement pincodeElement = wait.until(ExpectedConditions.elementToBeClickable(pincodeButton));
+            pincodeElement.click();
+            System.out.println("✅ Clicked on pincode button");
+
+            // Verify sidebar appears
+            WebElement sidebar = wait.until(ExpectedConditions.visibilityOfElementLocated(pincodeSidebar));
+            String sideBarText = sidebar.getText();
+            System.out.println("Sidebar text: " + sideBarText);
+            Assert.assertTrue(sideBarText.contains("Enter your location"), "❌ Pincode sidebar did not appear");
+            System.out.println("✅ Pincode sidebar is displayed");
+
+            // Close the sidebar
+            try {
+                WebElement closeButton = driver.findElement(pincodeCloseButton);
+                closeButton.click();
+                System.out.println("✅ Closed pincode sidebar");
+            } catch (Exception e) {
+                System.out.println("ℹ️ Close button not found");
+            }
+
+        } catch (Exception e) {
+            System.out.println("❌ Failed: " + e.getMessage());
+            Assert.fail("Pincode test failed: " + e.getMessage());
+        }
+    }
+
+
 }
 
 

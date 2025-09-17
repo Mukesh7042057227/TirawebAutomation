@@ -5,8 +5,30 @@ import org.openqa.selenium.By;
 public class Locators {
 
     public static class HomePage {
+        // Header Elements
+        public static final By logoLink = By.xpath("//img[@alt='Tira' or @alt='TIRA' or contains(@alt, 'tira')]");
+        public static final By searchInput = By.xpath("//input[@id='search']");
+        public static final By profileIcon = By.xpath("//div[contains(@class, 'profile-icons profile-logout')]");
+        public static final By cartIcon = By.xpath("//img[@title='Cart']");
 
-        public static final By categoryLink = By.xpath("//div[@class='category-navigation']//a");
+        // Navigation Menu Links
+        public static final By tiraRedNavLink = By.xpath("//a[contains(text(), 'Tira Red')]");
+        public static final By offersNavLink = By.xpath("//a[contains(text(), 'Offers')]");
+        public static final By topShelfNavLink = By.xpath("//a[contains(text(), 'Top Shelf')]");
+        public static final By forYouNavLink = By.xpath("//a[contains(text(), 'For You')]");
+        public static final By whatsNewNavLink = By.xpath("//a[contains(text(), \"What's New\")]");
+        public static final By makeupNavLink = By.xpath("//a[contains(text(), 'Makeup')]");
+        public static final By skinNavLink = By.xpath("//a[contains(text(), 'Skin')]");
+        public static final By hairNavLink = By.xpath("//a[contains(text(), 'Hair')]");
+        public static final By fragranceNavLink = By.xpath("//a[contains(text(), 'Fragrance')]");
+        public static final By menNavLink = By.xpath("//a[contains(text(), 'Men')]");
+        public static final By bathBodyNavLink = By.xpath("//a[contains(text(), 'Bath & Body') or contains(text(), 'Bath and Body')]");
+        public static final By toolsAppliancesNavLink = By.xpath("//a[contains(text(), 'Tools & Appliances') or contains(text(), 'Tools and Appliances')]");
+        public static final By momBabyNavLink = By.xpath("//a[contains(text(), 'Mom & Baby') or contains(text(), 'Mom and Baby')]");
+        public static final By wellnessNavLink = By.xpath("//a[contains(text(), 'Wellness')]");
+        public static final By minisNavLink = By.xpath("//a[contains(text(), 'Minis')]");
+        public static final By homegrownNavLink = By.xpath("//a[contains(text(), 'Homegrown')]");
+        public static final By giftsNavLink = By.xpath("//a[contains(text(), 'Gifts') or contains(text(), 'Gifting')]");
     }
     public static class LoginPage {
         public static final By loginIcon = By.xpath("//a/div[@class='profile-icons profile-logout']");
@@ -75,7 +97,12 @@ public class Locators {
         public static final By sortOptionList= By.xpath("//div[contains(@class,'dropdown-options')]");
         public static final By allOptions= By.xpath("//li[@role='option']");
         public static final By selectedSortText = By.xpath("//span[@class='text-line-clamp']");
-        
+
+        // Pincode related locators
+        public static final By pincodeButton = By.xpath("//div[2]/div/div[1]/div[1]/div/button/span[@class='postal-code']");
+        public static final By pincodeSidebar = By.xpath("//div[text()='Enter your location']");
+        public static final By pincodeCloseButton = By.xpath("//div/img[@alt='cross icon']");
+
         public static By sortOptionList(int index) {
             return By.xpath("(//li[@role='option'])[" + index + "]");
         }

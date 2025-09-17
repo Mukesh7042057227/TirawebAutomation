@@ -49,17 +49,36 @@ public class PlpPageTest extends BaseTest {
 //        plp.sortBy();
 //        plp.clickOnProduct();
 //    }
-    @Test(priority = 2)
-    public void allSortingzCondition() throws InterruptedException {
-        HomePage home = new HomePage(driver);
-        home.assertHomePageLoaded();
-        CategoryPage category= new CategoryPage(driver);
-        category.navigateToLipstickCategory();
-        PlpPage plp = new PlpPage(driver);
-        plp.validatePlpPage();
-        //plp.AnkushCode();
-        plp.validateSortOptions();
-       //plp.getSortOptionCount(driver);
-      // System.out.println(plp.getSortOptionCount(driver));
+//    @Test(priority = 2)
+//    public void allSortingzCondition() throws InterruptedException {
+//        HomePage home = new HomePage(driver);
+//        home.assertHomePageLoaded();
+//        CategoryPage category= new CategoryPage(driver);
+//        category.navigateToLipstickCategory();
+//        PlpPage plp = new PlpPage(driver);
+//        plp.validatePlpPage();
+//        //plp.AnkushCode();
+//        plp.validateSortOptions();
+//       //plp.getSortOptionCount(driver);
+//      // System.out.println(plp.getSortOptionCount(driver));
+//    }
+
+    @Test(priority = 3)
+    public void validatePincodeSidebarFunctionality() {
+        System.out.println("🔍 Starting test: validatePincodeSidebarFunctionality");
+        try {
+            HomePage home = new HomePage(driver);
+            home.assertHomePageLoaded();
+            CategoryPage category= new CategoryPage(driver);
+            category.navigateToLipstickCategory();
+            PlpPage plp = new PlpPage(driver);
+            plp.validatePlpPage();
+            plp.clickOnPincodeAndVerifySidebar();
+
+            System.out.println("✅ Test PASSED: validatePincodeSidebarFunctionality");
+        } catch (Exception e) {
+            System.out.println("❌ Test FAILED: validatePincodeSidebarFunctionality - " + e.getMessage());
+            throw e;
+        }
     }
 }

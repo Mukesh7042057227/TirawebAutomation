@@ -33,7 +33,7 @@ public class MyOrderPage {
         WebElement clickonshipment = wait.until(ExpectedConditions.visibilityOfElementLocated(shipmentClick));
         clickonshipment.click();
     }
-    public void cancelButtonClick() throws InterruptedException {
+    public void cancelButtonClick() {
         WebElement clickCancelButton = wait.until(ExpectedConditions.visibilityOfElementLocated(cancelButtonClick));
         clickCancelButton.click();
         System.out.println("clicked on cancel button");
@@ -50,7 +50,7 @@ public class MyOrderPage {
         WebElement button = wait.until(ExpectedConditions.visibilityOfElementLocated(cancelShipment));
 
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", button);
-        Thread.sleep(500); // wait for any animation or overlay
+        wait.until(ExpectedConditions.elementToBeClickable(button)); // wait for any animation or overlay
 
         button.click();
         System.out.println("✅ Clicked on 'cancel' button after scroll.");

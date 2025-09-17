@@ -31,13 +31,13 @@ public class CheckoutPage {
     }
 
 
-    public void scrollSidebarTillElementVisible() throws InterruptedException {
+    public void scrollSidebarTillElementVisible() {
         WebElement sidebar = wait.until(ExpectedConditions.visibilityOfElementLocated(sidebarContainer));
         WebElement targetElement = wait.until(ExpectedConditions.visibilityOfElementLocated(scrollToElement));
 
         // Hover to activate sidebar scroll behavior
         new Actions(driver).moveToElement(sidebar, 15, 15).perform();
-        Thread.sleep(500); // Allow JavaScript re-render after hover
+        wait.until(ExpectedConditions.elementToBeClickable(targetElement)); // Allow JavaScript re-render after hover
 
         // Scroll the target element into view within the sidebar
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'end'});", targetElement);
@@ -46,7 +46,7 @@ public class CheckoutPage {
         driver.findElement(scrollToElement).click();
         System.out.println("Selected COD MOP");
     }
-    public  void clickOnBuyNow() throws InterruptedException {
+    public  void clickOnBuyNow() {
         WebElement element = wait.until(ExpectedConditions.elementToBeClickable((buyNowClick)));
 
         element.click();
