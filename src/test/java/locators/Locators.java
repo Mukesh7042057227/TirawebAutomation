@@ -6,7 +6,7 @@ public class Locators {
 
     public static class HomePage {
         // Header Elements
-        public static final By logoLink = By.xpath("//a[@href='/' or @href='/home']//img[contains(@alt, 'ira') or contains(@src, 'logo')]");
+        public static final By logoLink = By.xpath("//img[contains(@class, 'tira-logo') or contains(@alt, 'Tira') or contains(@title, 'Tira')] | //a[contains(@href, 'tira') or contains(@class, 'logo')] | //*[contains(@class, 'logo')]");
         public static final By searchInput = By.xpath("//input[@id='search' or @placeholder='Search' or contains(@class, 'search')]");
         public static final By profileIcon = By.xpath("//div[contains(@class, 'profile') and contains(@class, 'logout')] | //a[contains(@href, 'login')] | //img[@alt='Profile' or @title='Profile']");
         public static final By cartIcon = By.xpath("//img[@title='Cart' or @alt='Cart'] | //a[contains(@href, 'cart')]");
@@ -17,12 +17,12 @@ public class Locators {
         public static final By topShelfNavLink = By.xpath("//nav//a[normalize-space(text())='Top Shelf' or contains(@href, 'top-shelf')]");
         public static final By forYouNavLink = By.xpath("//nav//a[normalize-space(text())='For You' or contains(@href, 'for-you')]");
         public static final By whatsNewNavLink = By.xpath("//nav//a[normalize-space(text())=\"What's New\" or contains(@href, 'whats-new')]");
-        public static final By makeupNavLink = By.xpath("//div//a[text()='Makeup']");
-        public static final By skinNavLink = By.xpath("//div//a[text()='Skin']");
-        public static final By hairNavLink = By.xpath("//nav//a[normalize-space(text())='Hair' or contains(@href, 'hair')]");
-        public static final By fragranceNavLink = By.xpath("//nav//a[normalize-space(text())='Fragrance' or contains(@href, 'fragrance')]");
-        public static final By menNavLink = By.xpath("//nav//a[normalize-space(text())='Men' or contains(@href, 'men')]");
-        public static final By bathBodyNavLink = By.xpath("//nav//a[normalize-space(text())='Bath & Body' or normalize-space(text())='Bath and Body' or contains(@href, 'bath')]");
+        public static final By makeupNavLink = By.xpath("//div/a[text()='Makeup']");
+        public static final By skinNavLink = By.xpath("//div/a[text()='Skin']");
+        public static final By hairNavLink = By.xpath("//div/a[text()='Hair']");
+        public static final By fragranceNavLink = By.xpath("//div/a[text()='Fragrance']");
+        public static final By menNavLink = By.xpath("//div/a[text()='Men']");
+        public static final By bathBodyNavLink = By.xpath("//div/a[text()='Bath & Body']");
         public static final By toolsAppliancesNavLink = By.xpath("//nav//a[normalize-space(text())='Tools & Appliances' or contains(@href, 'tools')]");
         public static final By momBabyNavLink = By.xpath("//nav//a[normalize-space(text())='Mom & Baby' or contains(@href, 'mom')]");
         public static final By wellnessNavLink = By.xpath("//nav//a[normalize-space(text())='Wellness' or contains(@href, 'wellness')]");
@@ -31,135 +31,313 @@ public class Locators {
         public static final By giftsNavLink = By.xpath("//nav//a[normalize-space(text())='Gifts' or normalize-space(text())='Gifting' or contains(@href, 'gift')]");
 
         // Makeup hover Subcategories face
-        public static final By makeupSubcategoryface = By.xpath("//div//a[text()='Face']");
-        public static final By makeupSubcategoryBlush = By.xpath("//div//a[text()=' Blush ']");
-        public static final By makeupSubcategoryBronzer = By.xpath("//div//a[text()=' Bronzer ']");
-        public static final By makeupSubcategoryCOmpact = By.xpath("//div//a[text()=' Compact ']");
-        public static final By makeupSubcategoryConcealers = By.xpath("//div//a[text()=' Concealers & Correctors ']");
-        public static final By makeupSubcategoryContour= By.xpath("//div//a[text()=' Contour ']");
-        public static final By makeupSubcategoryFoundation = By.xpath("//div//a[text()=' Foundation ']");
-        public static final By makeupSubcategoryHighlighters = By.xpath("//div//a[text()=' Highlighters & Illuminators ']");
-        public static final By makeupSubcategorySettingPowder = By.xpath("//div//a[text()=' Setting Powder ']");
-        public static final By makeupSubcategoryMakeupRemover = By.xpath("//div//a[text()=' Makeup Remover ']");
-        public static final By makeupSubcategoryPrimer = By.xpath("//div//a[text()=' Primer ']");
-        public static final By makeupSubcategorySettingSpray = By.xpath("//div//a[text()=' Setting Spray ']");
-        public static final By makeupSubcategoryBB = By.xpath("//div//a[text()=' BB & CC Creams ']");
-        public static final By makeupSubcategoryLoosePowder = By.xpath("//div//a[text()=' Loose Powder ']");
+        public static final By makeupSubcategoryface = By.xpath("//div/a[text()='Face']");
+        public static final By makeupSubcategoryBlush = By.xpath("//div/a[text()=' Blush ']");
+        public static final By makeupSubcategoryBronzer = By.xpath("//div/a[text()=' Bronzer ']");
+        public static final By makeupSubcategoryCOmpact = By.xpath("//div/a[text()=' Compact ']");
+        public static final By makeupSubcategoryConcealers = By.xpath("//div/a[text()=' Concealers & Correctors ']");
+        public static final By makeupSubcategoryContour= By.xpath("//div/a[text()=' Contour ']");
+        public static final By makeupSubcategoryFoundation = By.xpath("//div/a[text()=' Foundation ']");
+        public static final By makeupSubcategoryHighlighters = By.xpath("//div/a[text()=' Highlighters & Illuminators ']");
+        public static final By makeupSubcategorySettingPowder = By.xpath("//div/a[text()=' Setting Powder ']");
+        public static final By makeupSubcategoryMakeupRemover = By.xpath("//div/a[text()=' Makeup Remover ']");
+        public static final By makeupSubcategoryPrimer = By.xpath("//div/a[text()=' Primer ']");
+        public static final By makeupSubcategorySettingSpray = By.xpath("//div/a[text()=' Setting Spray ']");
+        public static final By makeupSubcategoryBB = By.xpath("//div/a[text()=' BB & CC Creams ']");
+        public static final By makeupSubcategoryLoosePowder = By.xpath("//div/a[text()=' Loose Powder ']");
 
         // Makeup hover Subcategories Eye
-        public static final By makeupSubcategoryEye = By.xpath("//div//a[text()='Eye']");
-        public static final By makeupSubcategoryEyeMakeupRemover = By.xpath("//div//a[text()=' Eye Makeup Remover ']");
-        public static final By makeupSubcategoryEyebrowEnhancer = By.xpath("//div//a[text()=' Eyebrow Enhancer ']");
-        public static final By makeupSubcategoryFalseEyelashes = By.xpath("//div//a[text()=' False Eyelashes ']");
-        public static final By makeupSubcategoryEyeliner = By.xpath("//div//a[text()=' Eyeliner ']");
-        public static final By makeupSubcategoryEyeShadow= By.xpath("//div//a[text()=' Eye Shadow ']");
-        public static final By makeupSubcategoryKajal = By.xpath("//div//a[text()=' Kajal & Kohls ']");
-        public static final By makeupSubcategoryMascara = By.xpath("//div//a[text()=' Mascara ']");
-        public static final By makeupSubcategorySettingUnderEyeConcealer = By.xpath("//div//a[text()=' Under Eye Concealer ']");
-        public static final By makeupSubcategoryEyeBases = By.xpath("//div//a[text()=' Eye Bases & Primers ']");
+        public static final By makeupSubcategoryEye = By.xpath("//div/a[text()='Eye']");
+        public static final By makeupSubcategoryEyeMakeupRemover = By.xpath("//div/a[text()=' Eye Makeup Remover ']");
+        public static final By makeupSubcategoryEyebrowEnhancer = By.xpath("//div/a[text()=' Eyebrow Enhancer ']");
+        public static final By makeupSubcategoryFalseEyelashes = By.xpath("//div/a[text()=' False Eyelashes ']");
+        public static final By makeupSubcategoryEyeliner = By.xpath("//div/a[text()=' Eyeliner ']");
+        public static final By makeupSubcategoryEyeShadow= By.xpath("//div/a[text()=' Eye Shadow ']");
+        public static final By makeupSubcategoryKajal = By.xpath("//div/a[text()=' Kajal & Kohls ']");
+        public static final By makeupSubcategoryMascara = By.xpath("//div/a[text()=' Mascara ']");
+        public static final By makeupSubcategorySettingUnderEyeConcealer = By.xpath("//div/a[text()=' Under Eye Concealer ']");
+        public static final By makeupSubcategoryEyeBases = By.xpath("//div/a[text()=' Eye Bases & Primers ']");
 
         // Makeup hover Subcategories Lip
-        public static final By makeupSubcategoryLip = By.xpath("//div//a[text()='Lip']");
-        public static final By makeupSubcategoryLipBalms = By.xpath("//div//a[text()=' Lip Balm ']");
-        public static final By makeupSubcategoryLipGloss = By.xpath("//div//a[text()=' Lip Gloss ']");
-        public static final By makeupSubcategoryLipLiner = By.xpath("//div//a[text()=' Lip Liner ']");
-        public static final By makeupSubcategoryLipstick = By.xpath("//div//a[text()=' Lipstick ']");
-        public static final By makeupSubcategoryLiquidLipstick = By.xpath("//div//a[text()=' Liquid Lipstick ']");
+        public static final By makeupSubcategoryLip = By.xpath("//div/a[text()='Lip']");
+        public static final By makeupSubcategoryLipBalms = By.xpath("//div/a[text()=' Lip Balm ']");
+        public static final By makeupSubcategoryLipGloss = By.xpath("//div/a[text()=' Lip Gloss ']");
+        public static final By makeupSubcategoryLipLiner = By.xpath("//div/a[text()=' Lip Liner ']");
+        public static final By makeupSubcategoryLipstick = By.xpath("//div/a[text()=' Lipstick ']");
+        public static final By makeupSubcategoryLiquidLipstick = By.xpath("//div/a[text()=' Liquid Lipstick ']");
 
         // Makeup hover Subcategories Tools & Brushes
-        public static final By makeupSubcategoryToolsBrushes = By.xpath("//div//a[text()='Tools & Brushes']");
-        public static final By makeupSubcategoryBrushSets = By.xpath("//div//a[text()=' Brush Sets ']");
-        public static final By makeupSubcategoryEyeBrushes = By.xpath("//div//a[text()=' Eye Brushes & Eyelash Curlers ']");
-        public static final By makeupSubcategoryFaceBrushes = By.xpath("//div//a[text()=' Face Brush ']");
-        public static final By makeupSubcategoryLipBrushes = By.xpath("//div//a[text()=' Lip Brush ']");
-        public static final By makeupSubcategoryMakeupMakeupPouch = By.xpath("//div//a[text()=' Makeup Pouch ']");
-        public static final By makeupSubcategoryMakeupSharpeners = By.xpath("//div//a[text()=' Sharpeners & Tweezers ']");
-        public static final By makeupSubcategoryMakeupSponges = By.xpath("//div//a[text()=' Sponges & Blenders ']");
-        public static final By makeupSubcategoryMirrors = By.xpath("//div//a[text()=' Mirror ']");
+        public static final By makeupSubcategoryToolsBrushes = By.xpath("//div/a[text()='Tools & Brushes']");
+        public static final By makeupSubcategoryBrushSets = By.xpath("//div/a[text()=' Brush Sets ']");
+        public static final By makeupSubcategoryEyeBrushes = By.xpath("//div/a[text()=' Eye Brushes & Eyelash Curlers ']");
+        public static final By makeupSubcategoryFaceBrushes = By.xpath("//div/a[text()=' Face Brush ']");
+        public static final By makeupSubcategoryLipBrushes = By.xpath("//div/a[text()=' Lip Brush ']");
+        public static final By makeupSubcategoryMakeupMakeupPouch = By.xpath("//div/a[text()=' Makeup Pouch ']");
+        public static final By makeupSubcategoryMakeupSharpeners = By.xpath("//div/a[text()=' Sharpeners & Tweezers ']");
+        public static final By makeupSubcategoryMakeupSponges = By.xpath("//div/a[text()=' Sponges & Blenders ']");
+        public static final By makeupSubcategoryMirrors = By.xpath("//div/a[text()=' Mirror ']");
 
         // Makeup hover Subcategories Kits & Palettes
-        public static final By makeupSubcategoryKitsPalettes = By.xpath("//div//a[text()='Kits & Palettes']");
-        public static final By makeupSubcategoryEyePalettes = By.xpath("//div//a[text()=' Eyeshadow Palettes ']");
-        public static final By makeupSubcategoryFacePalettes = By.xpath("//div//a[text()=' Face Makeup Palettes ']");
-        public static final By makeupSubcategoryMakeupKits = By.xpath("//div//a[text()=' Makeup Kits & Sets ']");
+        public static final By makeupSubcategoryKitsPalettes = By.xpath("//div/a[text()='Kits & Palettes']");
+        public static final By makeupSubcategoryEyePalettes = By.xpath("//div/a[text()=' Eyeshadow Palettes ']");
+        public static final By makeupSubcategoryFacePalettes = By.xpath("//div/a[text()=' Face Makeup Palettes ']");
+        public static final By makeupSubcategoryMakeupKits = By.xpath("//div/a[text()=' Makeup Kits & Sets ']");
 
         // Skin hover Subcategories Face Care
-        public static final By skinSubcategorySkincare = By.xpath("//div//a[text()='Cleansers & Exfoliators']");
-        public static final By skinSubcategoryFaceWash = By.xpath("//div//a[text()=' Face Washes & Cleansers ']");
-        public static final By skinSubcategoryToner = By.xpath("//div//a[text()=' Scrubs & Exfoliators ']");
-        public static final By skinSubcategorySerum = By.xpath("//div//a[text()=' Face Wipes ']");
-        public static final By skinSubcategoryMoisturizer = By.xpath("//div//a[text()=' Makeup Remover ']");
+        public static final By skinSubcategorySkincare = By.xpath("//div/a[text()='Cleansers & Exfoliators']");
+        public static final By skinSubcategoryFaceWash = By.xpath("//div/a[text()=' Face Washes & Cleansers ']");
+        public static final By skinSubcategoryToner = By.xpath("//div/a[text()=' Scrubs & Exfoliators ']");
+        public static final By skinSubcategorySerum = By.xpath("//div/a[text()=' Face Wipes ']");
+        public static final By skinSubcategoryMoisturizer = By.xpath("//div/a[text()=' Makeup Remover ']");
 
         // Skin hover Subcategories Eye Care
-        public static final By skinSubcategoryEyeCare = By.xpath("//div//a[text()='Eye Care']");
-        public static final By skinSubcategoryEyeCream = By.xpath("//div//a[text()=' Eye Creams & Serums ']");
-        public static final By skinSubcategoryEyeSerum = By.xpath("//div//a[text()=' Eye Mask ']");
-        public static final By skinSubcategoryEyeMask = By.xpath("//div//a[text()=' Eye Makeup Remover ']");
+        public static final By skinSubcategoryEyeCare = By.xpath("//div/a[text()='Eye Care']");
+        public static final By skinSubcategoryEyeCream = By.xpath("//div/a[text()=' Eye Creams & Serums ']");
+        public static final By skinSubcategoryEyeSerum = By.xpath("//div/a[text()=' Eye Mask ']");
+        public static final By skinSubcategoryEyeMask = By.xpath("//div/a[text()=' Eye Makeup Remover ']");
 
-        // Skin hover Subcategories Eye Care
-        public static final By skinSubcategorySetsAndBundles = By.xpath("//div//a[text()='Sets & Bundles']");
-        public static final By skinSubcategoryFacialSets = By.xpath("//div//a[text()=' Facial Sets ']");
-        public static final By skinSubcategoryGiftSets = By.xpath("//div//a[text()=' Gift Sets ']");
+        // Skin hover Subcategories Sets & Bundles
+        public static final By skinSubcategorySetsAndBundles = By.xpath("//div/a[text()='Sets & Bundles']");
+        public static final By skinSubcategoryFacialSets = By.xpath("//div/a[text()=' Facial Sets ']");
+        public static final By skinSubcategoryGiftSets = By.xpath("//div/a[text()=' Gift Sets ']");
 
         // Skin hover Subcategories Lip Care
-        public static final By skinSubcategoryLipCare = By.xpath("//div//a[text()='Lip Care']");
-        public static final By skinSubcategoryLipBalm = By.xpath("//div//a[text()=' Lip Balm ']");
-        public static final By skinSubcategoryLipScrub = By.xpath("//div//a[text()=' Lip Scrub ']");
-        public static final By skinSubcategoryLipMask = By.xpath("//div//a[text()=' Lip Mask ']");
-        public static final By skinSubcategoryLipOils = By.xpath("//div//a[text()=' Lip Oils ']");
+        public static final By skinSubcategoryLipCare = By.xpath("//div/a[text()='Lip Care']");
+        public static final By skinSubcategoryLipBalm = By.xpath("//div/a[text()=' Lip Balm ']");
+        public static final By skinSubcategoryLipScrub = By.xpath("//div/a[text()=' Lip Scrub ']");
+        public static final By skinSubcategoryLipMask = By.xpath("//div/a[text()=' Lip Mask ']");
+        public static final By skinSubcategoryLipOils = By.xpath("//div/a[text()=' Lip Oils ']");
 
         // Skin hover Subcategories Mask
-        public static final By skinSubcategoryBodyCare = By.xpath("//div//a[text()='Mask']");
-        public static final By skinSubcategoryBodyLotion = By.xpath("//div//a[text()=' Masks & Peels ']");
-        public static final By skinSubcategoryBodyWash = By.xpath("//div//a[text()=' Sheet Mask ']");
+        public static final By skinSubcategoryBodyCare = By.xpath("//div/a[text()='Mask']");
+        public static final By skinSubcategoryBodyLotion = By.xpath("//div/a[text()=' Masks & Peels ']");
+        public static final By skinSubcategoryBodyWash = By.xpath("//div/a[text()=' Sheet Mask ']");
 
         // Skin hover Subcategories Moisturizer
-        public static final By skinSubcategoryMoisturizers = By.xpath("//div//a[text()='Moisturizer']");
-        public static final By skinSubcategoryFaceMoisturizer = By.xpath("//div//a[text()=' Face Moisturizer ']");
-        public static final By skinSubcategoryNightCream = By.xpath("//div//a[text()=' Night Cream ']");
-        public static final By skinSubcategoryFaceOil = By.xpath("//div//a[text()=' Face Oil ']");
+        public static final By skinSubcategoryMoisturizers = By.xpath("//div/a[text()='Moisturizer']");
+        public static final By skinSubcategoryFaceMoisturizer = By.xpath("//div/a[text()=' Face Moisturizer ']");
+        public static final By skinSubcategoryNightCream = By.xpath("//div/a[text()=' Night Cream ']");
+        public static final By skinSubcategoryFaceOil = By.xpath("//div/a[text()=' Face Oil ']");
 
 
         // Skin hover Subcategories Toners & Mist
-        public static final By skinSubcategoryTonersAndMist = By.xpath("//div//a[text()='Toners & Mist']");
-        public static final By skinSubcategoryToners = By.xpath("//div//a[text()=' Toner ']");
-        public static final By skinSubcategoryMist = By.xpath("//div//a[text()=' Mist ']");
+        public static final By skinSubcategoryTonersAndMist = By.xpath("//div/a[text()='Toners & Mist']");
+        public static final By skinSubcategoryToners = By.xpath("//div/a[text()=' Toner ']");
+        public static final By skinSubcategoryMist = By.xpath("//div/a[text()=' Mist ']");
 
         // Skin hover Subcategories Sun Care
-        public static final By skinSubcategorySunCare = By.xpath("//div//a[text()='Sun Care']");
-        public static final By skinSubcategorySunscreen = By.xpath("//div//a[text()=' Sunscreen ']");
+        public static final By skinSubcategorySunCare = By.xpath("//div/a[text()='Sun Care']");
+        public static final By skinSubcategorySunscreen = By.xpath("//div/a[text()=' Sunscreen ']");
 
 
         // Hair hover Subcategories Hair Care
-        public static final By hairSubcategoryHairCare = By.xpath("//div//a[text()='Hair Care']");
-        public static final By hairSubcategoryConditioner = By.xpath("//div//a[text()='Conditioner']");
-        public static final By hairSubcategoryDryShampoo = By.xpath("//div//a[text()='Dry Shampoo']");
-        public static final By hairSubcategoryHairOil = By.xpath("//div//a[text()='Hair Oil']");
-        public static final By hairSubcategoryHairSerum = By.xpath("//div//a[text()='Hair Serum']");
-        public static final By hairSubcategoryShampoo = By.xpath("//div//a[text()='Shampoo']");
-        public static final By hairSubcategoryHairCreamsLeaveIns = By.xpath("//div//a[text()='Hair Creams & Leave-Ins']");
-        public static final By hairSubcategoryHairMask = By.xpath("//div//a[text()='Hair Mask']");
-        public static final By hairSubcategoryHairScalpTreatments = By.xpath("//div//a[text()='Hair & Scalp Treatments']");
+        public static final By hairSubcategoryHairCare = By.xpath("//div/a[text()='Hair Care']");
+        public static final By hairSubcategoryConditioner = By.xpath("//div/a[text()=' Conditioner ']");
+        public static final By hairSubcategoryDryShampoo = By.xpath("//div/a[text()=' Dry Shampoo ']");
+        public static final By hairSubcategoryHairOil = By.xpath("//div/a[text()=' Hair Oil ']");
+        public static final By hairSubcategoryHairSerum = By.xpath("//div/a[text()=' Hair Serum ']");
+        public static final By hairSubcategoryShampoo = By.xpath("//div/a[text()=' Shampoo ']");
+        public static final By hairSubcategoryHairCreamsLeaveIns = By.xpath("//div/a[text()=' Hair Creams & Leave-ins ']");
+        public static final By hairSubcategoryHairMask = By.xpath("//div/a[text()=' Hair Mask ']");
+        public static final By hairSubcategoryHairScalpTreatments = By.xpath("//div/a[text()=' Hair & Scalp Treatments ']");
 
         // Hair hover Subcategories Hair Styling
-        public static final By hairSubcategoryHairStyling = By.xpath("//div//a[text()='Hair Styling']");
-        public static final By hairSubcategoryHairGelsWaxes = By.xpath("//div//a[text()='Hair Gels & Waxes']");
-        public static final By hairSubcategoryHairSpraysMists = By.xpath("//div//a[text()='Hair Sprays & Mists']");
-        public static final By hairSubcategoryHairColour = By.xpath("//div//a[text()='Hair Colour']");
+        public static final By hairSubcategoryHairStyling = By.xpath("//div/a[text()='Hair Styling']");
+        public static final By hairSubcategoryHairGelsWaxes = By.xpath("//div/a[text()=' Hair Gels & Waxes ']");
+        public static final By hairSubcategoryHairSpraysMists = By.xpath("//div/a[text()=' Hair Sprays & Mists ']");
+        public static final By hairSubcategoryHairColour = By.xpath("//div/a[text()=' Hair Colour ']");
 
         // Hair hover Subcategories Tools & Accessories
-        public static final By hairSubcategoryToolsAccessories = By.xpath("//div//a[text()='Tools & Accessories']");
-        public static final By hairSubcategoryHairBrush = By.xpath("//div//a[text()='Hair Brush']");
-        public static final By hairSubcategoryHairAccessories = By.xpath("//div//a[text()='Hair Accessories']");
-        public static final By hairSubcategoryHairComb = By.xpath("//div//a[text()='Hair Comb']");
-        public static final By hairSubcategoryRollersCurlers = By.xpath("//div//a[text()='Rollers & Curlers']");
-        public static final By hairSubcategoryHairDryersStylers = By.xpath("//div//a[text()='Hair Dryers & Stylers']");
-        public static final By hairSubcategoryStraightener = By.xpath("//div//a[text()='Straightener']");
+        public static final By hairSubcategoryToolsAccessories = By.xpath("//div/a[text()='Tools & Accessories']");
+        public static final By hairSubcategoryHairBrush = By.xpath("//div/a[text()=' Hair Brush ']");
+        public static final By hairSubcategoryHairAccessories = By.xpath("//div/a[text()=' Hair Accessories ']");
+        public static final By hairSubcategoryHairComb = By.xpath("//div/a[text()=' Hair Comb ']");
+        public static final By hairSubcategoryRollersCurlers = By.xpath("//div/a[text()=' Rollers & Curlers ']");
+        public static final By hairSubcategoryHairDryersStylers = By.xpath("//div/a[text()=' Hair Dryers & Stylers ']");
+        public static final By hairSubcategoryStraightener = By.xpath("//div/a[text()=' Straightener ']");
 
         // Hair hover Subcategories Shop By Hair Type
-        public static final By hairSubcategoryShopByHairType = By.xpath("//div//a[text()='Shop By Hair Type']");
-        public static final By hairSubcategoryStraight = By.xpath("//div//a[text()='Straight']");
-        public static final By hairSubcategoryCurlyWavy = By.xpath("//div//a[text()='Curly & Wavy']");
+       // public static final By hairSubcategoryShopByHairType = By.xpath("//div[text()='Shop By Hair Type']");
+        public static final By hairSubcategoryStraight = By.xpath("//div/a[text()=' Straight ']");
+        public static final By hairSubcategoryCurlyWavy = By.xpath("//div/a[text()=' Curly & Wavy ']");
+
+        // Hair hover Subcategories Shop By
+        //public static final By hairSubcategoryShopBy = By.xpath("//div[text()='Shop By']");
+        public static final By hairSubcategoryWhatsNew = By.xpath("//div/a[text()=\" What's New \"]");
+        public static final By hairSubcategoryBestsellers = By.xpath("//div/a[text()=' Bestsellers ']");
+        public static final By hairSubcategoryMinis = By.xpath("//div/a[text()=' Minis ']");
+        public static final By hairSubcategorySetsBundles = By.xpath("//div/a[text()=' Sets & Bundles ']");
+        public static final By hairSubcategoryTiraLoves = By.xpath("//div/a[text()=' Tira Loves ']");
+        public static final By hairSubcategoryHomegrown = By.xpath("//div/a[text()=' Homegrown ']");
+        public static final By hairSubcategoryBudgetBuys = By.xpath("//div/a[text()=' Budget Buys ']");
+
+        // Hair hover Subcategories Brands To Know
+        //public static final By hairSubcategoryBrandsToKnow = By.xpath("//div[text()='Brands To Know']");
+        public static final By hairSubcategoryMilkShake = By.xpath("//div/a[text()=' Milk Shake ']");
+        public static final By hairSubcategoryForestEssentials = By.xpath("//div/a[text()=' Forest Essentials ']");
+        public static final By hairSubcategoryCOTRIL = By.xpath("//div/a[text()=' COTRIL ']");
+        public static final By hairSubcategoryLOrealProfessionnel = By.xpath("//div/a[text()=\" L'OREAL PROFESSIONNEL \"]");
+
+        // Hair hover Subcategories Shop By Concern
+        public static final By hairSubcategoryShopByConcern = By.xpath("//div/a[text()='Shop By Concern']");
+        public static final By hairSubcategoryHairfallThinning = By.xpath("//div/a[text()=' Hairfall & Hair Thinning ']");
+        public static final By hairSubcategoryDandruffBuildUps = By.xpath("//div/a[text()=\" Dandruff Build-up \"]");
+        public static final By hairSubcategoryDryFrizzyHair = By.xpath("//div/a[text()=' Dry & Frizzy Hair ']");
+        public static final By hairSubcategorySplitEnds = By.xpath("//div/a[text()=' Split Ends ']");
+        public static final By hairSubcategoryColourProtection = By.xpath("//div/a[text()=' Colour Protection ']");
+        public static final By hairSubcategoryBreakageProneHair = By.xpath("//div/a[text()=' Breakage-Prone Hair ']");
+        public static final By hairSubcategoryCurlCare = By.xpath("//div/a[text()=' Curl Care ']");
+        public static final By hairSubcategoryVolume = By.xpath("//div/a[text()=' Volume ']");
+
+        // Hair hover Subcategories Tira Red
+        public static final By hairSubcategoryTiraRed = By.xpath("//div/a[text()='Tira Red']");
+        public static final By hairSubcategoryOlaplex = By.xpath("//div/a[text()=' Olaplex ']");
+        public static final By hairSubcategoryKevinMurphy = By.xpath("//div/a[text()=' Kevin Murphy ']");
+        public static final By hairSubcategoryK18 = By.xpath("//div/a[text()=' K18 ']");
+        public static final By hairSubcategoryRootDeep = By.xpath("//div/a[text()=' Root Deep ']");
+        public static final By hairSubcategoryMoroccanoil = By.xpath("//div/a[text()=\" Morroccanoil \"]");
+
+        // Hair hover Subcategories Explore
+        public static final By hairSubcategoryExplore = By.xpath("//div/a[text()='Explore']");
+        public static final By hairSubcategoryDermocosmetics = By.xpath("//div/a[text()=' Dermocosmetics ']");
+        public static final By hairSubcategoryProfessionalHairCare = By.xpath("//div/a[text()=' Professional Hair Care ']");
+
+        // Fragrance hover Subcategories - Women's Fragrance
+        public static final By fragranceSubcategoryWomensFragrance = By.xpath("//div/a[text()='Women's Fragrance']");
+        public static final By fragranceSubcategoryWomensPerfume = By.xpath("//div/a[text()=' Perfume (EDT & EDP) ']");
+        public static final By fragranceSubcategoryWomensBodyMists = By.xpath("//div/a[text()=' Body Mists & Sprays ']");
+        public static final By fragranceSubcategoryWomensDeodorants = By.xpath("//div/a[text()=' Deodorants & Roll-Ons ']");
+
+        // Fragrance hover Subcategories - Men's Fragrance
+        public static final By fragranceSubcategoryMensFragrance = By.xpath("//div/a[text()='Men's Fragrance']");
+        public static final By fragranceSubcategoryMensPerfume = By.xpath("//div/a[text()=' Perfume (EDT & EDP) ']");
+        public static final By fragranceSubcategoryMensBodyMists = By.xpath("//div/a[text()=' Body Mists & Sprays ']");
+        public static final By fragranceSubcategoryMensDeodorants = By.xpath("//div/a[text()=' Deodorants & Roll-Ons ']");
+        public static final By fragranceSubcategoryMensColognes = By.xpath("//div/a[text()=' Colognes & After Shaves ']");
+
+        // Fragrance hover Subcategories - Unisex Fragrance
+        public static final By fragranceSubcategoryUnisexFragrance = By.xpath("//div/a[text()='Unisex Fragrance']");
+        public static final By fragranceSubcategoryUnisexPerfumes = By.xpath("//div/a[text()=' Unisex Perfumes ']");
+        public static final By fragranceSubcategoryUnisexMists = By.xpath("//div/a[text()=' Unisex Mists & Sprays ']");
+        public static final By fragranceSubcategoryUnisexDeodorants = By.xpath("//div/a[text()=' Unisex Deodorants & Roll-Ons ']");
+
+        // Fragrance hover Subcategories - Fragrance Family
+        public static final By fragranceSubcategoryFragranceFamily = By.xpath("//div/a[text()='Fragrance Family']");
+        public static final By fragranceSubcategoryFloral = By.xpath("//div/a[text()=' Floral ']");
+        public static final By fragranceSubcategoryFruity = By.xpath("//div/a[text()=' Fruity ']");
+        public static final By fragranceSubcategorySpicy = By.xpath("//div/a[text()=' Spicy ']");
+        public static final By fragranceSubcategoryWoody = By.xpath("//div/a[text()=' Woody ']");
+        public static final By fragranceSubcategoryFresh = By.xpath("//div/a[text()=' Fresh ']");
+        public static final By fragranceSubcategoryAqua = By.xpath("//div/a[text()=' Aqua ']");
+        public static final By fragranceSubcategoryCitrus = By.xpath("//div/a[text()=' Citrus ']");
+        public static final By fragranceSubcategoryMusky = By.xpath("//div/a[text()=' Musky ']");
+
+        // Fragrance hover Subcategories - Home Fragrance
+        public static final By fragranceSubcategoryHomeFragrance = By.xpath("//div/a[text()='Home Fragrance']");
+        public static final By fragranceSubcategoryCandle = By.xpath("//div/a[text()=' Candle ']");
+        public static final By fragranceSubcategoryDiffuser = By.xpath("//div/a[text()=' Diffuser ']");
+
+        // Men hover Subcategories - Beard Care
+        public static final By menSubcategoryBeardCare = By.xpath("//div/a[text()='Beard Care']");
+        public static final By menSubcategoryBeardMoustacheOil = By.xpath("//div/a[text()=' Beard & Moustache Oil ']");
+        public static final By menSubcategoryBeardWax = By.xpath("//div/a[text()=' Beard Wax & Softeners ']");
+        public static final By menSubcategoryBeardComb = By.xpath("//div/a[text()=' Beard Comb ']");
+        public static final By menSubcategoryBeardCream = By.xpath("//div/a[text()=' Beard Cream, Serum & Balm ']");
+        public static final By menSubcategoryBeardWash = By.xpath("//div/a[text()=' Beard Wash & Shampoos ']");
+
+        // Men hover Subcategories - Hair Care
+        public static final By menSubcategoryHairCare = By.xpath("//div/a[text()='Hair Care']");
+        public static final By menSubcategoryShampoo = By.xpath("//div/a[text()=' Shampoo ']");
+        public static final By menSubcategoryConditioner = By.xpath("//div/a[text()=' Conditioner ']");
+        public static final By menSubcategoryHairOil = By.xpath("//div/a[text()=' Hair Oil ']");
+        public static final By menSubcategoryHairStyling = By.xpath("//div/a[text()=' Hair Styling ']");
+        public static final By menSubcategoryHairColour = By.xpath("//div/a[text()=' Hair Colour ']");
+
+        // Men hover Subcategories - Fragrance
+        public static final By menSubcategoryFragrance = By.xpath("//div/a[text()='Fragrance']");
+        public static final By menSubcategoryPerfume = By.xpath("//div/a[text()=' Perfume (EDT & EDP) ']");
+        public static final By menSubcategoryDeodorants = By.xpath("//div/a[text()=' Deodorants & Roll-Ons ']");
+        public static final By menSubcategoryBodyMists = By.xpath("//div/a[text()=' Body Mists & Sprays ']");
+        public static final By menSubcategoryColognes = By.xpath("//div/a[text()=' Colognes & Aftershaves ']");
+
+        // Men hover Subcategories - Shaving
+        public static final By menSubcategoryShaving = By.xpath("//div/a[text()='Shaving']");
+        public static final By menSubcategoryRazors = By.xpath("//div/a[text()=' Razors & Cartridges ']");
+        public static final By menSubcategoryShavers = By.xpath("//div/a[text()=' Shavers & Trimmers ']");
+        public static final By menSubcategoryShavingCream = By.xpath("//div/a[text()=' Shaving Cream, Foam & Gel ']");
+        public static final By menSubcategoryPrePostShaves = By.xpath("//div/a[text()=' Pre & Post Shaves ']");
+        public static final By menSubcategoryShavingBrush = By.xpath("//div/a[text()=' Shaving Brush ']");
+        public static final By menSubcategoryGroomingKits = By.xpath("//div/a[text()=' Grooming Kits ']");
+
+        // Men hover Subcategories - Skincare
+        public static final By menSubcategorySkincare = By.xpath("//div/a[text()='Skincare']");
+        public static final By menSubcategoryFaceWash = By.xpath("//div/a[text()=' Face Wash ']");
+        public static final By menSubcategoryScrubs = By.xpath("//div/a[text()=' Scrubs & Exfoliators ']");
+        public static final By menSubcategoryFaceMoisturizer = By.xpath("//div/a[text()=' Face Moisturizer ']");
+        public static final By menSubcategorySunscreen = By.xpath("//div/a[text()=' Sunscreen ']");
+        public static final By menSubcategoryMasks = By.xpath("//div/a[text()=' Masks & Peels ']");
+
+        // Men hover Subcategories - Bath & Body
+        public static final By menSubcategoryBathBody = By.xpath("//div/a[text()='Bath & Body']");
+        public static final By menSubcategoryShowerGel = By.xpath("//div/a[text()=' Shower Gel ']");
+        public static final By menSubcategorySoap = By.xpath("//div/a[text()=' Soap ']");
+        public static final By menSubcategoryBodyScrub = By.xpath("//div/a[text()=' Body Scrub ']");
+        public static final By menSubcategoryBodyLotion = By.xpath("//div/a[text()=' Body Lotion ']");
+        public static final By menSubcategoryIntimateCare = By.xpath("//div/a[text()=' Intimate Care ']");
+        public static final By menSubcategoryTalc = By.xpath("//div/a[text()=' Talc ']");
+        public static final By menSubcategorySets = By.xpath("//div/a[text()=' Sets & Bundles ']");
+
+        // Bath & Body hover Subcategories - Bath & Shower
+        public static final By bathBodySubcategoryBathShower = By.xpath("//div/a[text()='Bath & Shower']");
+        public static final By bathBodySubcategoryBathSalts = By.xpath("//div/a[text()=' Bath Salts ']");
+        public static final By bathBodySubcategoryBodyScrubsExfoliants = By.xpath("//div/a[text()=' Body Scrubs & Exfoliants ']");
+        public static final By bathBodySubcategoryBodyWashesShowerGels = By.xpath("//div/a[text()=' Body Washes & Shower Gels ']");
+        public static final By bathBodySubcategorySoap = By.xpath("//div/a[text()=' Soap ']");
+        public static final By bathBodySubcategoryBathKitsSets = By.xpath("//div/a[text()=' Bath Kits & Sets ']");
+
+        // Bath & Body hover Subcategories - Body Care
+        public static final By bathBodySubcategoryBodyCare = By.xpath("//div/a[text()='Body Care']");
+        public static final By bathBodySubcategoryBodyButter = By.xpath("//div/a[text()=' Body Butter ']");
+        public static final By bathBodySubcategoryBodyLotionsMoisturizers = By.xpath("//div/a[text()=' Body Lotions & Moisturizers ']");
+        public static final By bathBodySubcategoryMassageOil = By.xpath("//div/a[text()=' Massage Oil ']");
+        public static final By bathBodySubcategoryTalc = By.xpath("//div/a[text()=' Talc ']");
+        public static final By bathBodySubcategoryEssentialOil = By.xpath("//div/a[text()=' Essential Oil ']");
+
+        // Bath & Body hover Subcategories - Hands & Feet
+        public static final By bathBodySubcategoryHandsFeet = By.xpath("//div/a[text()='Hands & Feet']");
+        public static final By bathBodySubcategoryHandWash = By.xpath("//div/a[text()=' Hand Wash ']");
+        public static final By bathBodySubcategoryHandCreamsMasks = By.xpath("//div/a[text()=' Hand Creams & Masks ']");
+        public static final By bathBodySubcategoryFootCare = By.xpath("//div/a[text()=' Foot Care ']");
+        public static final By bathBodySubcategoryManiPediTools = By.xpath("//div/a[text()=' Mani-Pedi Tools & Kits ']");
+
+        // Bath & Body hover Subcategories - Hygiene Essentials
+        public static final By bathBodySubcategoryHygieneEssentials = By.xpath("//div/a[text()='Hygiene Essentials']");
+        public static final By bathBodySubcategoryHandSanitizer = By.xpath("//div/a[text()=' Hand Sanitizer ']");
+        public static final By bathBodySubcategoryIntimateCare = By.xpath("//div/a[text()=' Intimate Care ']");
+
+        // Bath & Body hover Subcategories - Shaving & Hair Removal
+        public static final By bathBodySubcategoryShavingHairRemoval = By.xpath("//div/a[text()='Shaving & Hair Removal']");
+        public static final By bathBodySubcategoryBodyRazorsCartridges = By.xpath("//div/a[text()=' Body Razors & Cartridges ']");
+        public static final By bathBodySubcategoryFaceEyebrowRazors = By.xpath("//div/a[text()=' Face & Eyebrow Razors ']");
+        public static final By bathBodySubcategoryEpilatorsTrimmers = By.xpath("//div/a[text()=' Epilators & Trimmers ']");
+        public static final By bathBodySubcategoryWaxEssentials = By.xpath("//div/a[text()=' Wax Essentials ']");
+        public static final By bathBodySubcategoryHairRemovalCreams = By.xpath("//div/a[text()=' Hair Removal Creams ']");
+
+        // Bath & Body hover Subcategories - Brands To Know
+        public static final By bathBodySubcategoryBrandsToKnow = By.xpath("//div/a[text()='Brands To Know']");
+        public static final By bathBodySubcategoryTheBodyShop = By.xpath("//div/a[text()=' The Body Shop ']");
+        public static final By bathBodySubcategoryMcaffeine = By.xpath("//div/a[text()=' Mcaffeine ']");
+        public static final By bathBodySubcategoryLoccitane = By.xpath("//div/a[text()=' L'occitane ']");
+        public static final By bathBodySubcategoryKimirica = By.xpath("//div/a[text()=' Kimirica ']");
+        public static final By bathBodySubcategoryYvesRocher = By.xpath("//div/a[text()=' Yves Rocher ']");
+        public static final By bathBodySubcategoryMarksSpencers = By.xpath("//div/a[text()=' Marks & Spencers ']");
+        public static final By bathBodySubcategoryMamaearth = By.xpath("//div/a[text()=' Mamaearth ']");
+        public static final By bathBodySubcategorySoulflower = By.xpath("//div/a[text()=' Soulflower ']");
+        public static final By bathBodySubcategoryFindYourHappyPlace = By.xpath("//div/a[text()=' Find Your Happy Place ']");
+        public static final By bathBodySubcategoryPlum = By.xpath("//div/a[text()=' Plum ']");
+        public static final By bathBodySubcategoryDove = By.xpath("//div/a[text()=' Dove ']");
+        public static final By bathBodySubcategoryNivea = By.xpath("//div/a[text()=' Nivea ']");
+        public static final By bathBodySubcategoryVaseline = By.xpath("//div/a[text()=' Vaseline ']");
 
         // Dynamic subcategory locator method
         public static By makeupSubcategoryByText(String subcategoryName) {

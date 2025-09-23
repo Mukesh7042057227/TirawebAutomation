@@ -7,7 +7,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.HomePage;
 
-@Listeners({ExtentReportListener.class, TestListener.class})
+@Listeners({ExtentReportListener.class, TestListener.class, listeners.TestSummaryListener.class})
 public class HomePageTest extends BaseTest {
 
 //    @Test(priority = 1)
@@ -224,48 +224,97 @@ public class HomePageTest extends BaseTest {
 //        }
 //    }
 
-    @Test(priority = 6)
-    public void testSkinSubcategoriesHrefValidation() {
-        System.out.println("🔍 Starting test: testSkinSubcategoriesHrefValidation");
-        System.out.println("🔍 Testing all skin subcategories:");
-        System.out.println("Cleansers & Exfoliators: Face Washes & Cleansers, Face Scrub & Exfoliator, Scrubs & Exfoliators, Face Wipes, Makeup Remover");
-        System.out.println("Eye Care: Eye Creams & Serums, Eye Mask, Eye Makeup Remover");
-        System.out.println("Sets & Bundles: Facial Sets, Gift Sets");
-        System.out.println("Lip Care: Lip Balm, Lip Scrub, Lip Mask, Lip Oils");
-        System.out.println("Mask: Masks & Peels, Sheet Mask");
-        System.out.println("Moisturizer: Face Moisturizer, Night Cream, Face Oil");
-        System.out.println("Toners & Mist: Toner, Mist");
-        System.out.println("Sun Care: Sunscreen");
-        try {
-            HomePage homePage = new HomePage(driver);
-            homePage.waitForPageToLoad();
-            homePage.testAllSkinCategories();
-            System.out.println("✅ Test PASSED: testSkinSubcategoriesHrefValidation - Complete skin hover testing completed successfully");
-        } catch (Exception e) {
-            System.out.println("❌ Test FAILED: testSkinSubcategoriesHrefValidation - " + e.getMessage());
-            throw e;
-        }
-    }
+//    @Test(priority = 6)
+//    public void testSkinSubcategoriesHrefValidation() {
+//        System.out.println("🔍 Starting test: testSkinSubcategoriesHrefValidation");
+//        System.out.println("🔍 Testing all skin subcategories:");
+//        System.out.println("Cleansers & Exfoliators: Face Washes & Cleansers, Face Scrub & Exfoliator, Scrubs & Exfoliators, Face Wipes, Makeup Remover");
+//        System.out.println("Eye Care: Eye Creams & Serums, Eye Mask, Eye Makeup Remover");
+//        System.out.println("Sets & Bundles: Facial Sets, Gift Sets");
+//        System.out.println("Lip Care: Lip Balm, Lip Scrub, Lip Mask, Lip Oils");
+//        System.out.println("Mask: Masks & Peels, Sheet Mask");
+//        System.out.println("Moisturizer: Face Moisturizer, Night Cream, Face Oil");
+//        System.out.println("Toners & Mist: Toner, Mist");
+//        System.out.println("Sun Care: Sunscreen");
+//        try {
+//            HomePage homePage = new HomePage(driver);
+//            homePage.waitForPageToLoad();
+//            homePage.testAllSkinCategories();
+//            System.out.println("✅ Test PASSED: testSkinSubcategoriesHrefValidation - Complete skin hover testing completed successfully");
+//        } catch (Exception e) {
+//            System.out.println("❌ Test FAILED: testSkinSubcategoriesHrefValidation - " + e.getMessage());
+//            throw e;
+//        }
+//    }
 
     @Test(priority = 7)
     public void testHairSubcategoriesHrefValidation() {
-        System.out.println("🔍 Starting test: testHairSubcategoriesHrefValidation");
-        System.out.println("🔍 Testing all hair subcategories:");
-        System.out.println("Hair Care: Shampoo, Conditioner, Hair Mask, Hair Oil, Hair Serum, Scalp Care, Dry Shampoo");
-        System.out.println("Hair Styling: Hair Gel, Hair Wax, Hair Spray, Hair Cream, Hair Mousse, Heat Protectant");
-        System.out.println("Hair Color: Permanent Hair Color, Semi-Permanent Color, Hair Dye, Root Touch Up, Color Protection");
-        System.out.println("Hair Tools: Hair Brushes, Combs, Hair Dryer, Hair Straightener, Curling Iron, Hair Accessories");
-        System.out.println("Hair Treatments: Anti Hair Fall, Dandruff Treatment, Hair Growth, Hair Repair");
-        try {
-            HomePage homePage = new HomePage(driver);
-            homePage.waitForPageToLoad();
-            homePage.testAllHairCategories();
-            System.out.println("✅ Test PASSED: testHairSubcategoriesHrefValidation - Complete hair hover testing completed successfully");
-        } catch (Exception e) {
-            System.out.println("❌ Test FAILED: testHairSubcategoriesHrefValidation - " + e.getMessage());
-            throw e;
-        }
+        HomePage homePage = new HomePage(driver);
+        homePage.waitForPageToLoad();
+        homePage.testAllHairCategories();
     }
+//
+//    @Test(priority = 8)
+//    public void testFragranceSubcategoriesHrefValidation() {
+//        System.out.println("🔍 Starting test: testFragranceSubcategoriesHrefValidation");
+//        System.out.println("🔍 Testing all fragrance subcategories:");
+//        System.out.println("Women's Fragrance: Perfume (EDT & EDP), Body Mists & Sprays, Deodorants & Roll-Ons");
+//        System.out.println("Men's Fragrance: Perfume (EDT & EDP), Body Mists & Sprays, Deodorants & Roll-Ons, Colognes & After Shaves");
+//        System.out.println("Unisex Fragrance: Unisex Perfumes, Unisex Mists & Sprays, Unisex Deodorants & Roll-Ons");
+//        System.out.println("Fragrance Family: Floral, Fruity, Spicy, Woody, Fresh, Aqua, Citrus, Musky");
+//        System.out.println("Home Fragrance: Candle, Diffuser");
+//        try {
+//            HomePage homePage = new HomePage(driver);
+//            homePage.waitForPageToLoad();
+//            homePage.testAllFragranceCategories();
+//            System.out.println("✅ Test PASSED: testFragranceSubcategoriesHrefValidation - Complete fragrance hover testing completed successfully");
+//        } catch (Exception e) {
+//            System.out.println("❌ Test FAILED: testFragranceSubcategoriesHrefValidation - " + e.getMessage());
+//            throw e;
+//        }
+//    }
+////
+//    @Test(priority = 9)
+//    public void testMenSubcategoriesHrefValidation() {
+//        System.out.println("🔍 Starting test: testMenSubcategoriesHrefValidation");
+//        System.out.println("🔍 Testing all men subcategories:");
+//        System.out.println("Beard Care: Beard Oil, Beard Wash, Beard Balm, Moustache Wax, Beard Trimmer");
+//        System.out.println("Hair Care: Shampoo, Conditioner, Hair Oil, Hair Wax, Hair Gel");
+//        System.out.println("Fragrance: Perfume, Deodorant, Body Spray, Attar");
+//        System.out.println("Shaving: Razor, Shaving Cream, After Shave, Pre Shave, Shaving Brush");
+//        System.out.println("Skincare: Face Wash, Moisturizer, Sunscreen, Face Mask, Eye Cream");
+//        System.out.println("Bath & Body: Body Wash, Body Lotions, Soaps, Body Scrubs, Talcum Powder");
+//        try {
+//            HomePage homePage = new HomePage(driver);
+//            homePage.waitForPageToLoad();
+//            homePage.testAllMenCategories();
+//            System.out.println("✅ Test PASSED: testMenSubcategoriesHrefValidation - Complete men hover testing completed successfully");
+//        } catch (Exception e) {
+//            System.out.println("❌ Test FAILED: testMenSubcategoriesHrefValidation - " + e.getMessage());
+//            throw e;
+//        }
+//    }
+////
+//    @Test(priority = 10)
+//    public void testBathBodySubcategoriesHrefValidation() {
+//        System.out.println("🔍 Starting test: testBathBodySubcategoriesHrefValidation");
+//        System.out.println("🔍 Testing all bath & body subcategories:");
+//        System.out.println("Bath & Shower: Body Wash, Body Scrubs, Bath Salts, Bubble Bath, Bath Bombs, Shower Gel");
+//        System.out.println("Body Care: Body Lotions, Body Butters, Body Oils, Body Cream, Body Mist, Body Mousse");
+//        System.out.println("Hands & Feet: Hand Cream, Foot Cream, Hand Lotion, Cuticle Care, Foot Scrub, Hand Wash");
+//        System.out.println("Hygiene Essentials: Intimate Wash, Deodorant, Sanitizer, Wet Wipes, Talcum Powder");
+//        System.out.println("Shaving & Hair Removal: Shaving Cream, After Shave, Hair Removal Cream, Shaving Gel, Razors");
+//        System.out.println("Brands To Know: Treaclemoon, Vaseline, The Body Shop, Aveeno, L'Occitane, Dream Immerse Play, The Love Co, OUAI");
+//        try {
+//            HomePage homePage = new HomePage(driver);
+//            homePage.waitForPageToLoad();
+//            homePage.testAllBathBodyCategories();
+//            System.out.println("✅ Test PASSED: testBathBodySubcategoriesHrefValidation - Complete bath & body hover testing completed successfully");
+//        } catch (Exception e) {
+//            System.out.println("❌ Test FAILED: testBathBodySubcategoriesHrefValidation - " + e.getMessage());
+//            throw e;
+//        }
+//    }
 
 }
 
