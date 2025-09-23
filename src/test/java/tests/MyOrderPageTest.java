@@ -7,7 +7,7 @@ import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.*;
 
-@Listeners({ExtentReportListener.class, TestListener.class})
+@Listeners({ExtentReportListener.class, TestListener.class, listeners.TestSummaryListener.class})
 public class MyOrderPageTest extends BaseTest {
 
     @Test(priority = 1)

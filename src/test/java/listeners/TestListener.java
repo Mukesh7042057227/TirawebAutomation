@@ -6,6 +6,8 @@ import org.testng.ITestResult;
 import org.openqa.selenium.WebDriver;
 import utils.ScreenshotUtil;
 import utils.TestResultTracker;
+import utils.EmailUtility;
+import utils.ConfigReader;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.Map;
 
@@ -31,6 +33,10 @@ public class TestListener implements ITestListener {
 
         long executionTime = System.currentTimeMillis() - testStartTimes.getOrDefault(testKey, System.currentTimeMillis());
         TestResultTracker.recordTestResult(className, methodName, true, null, executionTime);
+
+        // Send email notification for successful test
+        EmailUtility.sendTestNotification(className, methodName, "PASSED", null, executionTime);
+
         testStartTimes.remove(testKey);
     }
 
@@ -44,6 +50,10 @@ public class TestListener implements ITestListener {
         String failureReason = result.getThrowable() != null ? result.getThrowable().getMessage() : "Unknown error";
 
         TestResultTracker.recordTestResult(className, methodName, false, failureReason, executionTime);
+
+        // Send email notification for failed test
+        EmailUtility.sendTestNotification(className, methodName, "FAILED", failureReason, executionTime);
+
         testStartTimes.remove(testKey);
 
         Object currentClass = result.getInstance();
@@ -66,6 +76,10 @@ public class TestListener implements ITestListener {
         String skipReason = result.getThrowable() != null ? result.getThrowable().getMessage() : "Test skipped";
 
         TestResultTracker.recordTestResult(className, methodName, false, "SKIPPED: " + skipReason, executionTime);
+
+        // Send email notification for skipped test
+        EmailUtility.sendTestNotification(className, methodName, "SKIPPED", skipReason, executionTime);
+
         testStartTimes.remove(testKey);
     }
 }

@@ -9,7 +9,7 @@ import pages.CategoryPage;
 import pages.HomePage;
 import pages.LoginPage;
 
-@Listeners({ExtentReportListener.class, TestListener.class})
+@Listeners({ExtentReportListener.class, TestListener.class, listeners.TestSummaryListener.class})
 public class CategoryPageTest extends BaseTest {
     @Test(priority = 1)
     public void homePageTestCase() throws InterruptedException {

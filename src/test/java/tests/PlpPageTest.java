@@ -10,7 +10,7 @@ import pages.HomePage;
 import pages.LoginPage;
 import pages.PlpPage;
 
-@Listeners({ExtentReportListener.class, TestListener.class})
+@Listeners({ExtentReportListener.class, TestListener.class, listeners.TestSummaryListener.class})
 public class PlpPageTest extends BaseTest {
 
 //    @Test(priority = 1)

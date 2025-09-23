@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LoginPage;
 
-@Listeners({ExtentReportListener.class, TestListener.class})
+@Listeners({ExtentReportListener.class, TestListener.class, listeners.TestSummaryListener.class})
 public class LoginPageTest extends BaseTest {
 
     private static final Logger log = LoggerFactory.getLogger(LoginPageTest.class);

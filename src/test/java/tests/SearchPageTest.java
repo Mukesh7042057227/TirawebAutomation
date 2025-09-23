@@ -1,6 +1,7 @@
 package tests;
 
 import base.BaseTest;
+import listeners.ExtentReportListener;
 import listeners.TestListener;
 import org.testng.Assert;
 import org.testng.annotations.Listeners;
@@ -10,7 +11,7 @@ import pages.SearchPage;
 import java.util.Arrays;
 import java.util.List;
 
-@Listeners(TestListener.class)
+@Listeners({ExtentReportListener.class, TestListener.class, listeners.TestSummaryListener.class})
 public class SearchPageTest extends BaseTest {
 
 
