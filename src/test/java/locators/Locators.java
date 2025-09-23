@@ -203,26 +203,23 @@ public class Locators {
         public static final By hairSubcategoryProfessionalHairCare = By.xpath("//div/a[text()=' Professional Hair Care ']");
 
         // Fragrance hover Subcategories - Women's Fragrance
-        public static final By fragranceSubcategoryWomensFragrance = By.xpath("//div/a[text()='Women's Fragrance']");
         public static final By fragranceSubcategoryWomensPerfume = By.xpath("//div/a[text()=' Perfume (EDT & EDP) ']");
         public static final By fragranceSubcategoryWomensBodyMists = By.xpath("//div/a[text()=' Body Mists & Sprays ']");
         public static final By fragranceSubcategoryWomensDeodorants = By.xpath("//div/a[text()=' Deodorants & Roll-Ons ']");
 
         // Fragrance hover Subcategories - Men's Fragrance
-        public static final By fragranceSubcategoryMensFragrance = By.xpath("//div/a[text()='Men's Fragrance']");
         public static final By fragranceSubcategoryMensPerfume = By.xpath("//div/a[text()=' Perfume (EDT & EDP) ']");
         public static final By fragranceSubcategoryMensBodyMists = By.xpath("//div/a[text()=' Body Mists & Sprays ']");
         public static final By fragranceSubcategoryMensDeodorants = By.xpath("//div/a[text()=' Deodorants & Roll-Ons ']");
-        public static final By fragranceSubcategoryMensColognes = By.xpath("//div/a[text()=' Colognes & After Shaves ']");
+        public static final By fragranceSubcategoryMensColognes = By.xpath("//div/a[text()=\" Colognes & After Shaves \"]");
 
         // Fragrance hover Subcategories - Unisex Fragrance
-        public static final By fragranceSubcategoryUnisexFragrance = By.xpath("//div/a[text()='Unisex Fragrance']");
         public static final By fragranceSubcategoryUnisexPerfumes = By.xpath("//div/a[text()=' Unisex Perfumes ']");
         public static final By fragranceSubcategoryUnisexMists = By.xpath("//div/a[text()=' Unisex Mists & Sprays ']");
         public static final By fragranceSubcategoryUnisexDeodorants = By.xpath("//div/a[text()=' Unisex Deodorants & Roll-Ons ']");
 
         // Fragrance hover Subcategories - Fragrance Family
-        public static final By fragranceSubcategoryFragranceFamily = By.xpath("//div/a[text()='Fragrance Family']");
+        //public static final By fragranceSubcategoryFragranceFamily = By.xpath("//div/a[text()='Fragrance Family']");
         public static final By fragranceSubcategoryFloral = By.xpath("//div/a[text()=' Floral ']");
         public static final By fragranceSubcategoryFruity = By.xpath("//div/a[text()=' Fruity ']");
         public static final By fragranceSubcategorySpicy = By.xpath("//div/a[text()=' Spicy ']");
@@ -233,12 +230,35 @@ public class Locators {
         public static final By fragranceSubcategoryMusky = By.xpath("//div/a[text()=' Musky ']");
 
         // Fragrance hover Subcategories - Home Fragrance
-        public static final By fragranceSubcategoryHomeFragrance = By.xpath("//div/a[text()='Home Fragrance']");
         public static final By fragranceSubcategoryCandle = By.xpath("//div/a[text()=' Candle ']");
         public static final By fragranceSubcategoryDiffuser = By.xpath("//div/a[text()=' Diffuser ']");
 
+        // Fragrance hover Subcategories - Shop By
+        public static final By fragranceSubcategoryWhatsNew = By.xpath("//div/a[text()=\" What's New \"]");
+        public static final By fragranceSubcategoryBestsellers = By.xpath("//div/a[text()=' Bestsellers ']");
+        public static final By fragranceSubcategoryGiftSets = By.xpath("//div/a[text()=' Gift Sets ']");
+        public static final By fragranceSubcategorySetsBundles = By.xpath("//div/a[text()=' Sets & Bundles ']");
+        public static final By fragranceSubcategoryTiraLoves = By.xpath("//div/a[text()=' Tira Loves ']");
+
+        // Fragrance hover Subcategories - Tira Red
+        public static final By fragranceSubcategoryYvesSaintLaurent = By.xpath("//div/a[text()=' Yves Saint Laurent ']");
+        public static final By fragranceSubcategoryBurberry = By.xpath("//div/a[text()=' Burberry ']");
+        public static final By fragranceSubcategoryTomFord = By.xpath("//div/a[text()=' Tom Ford ']");
+        public static final By fragranceSubcategoryPrada = By.xpath("//div/a[text()=' Prada ']");
+        public static final By fragranceSubcategoryVersace = By.xpath("//div/a[text()=' Versace ']");
+
+        // Fragrance hover Subcategories - Brands To Know
+        public static final By fragranceSubcategoryGucci = By.xpath("//div/a[text()=' Gucci ']");
+        public static final By fragranceSubcategoryJoMaloneLondon = By.xpath("//div/a[text()=' Jo Malone London ']");
+        public static final By fragranceSubcategoryElizabethArden = By.xpath("//div/a[text()=' Elizabeth Arden ']");
+        public static final By fragranceSubcategoryJimmyChoo = By.xpath("//div/a[text()=' Jimmy Choo ']");
+        public static final By fragranceSubcategoryGiorgioArmani = By.xpath("//div/a[text()=' Giorgio Armani ']");
+        public static final By fragranceSubcategoryCalvinKlein = By.xpath("//div/a[text()=' Calvin Klein ']");
+        public static final By fragranceSubcategoryNarcisoRodriguez = By.xpath("//div/a[text()=' Narciso Rodriguez ']");
+        public static final By fragranceSubcategoryDolceGabbana = By.xpath("//div/a[text()=' Dolce&Gabbana ']");
+        public static final By fragranceSubcategorySalvatoreFerragamo = By.xpath("//div/a[text()=' Salvatore Ferragamo ']");
+
         // Men hover Subcategories - Beard Care
-        public static final By menSubcategoryBeardCare = By.xpath("//div/a[text()='Beard Care']");
         public static final By menSubcategoryBeardMoustacheOil = By.xpath("//div/a[text()=' Beard & Moustache Oil ']");
         public static final By menSubcategoryBeardWax = By.xpath("//div/a[text()=' Beard Wax & Softeners ']");
         public static final By menSubcategoryBeardComb = By.xpath("//div/a[text()=' Beard Comb ']");
@@ -246,7 +266,6 @@ public class Locators {
         public static final By menSubcategoryBeardWash = By.xpath("//div/a[text()=' Beard Wash & Shampoos ']");
 
         // Men hover Subcategories - Hair Care
-        public static final By menSubcategoryHairCare = By.xpath("//div/a[text()='Hair Care']");
         public static final By menSubcategoryShampoo = By.xpath("//div/a[text()=' Shampoo ']");
         public static final By menSubcategoryConditioner = By.xpath("//div/a[text()=' Conditioner ']");
         public static final By menSubcategoryHairOil = By.xpath("//div/a[text()=' Hair Oil ']");
@@ -254,14 +273,12 @@ public class Locators {
         public static final By menSubcategoryHairColour = By.xpath("//div/a[text()=' Hair Colour ']");
 
         // Men hover Subcategories - Fragrance
-        public static final By menSubcategoryFragrance = By.xpath("//div/a[text()='Fragrance']");
         public static final By menSubcategoryPerfume = By.xpath("//div/a[text()=' Perfume (EDT & EDP) ']");
         public static final By menSubcategoryDeodorants = By.xpath("//div/a[text()=' Deodorants & Roll-Ons ']");
         public static final By menSubcategoryBodyMists = By.xpath("//div/a[text()=' Body Mists & Sprays ']");
         public static final By menSubcategoryColognes = By.xpath("//div/a[text()=' Colognes & Aftershaves ']");
 
         // Men hover Subcategories - Shaving
-        public static final By menSubcategoryShaving = By.xpath("//div/a[text()='Shaving']");
         public static final By menSubcategoryRazors = By.xpath("//div/a[text()=' Razors & Cartridges ']");
         public static final By menSubcategoryShavers = By.xpath("//div/a[text()=' Shavers & Trimmers ']");
         public static final By menSubcategoryShavingCream = By.xpath("//div/a[text()=' Shaving Cream, Foam & Gel ']");
@@ -270,7 +287,6 @@ public class Locators {
         public static final By menSubcategoryGroomingKits = By.xpath("//div/a[text()=' Grooming Kits ']");
 
         // Men hover Subcategories - Skincare
-        public static final By menSubcategorySkincare = By.xpath("//div/a[text()='Skincare']");
         public static final By menSubcategoryFaceWash = By.xpath("//div/a[text()=' Face Wash ']");
         public static final By menSubcategoryScrubs = By.xpath("//div/a[text()=' Scrubs & Exfoliators ']");
         public static final By menSubcategoryFaceMoisturizer = By.xpath("//div/a[text()=' Face Moisturizer ']");
@@ -278,7 +294,6 @@ public class Locators {
         public static final By menSubcategoryMasks = By.xpath("//div/a[text()=' Masks & Peels ']");
 
         // Men hover Subcategories - Bath & Body
-        public static final By menSubcategoryBathBody = By.xpath("//div/a[text()='Bath & Body']");
         public static final By menSubcategoryShowerGel = By.xpath("//div/a[text()=' Shower Gel ']");
         public static final By menSubcategorySoap = By.xpath("//div/a[text()=' Soap ']");
         public static final By menSubcategoryBodyScrub = By.xpath("//div/a[text()=' Body Scrub ']");
@@ -287,16 +302,47 @@ public class Locators {
         public static final By menSubcategoryTalc = By.xpath("//div/a[text()=' Talc ']");
         public static final By menSubcategorySets = By.xpath("//div/a[text()=' Sets & Bundles ']");
 
+        // Men hover Subcategories - Shop By
+        public static final By menSubcategoryWhatsNew = By.xpath("//div/a[text()=' What's New ']");
+        public static final By menSubcategoryBestsellers = By.xpath("//div/a[text()=' Bestsellers ']");
+        public static final By menSubcategoryMinis = By.xpath("//div/a[text()=' Minis ']");
+        public static final By menSubcategorySetsBundles = By.xpath("//div/a[text()=' Sets & Bundles ']");
+        public static final By menSubcategoryBudgetBuys = By.xpath("//div/a[text()=' Budget Buys ']");
+
+        // Men hover Subcategories - Tira Red
+        public static final By menSubcategoryCaptainFawcett = By.xpath("//div/a[text()=' Captain Fawcett ']");
+        public static final By menSubcategoryTruefittHill = By.xpath("//div/a[text()=' Truefitt & Hill ']");
+        public static final By menSubcategoryVersace = By.xpath("//div/a[text()=' Versace ']");
+        public static final By menSubcategoryBeardburys = By.xpath("//div/a[text()=' Beardburys ']");
+        public static final By menSubcategoryCalvinKlein = By.xpath("//div/a[text()=' Calvin Klein ']");
+
+        // Men hover Subcategories - Shop By Concern
+        public static final By menSubcategoryFineLinesWrinkles = By.xpath("//div/a[text()=' Fine Lines & Wrinkles ']");
+        public static final By menSubcategoryAcne = By.xpath("//div/a[text()=' Acne ']");
+        public static final By menSubcategoryDullness = By.xpath("//div/a[text()=' Dullness ']");
+        public static final By menSubcategoryPigmentationDarkSpots = By.xpath("//div/a[text()=' Pigmentation & Dark Spots ']");
+        public static final By menSubcategoryPoresBlemishes = By.xpath("//div/a[text()=' Pores & Blemishes ']");
+        public static final By menSubcategoryDryness = By.xpath("//div/a[text()=' Dryness ']");
+        public static final By menSubcategoryDarkCircles = By.xpath("//div/a[text()=' Dark Circles ']");
+        public static final By menSubcategoryPuffiness = By.xpath("//div/a[text()=' Puffiness ']");
+        public static final By menSubcategoryHairThinningHairLoss = By.xpath("//div/a[text()=' Hair Thinning & Hair Loss ']");
+
+        // Men hover Subcategories - Brands To Know
+        public static final By menSubcategoryUrbanGabru = By.xpath("//div/a[text()=' Urban Gabru ']");
+        public static final By menSubcategoryBombayShavingCompany = By.xpath("//div/a[text()=' Bombay Shaving Company ']");
+        public static final By menSubcategoryTheManCompany = By.xpath("//div/a[text()=' The Man Company ']");
+        public static final By menSubcategoryBeardo = By.xpath("//div/a[text()=' Beardo ']");
+        public static final By menSubcategoryBigen = By.xpath("//div/a[text()=' Bigen ']");
+        public static final By menSubcategoryLetsShave = By.xpath("//div/a[text()=' LetsShave ']");
+
         // Bath & Body hover Subcategories - Bath & Shower
-        public static final By bathBodySubcategoryBathShower = By.xpath("//div/a[text()='Bath & Shower']");
         public static final By bathBodySubcategoryBathSalts = By.xpath("//div/a[text()=' Bath Salts ']");
         public static final By bathBodySubcategoryBodyScrubsExfoliants = By.xpath("//div/a[text()=' Body Scrubs & Exfoliants ']");
         public static final By bathBodySubcategoryBodyWashesShowerGels = By.xpath("//div/a[text()=' Body Washes & Shower Gels ']");
-        public static final By bathBodySubcategorySoap = By.xpath("//div/a[text()=' Soap ']");
+        public static final By bathBodySubcategorySoap = By.xpath("//div/a[text()=' Soap  ']");
         public static final By bathBodySubcategoryBathKitsSets = By.xpath("//div/a[text()=' Bath Kits & Sets ']");
 
         // Bath & Body hover Subcategories - Body Care
-        public static final By bathBodySubcategoryBodyCare = By.xpath("//div/a[text()='Body Care']");
         public static final By bathBodySubcategoryBodyButter = By.xpath("//div/a[text()=' Body Butter ']");
         public static final By bathBodySubcategoryBodyLotionsMoisturizers = By.xpath("//div/a[text()=' Body Lotions & Moisturizers ']");
         public static final By bathBodySubcategoryMassageOil = By.xpath("//div/a[text()=' Massage Oil ']");
@@ -304,19 +350,16 @@ public class Locators {
         public static final By bathBodySubcategoryEssentialOil = By.xpath("//div/a[text()=' Essential Oil ']");
 
         // Bath & Body hover Subcategories - Hands & Feet
-        public static final By bathBodySubcategoryHandsFeet = By.xpath("//div/a[text()='Hands & Feet']");
         public static final By bathBodySubcategoryHandWash = By.xpath("//div/a[text()=' Hand Wash ']");
         public static final By bathBodySubcategoryHandCreamsMasks = By.xpath("//div/a[text()=' Hand Creams & Masks ']");
         public static final By bathBodySubcategoryFootCare = By.xpath("//div/a[text()=' Foot Care ']");
         public static final By bathBodySubcategoryManiPediTools = By.xpath("//div/a[text()=' Mani-Pedi Tools & Kits ']");
 
         // Bath & Body hover Subcategories - Hygiene Essentials
-        public static final By bathBodySubcategoryHygieneEssentials = By.xpath("//div/a[text()='Hygiene Essentials']");
         public static final By bathBodySubcategoryHandSanitizer = By.xpath("//div/a[text()=' Hand Sanitizer ']");
         public static final By bathBodySubcategoryIntimateCare = By.xpath("//div/a[text()=' Intimate Care ']");
 
         // Bath & Body hover Subcategories - Shaving & Hair Removal
-        public static final By bathBodySubcategoryShavingHairRemoval = By.xpath("//div/a[text()='Shaving & Hair Removal']");
         public static final By bathBodySubcategoryBodyRazorsCartridges = By.xpath("//div/a[text()=' Body Razors & Cartridges ']");
         public static final By bathBodySubcategoryFaceEyebrowRazors = By.xpath("//div/a[text()=' Face & Eyebrow Razors ']");
         public static final By bathBodySubcategoryEpilatorsTrimmers = By.xpath("//div/a[text()=' Epilators & Trimmers ']");
@@ -324,20 +367,28 @@ public class Locators {
         public static final By bathBodySubcategoryHairRemovalCreams = By.xpath("//div/a[text()=' Hair Removal Creams ']");
 
         // Bath & Body hover Subcategories - Brands To Know
-        public static final By bathBodySubcategoryBrandsToKnow = By.xpath("//div/a[text()='Brands To Know']");
         public static final By bathBodySubcategoryTheBodyShop = By.xpath("//div/a[text()=' The Body Shop ']");
         public static final By bathBodySubcategoryMcaffeine = By.xpath("//div/a[text()=' Mcaffeine ']");
-        public static final By bathBodySubcategoryLoccitane = By.xpath("//div/a[text()=' L'occitane ']");
+        public static final By bathBodySubcategoryLoccitane = By.xpath("//div/a[text()=' Loccitane ']");
         public static final By bathBodySubcategoryKimirica = By.xpath("//div/a[text()=' Kimirica ']");
         public static final By bathBodySubcategoryYvesRocher = By.xpath("//div/a[text()=' Yves Rocher ']");
         public static final By bathBodySubcategoryMarksSpencers = By.xpath("//div/a[text()=' Marks & Spencers ']");
         public static final By bathBodySubcategoryMamaearth = By.xpath("//div/a[text()=' Mamaearth ']");
         public static final By bathBodySubcategorySoulflower = By.xpath("//div/a[text()=' Soulflower ']");
-        public static final By bathBodySubcategoryFindYourHappyPlace = By.xpath("//div/a[text()=' Find Your Happy Place ']");
+        public static final By bathBodySubcategoryFindYourHappyPlace = By.xpath("//div/a[text()=' Find your happy place ']");
         public static final By bathBodySubcategoryPlum = By.xpath("//div/a[text()=' Plum ']");
         public static final By bathBodySubcategoryDove = By.xpath("//div/a[text()=' Dove ']");
         public static final By bathBodySubcategoryNivea = By.xpath("//div/a[text()=' Nivea ']");
         public static final By bathBodySubcategoryVaseline = By.xpath("//div/a[text()=' Vaseline ']");
+
+        // Bath & Body hover Subcategories - Derm Approved
+        public static final By bathBodySubcategoryDermApproved = By.xpath("//div/a[text()='Derm Approved']");
+
+        // Bath & Body hover Subcategories - Shop By
+        public static final By bathBodySubcategoryWhatsNew = By.xpath("//div/a[text()=\" What's New \"]");
+        public static final By bathBodySubcategoryBestsellers = By.xpath("//div/a[text()=' Bestsellers ']");
+        public static final By bathBodySubcategoryMinis = By.xpath("//div/a[text()=' Minis ']");
+        public static final By bathBodySubcategorySetsAndBundles = By.xpath("//div/a[text()=' Sets & Bundles ']");
 
         // Dynamic subcategory locator method
         public static By makeupSubcategoryByText(String subcategoryName) {
@@ -351,6 +402,11 @@ public class Locators {
         public static By hairSubcategoryByText(String subcategoryName) {
             return By.xpath("//a[text()='" + subcategoryName + "']");
         }
+
+        // Page loading verification elements
+        public static final By pageLoadingIndicator = By.xpath("//*[contains(@class, 'loading') or contains(@class, 'spinner') or contains(@class, 'loader')]");
+        public static final By bodyElement = By.tagName("body");
+        public static final By anyVisibleElement = By.xpath("//*[normalize-space(text())!='' and not(contains(@style,'display:none')) and not(contains(@style,'visibility:hidden'))]");
     }
     public static class LoginPage {
         public static final By loginIcon = By.xpath("//a/div[@class='profile-icons profile-logout']");

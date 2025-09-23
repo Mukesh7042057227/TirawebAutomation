@@ -83,6 +83,99 @@ public class HomePage {
         wait.until(ExpectedConditions.urlContains(expectedUrlPart));
     }
 
+    // Enhanced URL verification methods to replace Thread.sleep
+    public void waitForUrlChange(String expectedUrlPart) {
+        try {
+            wait.until(ExpectedConditions.urlContains(expectedUrlPart));
+            waitForPageStabilization();
+            System.out.println(SUCCESS_PREFIX + "URL loaded successfully: " + driver.getCurrentUrl());
+        } catch (Exception e) {
+            System.out.println(ERROR_PREFIX + "URL change timeout: Expected '" + expectedUrlPart + "' but got '" + driver.getCurrentUrl() + "'");
+            throw e;
+        }
+    }
+
+    public void waitForExactUrl(String expectedUrl) {
+        try {
+            wait.until(driver -> driver.getCurrentUrl().equals(expectedUrl));
+            waitForPageStabilization();
+            System.out.println(SUCCESS_PREFIX + "Exact URL reached: " + expectedUrl);
+        } catch (Exception e) {
+            System.out.println(ERROR_PREFIX + "Exact URL timeout: Expected '" + expectedUrl + "' but got '" + driver.getCurrentUrl() + "'");
+            throw e;
+        }
+    }
+
+    public void waitForPageStabilization() {
+        try {
+            // Wait for document ready state
+            wait.until(driver -> ((JavascriptExecutor) driver).executeScript("return document.readyState;").equals("complete"));
+
+            // Wait for any loading indicators to disappear
+            try {
+                wait.until(ExpectedConditions.invisibilityOfElementLocated(Locators.HomePage.pageLoadingIndicator));
+            } catch (Exception e) {
+                // Loading indicator might not exist, which is fine
+            }
+
+            // Wait for body element to be present and at least one interactive element
+            wait.until(ExpectedConditions.presenceOfElementLocated(Locators.HomePage.bodyElement));
+            wait.until(driver -> {
+                try {
+                    return driver.findElement(Locators.HomePage.makeupNavLink).isDisplayed() ||
+                           driver.findElement(Locators.HomePage.skinNavLink).isDisplayed() ||
+                           driver.findElement(Locators.HomePage.hairNavLink).isDisplayed();
+                } catch (Exception ex) {
+                    return false;
+                }
+            });
+
+            // Additional stability check - wait for JavaScript to finish
+            wait.until(driver -> ((JavascriptExecutor) driver).executeScript("return jQuery != undefined ? jQuery.active == 0 : true;"));
+
+        } catch (Exception e) {
+            // If jQuery check fails, continue - not all pages use jQuery
+        }
+    }
+
+    public void waitForUrlAndVerify(String expectedUrlPart, String elementToVerify) {
+        try {
+            // Wait for URL change
+            wait.until(ExpectedConditions.urlContains(expectedUrlPart));
+
+            // Wait for page stabilization
+            waitForPageStabilization();
+
+            // Verify specific element is visible
+            if (elementToVerify != null && !elementToVerify.isEmpty()) {
+                By verificationElement = By.xpath("//*[contains(text(), '" + elementToVerify + "')]");
+                wait.until(ExpectedConditions.visibilityOfElementLocated(verificationElement));
+            }
+
+            System.out.println(SUCCESS_PREFIX + "Page loaded and verified: " + driver.getCurrentUrl());
+        } catch (Exception e) {
+            System.out.println(ERROR_PREFIX + "Page verification failed for URL containing '" + expectedUrlPart + "': " + e.getMessage());
+            throw e;
+        }
+    }
+
+    public boolean isPageFullyLoaded() {
+        try {
+            // Check document ready state
+            Object readyState = ((JavascriptExecutor) driver).executeScript("return document.readyState;");
+            if (!"complete".equals(readyState)) {
+                return false;
+            }
+
+            // Check if main navigation elements are present
+            return driver.findElement(Locators.HomePage.makeupNavLink).isDisplayed() ||
+                   driver.findElement(Locators.HomePage.skinNavLink).isDisplayed() ||
+                   driver.findElement(Locators.HomePage.hairNavLink).isDisplayed();
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
     // Specific navigation methods using the generic method
     public void clickTiraRedNavigation() {
         clickNavigation(Locators.HomePage.tiraRedNavLink, "tira-red");
@@ -557,41 +650,37 @@ public class HomePage {
 
     // Fragrance subcategory arrays - Women's Fragrance
     private static final By[] FRAGRANCE_WOMENS_SUBCATEGORY_LOCATORS = {
-        Locators.HomePage.fragranceSubcategoryWomensFragrance,
         Locators.HomePage.fragranceSubcategoryWomensPerfume,
         Locators.HomePage.fragranceSubcategoryWomensBodyMists,
         Locators.HomePage.fragranceSubcategoryWomensDeodorants
     };
     private static final String[] FRAGRANCE_WOMENS_SUBCATEGORY_NAMES = {
-        "Women's Fragrance", "Perfume (EDT & EDP)", "Body Mists & Sprays", "Deodorants & Roll-Ons"
+        "Perfume (EDT & EDP)", "Body Mists & Sprays", "Deodorants & Roll-Ons"
     };
 
     // Fragrance subcategory arrays - Men's Fragrance
     private static final By[] FRAGRANCE_MENS_SUBCATEGORY_LOCATORS = {
-        Locators.HomePage.fragranceSubcategoryMensFragrance,
         Locators.HomePage.fragranceSubcategoryMensPerfume,
         Locators.HomePage.fragranceSubcategoryMensBodyMists,
         Locators.HomePage.fragranceSubcategoryMensDeodorants,
         Locators.HomePage.fragranceSubcategoryMensColognes
     };
     private static final String[] FRAGRANCE_MENS_SUBCATEGORY_NAMES = {
-        "Men's Fragrance", "Perfume (EDT & EDP)", "Body Mists & Sprays", "Deodorants & Roll-Ons", "Colognes & After Shaves"
+        "Perfume (EDT & EDP)", "Body Mists & Sprays", "Deodorants & Roll-Ons", "Colognes & After Shaves"
     };
 
     // Fragrance subcategory arrays - Unisex Fragrance
     private static final By[] FRAGRANCE_UNISEX_SUBCATEGORY_LOCATORS = {
-        Locators.HomePage.fragranceSubcategoryUnisexFragrance,
         Locators.HomePage.fragranceSubcategoryUnisexPerfumes,
         Locators.HomePage.fragranceSubcategoryUnisexMists,
         Locators.HomePage.fragranceSubcategoryUnisexDeodorants
     };
     private static final String[] FRAGRANCE_UNISEX_SUBCATEGORY_NAMES = {
-        "Unisex Fragrance", "Unisex Perfumes", "Unisex Mists & Sprays", "Unisex Deodorants & Roll-Ons"
+        "Unisex Perfumes", "Unisex Mists & Sprays", "Unisex Deodorants & Roll-Ons"
     };
 
     // Fragrance subcategory arrays - Fragrance Family
     private static final By[] FRAGRANCE_FAMILY_SUBCATEGORY_LOCATORS = {
-        Locators.HomePage.fragranceSubcategoryFragranceFamily,
         Locators.HomePage.fragranceSubcategoryFloral,
         Locators.HomePage.fragranceSubcategoryFruity,
         Locators.HomePage.fragranceSubcategorySpicy,
@@ -602,35 +691,72 @@ public class HomePage {
         Locators.HomePage.fragranceSubcategoryMusky
     };
     private static final String[] FRAGRANCE_FAMILY_SUBCATEGORY_NAMES = {
-        "Fragrance Family", "Floral", "Fruity", "Spicy", "Woody", "Fresh", "Aqua", "Citrus", "Musky"
+        "Floral", "Fruity", "Spicy", "Woody", "Fresh", "Aqua", "Citrus", "Musky"
     };
 
     // Fragrance subcategory arrays - Home Fragrance
     private static final By[] FRAGRANCE_HOME_SUBCATEGORY_LOCATORS = {
-        Locators.HomePage.fragranceSubcategoryHomeFragrance,
         Locators.HomePage.fragranceSubcategoryCandle,
         Locators.HomePage.fragranceSubcategoryDiffuser
     };
     private static final String[] FRAGRANCE_HOME_SUBCATEGORY_NAMES = {
-        "Home Fragrance", "Candle", "Diffuser"
+        "Candle", "Diffuser"
+    };
+
+    // Fragrance subcategory arrays - Shop By
+    private static final By[] FRAGRANCE_SHOPBY_SUBCATEGORY_LOCATORS = {
+        Locators.HomePage.fragranceSubcategoryWhatsNew,
+        Locators.HomePage.fragranceSubcategoryBestsellers,
+        Locators.HomePage.fragranceSubcategoryGiftSets,
+        Locators.HomePage.fragranceSubcategorySetsBundles,
+        Locators.HomePage.fragranceSubcategoryTiraLoves
+    };
+    private static final String[] FRAGRANCE_SHOPBY_SUBCATEGORY_NAMES = {
+        "What's New", "Bestsellers", "Gift Sets", "Sets & Bundles", "Tira Loves"
+    };
+
+    // Fragrance subcategory arrays - Tira Red
+    private static final By[] FRAGRANCE_TIRARED_SUBCATEGORY_LOCATORS = {
+        Locators.HomePage.fragranceSubcategoryYvesSaintLaurent,
+        Locators.HomePage.fragranceSubcategoryBurberry,
+        Locators.HomePage.fragranceSubcategoryTomFord,
+        Locators.HomePage.fragranceSubcategoryPrada,
+        Locators.HomePage.fragranceSubcategoryVersace
+    };
+    private static final String[] FRAGRANCE_TIRARED_SUBCATEGORY_NAMES = {
+        "Yves Saint Laurent", "Burberry", "Tom Ford", "Prada", "Versace"
+    };
+
+    // Fragrance subcategory arrays - Brands To Know
+    private static final By[] FRAGRANCE_BRANDS_SUBCATEGORY_LOCATORS = {
+        Locators.HomePage.fragranceSubcategoryGucci,
+        Locators.HomePage.fragranceSubcategoryJoMaloneLondon,
+        Locators.HomePage.fragranceSubcategoryElizabethArden,
+        Locators.HomePage.fragranceSubcategoryJimmyChoo,
+        Locators.HomePage.fragranceSubcategoryGiorgioArmani,
+        Locators.HomePage.fragranceSubcategoryCalvinKlein,
+        Locators.HomePage.fragranceSubcategoryNarcisoRodriguez,
+        Locators.HomePage.fragranceSubcategoryDolceGabbana,
+        Locators.HomePage.fragranceSubcategorySalvatoreFerragamo
+    };
+    private static final String[] FRAGRANCE_BRANDS_SUBCATEGORY_NAMES = {
+        "Gucci", "Jo Malone London", "Elizabeth Arden", "Jimmy Choo", "Giorgio Armani", "Calvin Klein", "Narciso Rodriguez", "Dolce&Gabbana", "Salvatore Ferragamo"
     };
 
     // Men subcategory arrays - Beard Care
     private static final By[] MEN_BEARDCARE_SUBCATEGORY_LOCATORS = {
-        Locators.HomePage.menSubcategoryBeardCare,
         Locators.HomePage.menSubcategoryBeardMoustacheOil,
-        Locators.HomePage.menSubcategoryBeardWash,
-        Locators.HomePage.menSubcategoryBeardCream,
         Locators.HomePage.menSubcategoryBeardWax,
-        Locators.HomePage.menSubcategoryBeardComb
+        Locators.HomePage.menSubcategoryBeardComb,
+        Locators.HomePage.menSubcategoryBeardCream,
+        Locators.HomePage.menSubcategoryBeardWash
     };
     private static final String[] MEN_BEARDCARE_SUBCATEGORY_NAMES = {
-        "Beard Care", "Beard & Moustache Oil", "Beard Wash & Shampoos", "Beard Cream, Serum & Balm", "Beard Wax & Softeners", "Beard Comb"
+        "Beard & Moustache Oil", "Beard Wax & Softeners", "Beard Comb", "Beard Cream, Serum & Balm", "Beard Wash & Shampoos"
     };
 
     // Men subcategory arrays - Hair Care
     private static final By[] MEN_HAIRCARE_SUBCATEGORY_LOCATORS = {
-        Locators.HomePage.menSubcategoryHairCare,
         Locators.HomePage.menSubcategoryShampoo,
         Locators.HomePage.menSubcategoryConditioner,
         Locators.HomePage.menSubcategoryHairOil,
@@ -638,37 +764,35 @@ public class HomePage {
         Locators.HomePage.menSubcategoryHairColour
     };
     private static final String[] MEN_HAIRCARE_SUBCATEGORY_NAMES = {
-        "Hair Care", "Shampoo", "Conditioner", "Hair Oil", "Hair Styling", "Hair Colour"
+        "Shampoo", "Conditioner", "Hair Oil", "Hair Styling", "Hair Colour"
     };
 
     // Men subcategory arrays - Fragrance
     private static final By[] MEN_FRAGRANCE_SUBCATEGORY_LOCATORS = {
-        Locators.HomePage.menSubcategoryFragrance,
         Locators.HomePage.menSubcategoryPerfume,
         Locators.HomePage.menSubcategoryDeodorants,
         Locators.HomePage.menSubcategoryBodyMists,
         Locators.HomePage.menSubcategoryColognes
     };
     private static final String[] MEN_FRAGRANCE_SUBCATEGORY_NAMES = {
-        "Fragrance", "Perfume (EDT & EDP)", "Deodorants & Roll-Ons", "Body Mists & Sprays", "Colognes & Aftershaves"
+        "Perfume (EDT & EDP)", "Deodorants & Roll-Ons", "Body Mists & Sprays", "Colognes & Aftershaves"
     };
 
     // Men subcategory arrays - Shaving
     private static final By[] MEN_SHAVING_SUBCATEGORY_LOCATORS = {
-        Locators.HomePage.menSubcategoryShaving,
         Locators.HomePage.menSubcategoryRazors,
         Locators.HomePage.menSubcategoryShavers,
         Locators.HomePage.menSubcategoryShavingCream,
         Locators.HomePage.menSubcategoryPrePostShaves,
-        Locators.HomePage.menSubcategoryShavingBrush
+        Locators.HomePage.menSubcategoryShavingBrush,
+        Locators.HomePage.menSubcategoryGroomingKits
     };
     private static final String[] MEN_SHAVING_SUBCATEGORY_NAMES = {
-        "Shaving", "Razors & Cartridges", "Shavers & Trimmers", "Shaving Cream, Foam & Gel", "Pre & Post Shaves", "Shaving Brush"
+        "Razors & Cartridges", "Shavers & Trimmers", "Shaving Cream, Foam & Gel", "Pre & Post Shaves", "Shaving Brush", "Grooming Kits"
     };
 
     // Men subcategory arrays - Skincare
     private static final By[] MEN_SKINCARE_SUBCATEGORY_LOCATORS = {
-        Locators.HomePage.menSubcategorySkincare,
         Locators.HomePage.menSubcategoryFaceWash,
         Locators.HomePage.menSubcategoryScrubs,
         Locators.HomePage.menSubcategoryFaceMoisturizer,
@@ -676,12 +800,11 @@ public class HomePage {
         Locators.HomePage.menSubcategoryMasks
     };
     private static final String[] MEN_SKINCARE_SUBCATEGORY_NAMES = {
-        "Skincare", "Face Wash", "Scrubs & Exfoliators", "Face Moisturizer", "Sunscreen", "Masks & Peels"
+        "Face Wash", "Scrubs & Exfoliators", "Face Moisturizer", "Sunscreen", "Masks & Peels"
     };
 
     // Men subcategory arrays - Bath & Body
     private static final By[] MEN_BATHBODY_SUBCATEGORY_LOCATORS = {
-        Locators.HomePage.menSubcategoryBathBody,
         Locators.HomePage.menSubcategoryShowerGel,
         Locators.HomePage.menSubcategorySoap,
         Locators.HomePage.menSubcategoryBodyScrub,
@@ -691,25 +814,76 @@ public class HomePage {
         Locators.HomePage.menSubcategorySets
     };
     private static final String[] MEN_BATHBODY_SUBCATEGORY_NAMES = {
-        "Bath & Body", "Shower Gel", "Soap", "Body Scrub", "Body Lotion", "Intimate Care", "Talc", "Sets & Bundles"
+        "Shower Gel", "Soap", "Body Scrub", "Body Lotion", "Intimate Care", "Talc", "Sets & Bundles"
+    };
+
+    // Men subcategory arrays - Shop By
+    private static final By[] MEN_SHOPBY_SUBCATEGORY_LOCATORS = {
+        Locators.HomePage.menSubcategoryWhatsNew,
+        Locators.HomePage.menSubcategoryBestsellers,
+        Locators.HomePage.menSubcategoryMinis,
+        Locators.HomePage.menSubcategorySetsBundles,
+        Locators.HomePage.menSubcategoryBudgetBuys
+    };
+    private static final String[] MEN_SHOPBY_SUBCATEGORY_NAMES = {
+        "What's New", "Bestsellers", "Minis", "Sets & Bundles", "Budget Buys"
+    };
+
+    // Men subcategory arrays - Tira Red
+    private static final By[] MEN_TIRARED_SUBCATEGORY_LOCATORS = {
+        Locators.HomePage.menSubcategoryCaptainFawcett,
+        Locators.HomePage.menSubcategoryTruefittHill,
+        Locators.HomePage.menSubcategoryVersace,
+        Locators.HomePage.menSubcategoryBeardburys,
+        Locators.HomePage.menSubcategoryCalvinKlein
+    };
+    private static final String[] MEN_TIRARED_SUBCATEGORY_NAMES = {
+        "Captain Fawcett", "Truefitt & Hill", "Versace", "Beardburys", "Calvin Klein"
+    };
+
+    // Men subcategory arrays - Shop By Concern
+    private static final By[] MEN_CONCERN_SUBCATEGORY_LOCATORS = {
+        Locators.HomePage.menSubcategoryFineLinesWrinkles,
+        Locators.HomePage.menSubcategoryAcne,
+        Locators.HomePage.menSubcategoryDullness,
+        Locators.HomePage.menSubcategoryPigmentationDarkSpots,
+        Locators.HomePage.menSubcategoryPoresBlemishes,
+        Locators.HomePage.menSubcategoryDryness,
+        Locators.HomePage.menSubcategoryDarkCircles,
+        Locators.HomePage.menSubcategoryPuffiness,
+        Locators.HomePage.menSubcategoryHairThinningHairLoss
+    };
+    private static final String[] MEN_CONCERN_SUBCATEGORY_NAMES = {
+        "Fine Lines & Wrinkles", "Acne", "Dullness", "Pigmentation & Dark Spots", "Pores & Blemishes", "Dryness", "Dark Circles", "Puffiness", "Hair Thinning & Hair Loss"
+    };
+
+    // Men subcategory arrays - Brands To Know
+    private static final By[] MEN_BRANDS_SUBCATEGORY_LOCATORS = {
+        Locators.HomePage.menSubcategoryUrbanGabru,
+        Locators.HomePage.menSubcategoryBombayShavingCompany,
+        Locators.HomePage.menSubcategoryTheManCompany,
+        Locators.HomePage.menSubcategoryBeardo,
+        Locators.HomePage.menSubcategoryBigen,
+        Locators.HomePage.menSubcategoryLetsShave
+    };
+    private static final String[] MEN_BRANDS_SUBCATEGORY_NAMES = {
+        "Urban Gabru", "Bombay Shaving Company", "The Man Company", "Beardo", "Bigen", "LetsShave"
     };
 
     // Bath & Body subcategory arrays - Bath & Shower
     private static final By[] BATHBODY_BATHSHOWER_SUBCATEGORY_LOCATORS = {
-        Locators.HomePage.bathBodySubcategoryBathShower,
-        Locators.HomePage.bathBodySubcategoryBodyWashesShowerGels,
-        Locators.HomePage.bathBodySubcategoryBodyScrubsExfoliants,
         Locators.HomePage.bathBodySubcategoryBathSalts,
+        Locators.HomePage.bathBodySubcategoryBodyScrubsExfoliants,
+        Locators.HomePage.bathBodySubcategoryBodyWashesShowerGels,
         Locators.HomePage.bathBodySubcategorySoap,
         Locators.HomePage.bathBodySubcategoryBathKitsSets
     };
     private static final String[] BATHBODY_BATHSHOWER_SUBCATEGORY_NAMES = {
-        "Bath & Shower", "Body Washes & Shower Gels", "Body Scrubs & Exfoliants", "Bath Salts", "Soap", "Bath Kits & Sets"
+        "Bath Salts", "Body Scrubs & Exfoliants", "Body Washes & Shower Gels", "Soap", "Bath Kits & Sets"
     };
 
     // Bath & Body subcategory arrays - Body Care
     private static final By[] BATHBODY_BODYCARE_SUBCATEGORY_LOCATORS = {
-        Locators.HomePage.bathBodySubcategoryBodyCare,
         Locators.HomePage.bathBodySubcategoryBodyButter,
         Locators.HomePage.bathBodySubcategoryBodyLotionsMoisturizers,
         Locators.HomePage.bathBodySubcategoryMassageOil,
@@ -717,34 +891,31 @@ public class HomePage {
         Locators.HomePage.bathBodySubcategoryEssentialOil
     };
     private static final String[] BATHBODY_BODYCARE_SUBCATEGORY_NAMES = {
-        "Body Care", "Body Butter", "Body Lotions & Moisturizers", "Massage Oil", "Talc", "Essential Oil"
+        "Body Butter", "Body Lotions & Moisturizers", "Massage Oil", "Talc", "Essential Oil"
     };
 
     // Bath & Body subcategory arrays - Hands & Feet
     private static final By[] BATHBODY_HANDSFEET_SUBCATEGORY_LOCATORS = {
-        Locators.HomePage.bathBodySubcategoryHandsFeet,
         Locators.HomePage.bathBodySubcategoryHandWash,
         Locators.HomePage.bathBodySubcategoryHandCreamsMasks,
         Locators.HomePage.bathBodySubcategoryFootCare,
         Locators.HomePage.bathBodySubcategoryManiPediTools
     };
     private static final String[] BATHBODY_HANDSFEET_SUBCATEGORY_NAMES = {
-        "Hands & Feet", "Hand Wash", "Hand Creams & Masks", "Foot Care", "Mani-Pedi Tools & Kits"
+        "Hand Wash", "Hand Creams & Masks", "Foot Care", "Mani-Pedi Tools & Kits"
     };
 
     // Bath & Body subcategory arrays - Hygiene Essentials
     private static final By[] BATHBODY_HYGIENE_SUBCATEGORY_LOCATORS = {
-        Locators.HomePage.bathBodySubcategoryHygieneEssentials,
         Locators.HomePage.bathBodySubcategoryHandSanitizer,
         Locators.HomePage.bathBodySubcategoryIntimateCare
     };
     private static final String[] BATHBODY_HYGIENE_SUBCATEGORY_NAMES = {
-        "Hygiene Essentials", "Hand Sanitizer", "Intimate Care"
+        "Hand Sanitizer", "Intimate Care"
     };
 
     // Bath & Body subcategory arrays - Shaving & Hair Removal
     private static final By[] BATHBODY_SHAVING_SUBCATEGORY_LOCATORS = {
-        Locators.HomePage.bathBodySubcategoryShavingHairRemoval,
         Locators.HomePage.bathBodySubcategoryBodyRazorsCartridges,
         Locators.HomePage.bathBodySubcategoryFaceEyebrowRazors,
         Locators.HomePage.bathBodySubcategoryEpilatorsTrimmers,
@@ -752,12 +923,11 @@ public class HomePage {
         Locators.HomePage.bathBodySubcategoryHairRemovalCreams
     };
     private static final String[] BATHBODY_SHAVING_SUBCATEGORY_NAMES = {
-        "Shaving & Hair Removal", "Body Razors & Cartridges", "Face & Eyebrow Razors", "Epilators & Trimmers", "Wax Essentials", "Hair Removal Creams"
+        "Body Razors & Cartridges", "Face & Eyebrow Razors", "Epilators & Trimmers", "Wax Essentials", "Hair Removal Creams"
     };
 
     // Bath & Body subcategory arrays - Brands To Know
     private static final By[] BATHBODY_BRANDS_SUBCATEGORY_LOCATORS = {
-        Locators.HomePage.bathBodySubcategoryBrandsToKnow,
         Locators.HomePage.bathBodySubcategoryTheBodyShop,
         Locators.HomePage.bathBodySubcategoryMcaffeine,
         Locators.HomePage.bathBodySubcategoryLoccitane,
@@ -773,7 +943,26 @@ public class HomePage {
         Locators.HomePage.bathBodySubcategoryVaseline
     };
     private static final String[] BATHBODY_BRANDS_SUBCATEGORY_NAMES = {
-        "Brands To Know", "The Body Shop", "Mcaffeine", "L'occitane", "Kimirica", "Yves Rocher", "Marks & Spencers", "Mamaearth", "Soulflower", "Find Your Happy Place", "Plum", "Dove", "Nivea", "Vaseline"
+        "The Body Shop", "Mcaffeine", "L'occitane", "Kimirica", "Yves Rocher", "Marks & Spencers", "Mamaearth", "Soulflower", "Find Your Happy Place", "Plum", "Dove", "Nivea", "Vaseline"
+    };
+
+    // Bath & Body subcategory arrays - Derm Approved
+    private static final By[] BATHBODY_DERMAPPROVED_SUBCATEGORY_LOCATORS = {
+        Locators.HomePage.bathBodySubcategoryDermApproved
+    };
+    private static final String[] BATHBODY_DERMAPPROVED_SUBCATEGORY_NAMES = {
+        "Derm Approved"
+    };
+
+    // Bath & Body subcategory arrays - Shop By
+    private static final By[] BATHBODY_SHOPBY_SUBCATEGORY_LOCATORS = {
+        Locators.HomePage.bathBodySubcategoryWhatsNew,
+        Locators.HomePage.bathBodySubcategoryBestsellers,
+        Locators.HomePage.bathBodySubcategoryMinis,
+        Locators.HomePage.bathBodySubcategorySetsAndBundles
+    };
+    private static final String[] BATHBODY_SHOPBY_SUBCATEGORY_NAMES = {
+        "What's New", "Bestsellers", "Minis", "Sets & Bundles"
     };
 
     public void testAllMakeupSubcategories() {
@@ -1264,7 +1453,7 @@ public class HomePage {
                         System.out.println(ERROR_PREFIX + "Element " + subcategoryName + " not found after " + (retry + 1) + " attempts");
                         return;
                     }
-                    Thread.sleep(1000);
+                    waitForPageStabilization();
                     hoverOverSkin(); // Re-hover
                 }
             }
@@ -1282,7 +1471,7 @@ public class HomePage {
                         subcategoryElement = driver.findElement(subcategoryLocator);
                         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", subcategoryElement);
                     } else {
-                        Thread.sleep(500);
+                        waitForPageStabilization();
                     }
                 }
             }
@@ -1461,7 +1650,7 @@ public class HomePage {
                         System.out.println(ERROR_PREFIX + "Element " + subcategoryName + " not found after " + (retry + 1) + " attempts");
                         return;
                     }
-                    Thread.sleep(1000);
+                    waitForPageStabilization();
                     hoverOverHair(); // Re-hover
                 }
             }
@@ -1479,7 +1668,7 @@ public class HomePage {
                         subcategoryElement = driver.findElement(subcategoryLocator);
                         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", subcategoryElement);
                     } else {
-                        Thread.sleep(500);
+                        waitForPageStabilization();
                     }
                 }
             }
@@ -1560,6 +1749,36 @@ public class HomePage {
         System.out.println(SUCCESS_PREFIX + "All fragrance home subcategories tested successfully");
     }
 
+    public void testAllFragranceShopBySubcategories() {
+        System.out.println(INFO_PREFIX + "Starting to test all fragrance shop by subcategories...");
+
+        for (int i = 0; i < FRAGRANCE_SHOPBY_SUBCATEGORY_LOCATORS.length; i++) {
+            testSingleFragranceSubcategory(FRAGRANCE_SHOPBY_SUBCATEGORY_LOCATORS[i], FRAGRANCE_SHOPBY_SUBCATEGORY_NAMES[i]);
+        }
+
+        System.out.println(SUCCESS_PREFIX + "All fragrance shop by subcategories tested successfully");
+    }
+
+    public void testAllFragranceTiraRedSubcategories() {
+        System.out.println(INFO_PREFIX + "Starting to test all fragrance tira red subcategories...");
+
+        for (int i = 0; i < FRAGRANCE_TIRARED_SUBCATEGORY_LOCATORS.length; i++) {
+            testSingleFragranceSubcategory(FRAGRANCE_TIRARED_SUBCATEGORY_LOCATORS[i], FRAGRANCE_TIRARED_SUBCATEGORY_NAMES[i]);
+        }
+
+        System.out.println(SUCCESS_PREFIX + "All fragrance tira red subcategories tested successfully");
+    }
+
+    public void testAllFragranceBrandsSubcategories() {
+        System.out.println(INFO_PREFIX + "Starting to test all fragrance brands to know subcategories...");
+
+        for (int i = 0; i < FRAGRANCE_BRANDS_SUBCATEGORY_LOCATORS.length; i++) {
+            testSingleFragranceSubcategory(FRAGRANCE_BRANDS_SUBCATEGORY_LOCATORS[i], FRAGRANCE_BRANDS_SUBCATEGORY_NAMES[i]);
+        }
+
+        System.out.println(SUCCESS_PREFIX + "All fragrance brands to know subcategories tested successfully");
+    }
+
     public void testAllFragranceCategories() {
         System.out.println(INFO_PREFIX + "Starting comprehensive fragrance hover testing for all categories...");
 
@@ -1578,9 +1797,18 @@ public class HomePage {
         System.out.println(INFO_PREFIX + "Testing Home Fragrance subcategories...");
         testAllFragranceHomeSubcategories();
 
+        System.out.println(INFO_PREFIX + "Testing Fragrance Shop By subcategories...");
+        testAllFragranceShopBySubcategories();
+
+        System.out.println(INFO_PREFIX + "Testing Fragrance Tira Red subcategories...");
+        testAllFragranceTiraRedSubcategories();
+
+        System.out.println(INFO_PREFIX + "Testing Fragrance Brands To Know subcategories...");
+        testAllFragranceBrandsSubcategories();
+
         System.out.println(SUCCESS_PREFIX + "Complete fragrance hover testing finished successfully!");
-        System.out.println(SUCCESS_PREFIX + "Total categories tested: Women's (4), Men's (5), Unisex (4), Family (9), Home (3)");
-        System.out.println(SUCCESS_PREFIX + "Total subcategories tested: 25");
+        System.out.println(SUCCESS_PREFIX + "Total categories tested: Women's (3), Men's (4), Unisex (3), Family (8), Home (2), Shop By (5), Tira Red (5), Brands To Know (9)");
+        System.out.println(SUCCESS_PREFIX + "Total subcategories tested: 39");
     }
 
     private void testSingleFragranceSubcategory(By subcategoryLocator, String subcategoryName) {
@@ -1606,7 +1834,7 @@ public class HomePage {
                         System.out.println(ERROR_PREFIX + "Element " + subcategoryName + " not found after " + (retry + 1) + " attempts");
                         return;
                     }
-                    Thread.sleep(1000);
+                    waitForPageStabilization();
                     hoverOverFragrance(); // Re-hover
                 }
             }
@@ -1624,7 +1852,7 @@ public class HomePage {
                         subcategoryElement = driver.findElement(subcategoryLocator);
                         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", subcategoryElement);
                     } else {
-                        Thread.sleep(500);
+                        waitForPageStabilization();
                     }
                 }
             }
@@ -1715,6 +1943,46 @@ public class HomePage {
         System.out.println(SUCCESS_PREFIX + "All men bath & body subcategories tested successfully");
     }
 
+    public void testAllMenShopBySubcategories() {
+        System.out.println(INFO_PREFIX + "Starting to test all men shop by subcategories...");
+
+        for (int i = 0; i < MEN_SHOPBY_SUBCATEGORY_LOCATORS.length; i++) {
+            testSingleMenSubcategory(MEN_SHOPBY_SUBCATEGORY_LOCATORS[i], MEN_SHOPBY_SUBCATEGORY_NAMES[i]);
+        }
+
+        System.out.println(SUCCESS_PREFIX + "All men shop by subcategories tested successfully");
+    }
+
+    public void testAllMenTiraRedSubcategories() {
+        System.out.println(INFO_PREFIX + "Starting to test all men tira red subcategories...");
+
+        for (int i = 0; i < MEN_TIRARED_SUBCATEGORY_LOCATORS.length; i++) {
+            testSingleMenSubcategory(MEN_TIRARED_SUBCATEGORY_LOCATORS[i], MEN_TIRARED_SUBCATEGORY_NAMES[i]);
+        }
+
+        System.out.println(SUCCESS_PREFIX + "All men tira red subcategories tested successfully");
+    }
+
+    public void testAllMenConcernSubcategories() {
+        System.out.println(INFO_PREFIX + "Starting to test all men shop by concern subcategories...");
+
+        for (int i = 0; i < MEN_CONCERN_SUBCATEGORY_LOCATORS.length; i++) {
+            testSingleMenSubcategory(MEN_CONCERN_SUBCATEGORY_LOCATORS[i], MEN_CONCERN_SUBCATEGORY_NAMES[i]);
+        }
+
+        System.out.println(SUCCESS_PREFIX + "All men shop by concern subcategories tested successfully");
+    }
+
+    public void testAllMenBrandsSubcategories() {
+        System.out.println(INFO_PREFIX + "Starting to test all men brands to know subcategories...");
+
+        for (int i = 0; i < MEN_BRANDS_SUBCATEGORY_LOCATORS.length; i++) {
+            testSingleMenSubcategory(MEN_BRANDS_SUBCATEGORY_LOCATORS[i], MEN_BRANDS_SUBCATEGORY_NAMES[i]);
+        }
+
+        System.out.println(SUCCESS_PREFIX + "All men brands to know subcategories tested successfully");
+    }
+
     public void testAllMenCategories() {
         System.out.println(INFO_PREFIX + "Starting comprehensive men hover testing for all categories...");
 
@@ -1736,9 +2004,21 @@ public class HomePage {
         System.out.println(INFO_PREFIX + "Testing Men Bath & Body subcategories...");
         testAllMenBathBodySubcategories();
 
+        System.out.println(INFO_PREFIX + "Testing Men Shop By subcategories...");
+        testAllMenShopBySubcategories();
+
+        System.out.println(INFO_PREFIX + "Testing Men Tira Red subcategories...");
+        testAllMenTiraRedSubcategories();
+
+        System.out.println(INFO_PREFIX + "Testing Men Shop By Concern subcategories...");
+        testAllMenConcernSubcategories();
+
+        System.out.println(INFO_PREFIX + "Testing Men Brands To Know subcategories...");
+        testAllMenBrandsSubcategories();
+
         System.out.println(SUCCESS_PREFIX + "Complete men hover testing finished successfully!");
-        System.out.println(SUCCESS_PREFIX + "Total categories tested: Beard Care (6), Hair Care (6), Fragrance (5), Shaving (6), Skincare (6), Bath & Body (6)");
-        System.out.println(SUCCESS_PREFIX + "Total subcategories tested: 35");
+        System.out.println(SUCCESS_PREFIX + "Total categories tested: Beard Care (5), Hair Care (5), Fragrance (4), Shaving (6), Skincare (5), Bath & Body (7), Shop By (5), Tira Red (5), Shop By Concern (9), Brands To Know (6)");
+        System.out.println(SUCCESS_PREFIX + "Total subcategories tested: 57");
     }
 
     private void testSingleMenSubcategory(By subcategoryLocator, String subcategoryName) {
@@ -1764,7 +2044,7 @@ public class HomePage {
                         System.out.println(ERROR_PREFIX + "Element " + subcategoryName + " not found after " + (retry + 1) + " attempts");
                         return;
                     }
-                    Thread.sleep(1000);
+                    waitForPageStabilization();
                     hoverOverMen(); // Re-hover
                 }
             }
@@ -1782,7 +2062,7 @@ public class HomePage {
                         subcategoryElement = driver.findElement(subcategoryLocator);
                         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", subcategoryElement);
                     } else {
-                        Thread.sleep(500);
+                        waitForPageStabilization();
                     }
                 }
             }
@@ -1873,6 +2153,26 @@ public class HomePage {
         System.out.println(SUCCESS_PREFIX + "All bath & body featured brands subcategories tested successfully");
     }
 
+    public void testAllBathBodyDermApprovedSubcategories() {
+        System.out.println(INFO_PREFIX + "Starting to test all bath & body derm approved subcategories...");
+
+        for (int i = 0; i < BATHBODY_DERMAPPROVED_SUBCATEGORY_LOCATORS.length; i++) {
+            testSingleBathBodySubcategory(BATHBODY_DERMAPPROVED_SUBCATEGORY_LOCATORS[i], BATHBODY_DERMAPPROVED_SUBCATEGORY_NAMES[i]);
+        }
+
+        System.out.println(SUCCESS_PREFIX + "All bath & body derm approved subcategories tested successfully");
+    }
+
+    public void testAllBathBodyShopBySubcategories() {
+        System.out.println(INFO_PREFIX + "Starting to test all bath & body shop by subcategories...");
+
+        for (int i = 0; i < BATHBODY_SHOPBY_SUBCATEGORY_LOCATORS.length; i++) {
+            testSingleBathBodySubcategory(BATHBODY_SHOPBY_SUBCATEGORY_LOCATORS[i], BATHBODY_SHOPBY_SUBCATEGORY_NAMES[i]);
+        }
+
+        System.out.println(SUCCESS_PREFIX + "All bath & body shop by subcategories tested successfully");
+    }
+
     public void testAllBathBodyCategories() {
         System.out.println(INFO_PREFIX + "Starting comprehensive bath & body hover testing for all categories...");
 
@@ -1894,9 +2194,15 @@ public class HomePage {
         System.out.println(INFO_PREFIX + "Testing Bath & Body Brands To Know subcategories...");
         testAllBathBodyBrandsSubcategories();
 
+        System.out.println(INFO_PREFIX + "Testing Bath & Body Derm Approved subcategories...");
+        testAllBathBodyDermApprovedSubcategories();
+
+        System.out.println(INFO_PREFIX + "Testing Bath & Body Shop By subcategories...");
+        testAllBathBodyShopBySubcategories();
+
         System.out.println(SUCCESS_PREFIX + "Complete bath & body hover testing finished successfully!");
-        System.out.println(SUCCESS_PREFIX + "Total categories tested: Bath & Shower (7), Body Care (7), Hands & Feet (7), Hygiene Essentials (6), Shaving & Hair Removal (6), Brands To Know (9)");
-        System.out.println(SUCCESS_PREFIX + "Total subcategories tested: 42");
+        System.out.println(SUCCESS_PREFIX + "Total categories tested: Bath & Shower (5), Body Care (5), Hands & Feet (4), Hygiene Essentials (2), Shaving & Hair Removal (5), Brands To Know (13), Derm Approved (1), Shop By (4)");
+        System.out.println(SUCCESS_PREFIX + "Total subcategories tested: 39");
     }
 
     private void testSingleBathBodySubcategory(By subcategoryLocator, String subcategoryName) {
@@ -1922,7 +2228,7 @@ public class HomePage {
                         System.out.println(ERROR_PREFIX + "Element " + subcategoryName + " not found after " + (retry + 1) + " attempts");
                         return;
                     }
-                    Thread.sleep(1000);
+                    waitForPageStabilization();
                     hoverOverBathBody(); // Re-hover
                 }
             }
@@ -1940,7 +2246,7 @@ public class HomePage {
                         subcategoryElement = driver.findElement(subcategoryLocator);
                         ((JavascriptExecutor) driver).executeScript("arguments[0].click();", subcategoryElement);
                     } else {
-                        Thread.sleep(500);
+                        waitForPageStabilization();
                     }
                 }
             }
