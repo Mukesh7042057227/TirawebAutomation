@@ -1,6 +1,5 @@
 package pages;
 
-import locators.Locators;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,8 +11,15 @@ import java.time.Duration;
 
 import static locators.Locators.CategoryPage.menuMakeup;
 import static locators.Locators.CategoryPage.subCategoryNail;
+import static locators.Locators.HomePage.makeupNavLink;
 
 public class CategoryPage {
+    // Constants like HomePage
+    private static final String SUCCESS_PREFIX = "✅ ";
+    private static final String ERROR_PREFIX = "❌ ";
+    private static final String INFO_PREFIX = "🔍 ";
+    private static final String WARNING_PREFIX = "⚠️ ";
+
     WebDriver driver;
     WebDriverWait wait;
 
@@ -23,53 +29,52 @@ public class CategoryPage {
     }
 
     public void navigateToLipstickCategory() {
-        System.out.println("🧭 Trying to navigate to makeup category...");
-
+        System.out.println(INFO_PREFIX + "Starting navigation to makeup -> nail category...");
         try {
-            // Wait and find makeup menu
-            WebElement makeupMenu = wait.until(ExpectedConditions.visibilityOfElementLocated(menuMakeup));
-            
-            // Scroll element into view if needed
-            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", makeupMenu);
-            
-            Actions actions = new Actions(driver);
-            
-            // Retry hover mechanism
-            for (int attempt = 0; attempt < 3; attempt++) {
-                try {
-                    // Fresh element reference each time
-                    makeupMenu = wait.until(ExpectedConditions.elementToBeClickable(menuMakeup));
-                    
-                    // Hover to reveal subcategories
-                    actions.moveToElement(makeupMenu).perform();
-                    System.out.println("🖱️ Hovered on makeup menu (attempt " + (attempt + 1) + ")");
-                    
-                    // Wait for subcategory to become visible after hover
-                    WebElement subCategory = wait.until(ExpectedConditions.elementToBeClickable(subCategoryNail));
-                    subCategory.click();
-                    System.out.println("✅ Successfully clicked on subcategory under makeup");
-                    return;
-                    
-                } catch (Exception e) {
-                    System.out.println("⚠️ Hover attempt " + (attempt + 1) + " failed: " + e.getMessage());
-                    if (attempt == 2) {
-                        // Final attempt - try direct click on main menu
-                        System.out.println("🔄 Trying direct click on makeup menu...");
-                        makeupMenu = wait.until(ExpectedConditions.elementToBeClickable(menuMakeup));
-                        makeupMenu.click();
-                        
-                        WebElement subCategory = wait.until(ExpectedConditions.elementToBeClickable(subCategoryNail));
-                        subCategory.click();
-                        System.out.println("✅ Clicked on subcategory via direct menu click");
-                    } else {
-                        wait.until(ExpectedConditions.elementToBeClickable(menuMakeup));
-                    }
-                }
-            }
-            
+            // Wait for login to complete and page to be ready for navigation
+            System.out.println(INFO_PREFIX + "Waiting for page to be ready after login...");
+            Thread.sleep(2000);
+            System.out.println(SUCCESS_PREFIX + "Page is ready for navigation");
+
+            hoverOverMakeup();
+            System.out.println(SUCCESS_PREFIX + "Makeup hover completed successfully");
+
+            // Wait for nail subcategory to appear and become clickable
+            WebElement nailCategory = wait.until(ExpectedConditions.elementToBeClickable(subCategoryNail));
+            System.out.println(SUCCESS_PREFIX + "Nail subcategory is now clickable");
+
+            // Click on nail subcategory
+            nailCategory.click();
+            System.out.println(SUCCESS_PREFIX + "Successfully clicked on nail subcategory");
+            System.out.println(SUCCESS_PREFIX + "Navigation completed successfully: makeup -> nail");
+
         } catch (Exception e) {
-            System.out.println("❌ Failed to navigate to makeup category: " + e.getMessage());
-            throw e;
+            System.out.println(ERROR_PREFIX + "Failed to navigate to nail category: " + e.getMessage());
+            throw new RuntimeException("Failed to navigate to nail category: " + e.getMessage());
         }
+    }
+
+    // Wait for page to be ready after login without using Thread.sleep
+    private void waitForPageToBeReady() {
+        // Wait for URL to contain tirabeauty (indicating we're on homepage after login)
+        wait.until(ExpectedConditions.urlContains("tirabeauty"));
+
+        // Wait for makeup navigation to be visible and clickable
+        wait.until(ExpectedConditions.elementToBeClickable(makeupNavLink));
+
+        // Wait for page to be stable by checking if makeup element is interactable
+        wait.until(ExpectedConditions.visibilityOfElementLocated(makeupNavLink));
+    }
+
+    // Same hover method as HomePage
+    public void hoverOverMakeup() {
+        Actions actions = new Actions(driver);
+        WebElement makeupNav = wait.until(ExpectedConditions.elementToBeClickable(makeupNavLink));
+        // Scroll element into view first
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center', inline: 'center'});", makeupNav);
+        // Move to makeup element and hold
+        actions.moveToElement(makeupNav).perform();
+        // Also trigger hover using JavaScript as backup
+        ((JavascriptExecutor) driver).executeScript("arguments[0].dispatchEvent(new MouseEvent('mouseover', {bubbles: true}));", makeupNav);
     }
 }

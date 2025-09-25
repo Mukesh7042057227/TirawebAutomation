@@ -12,23 +12,23 @@ public class Locators {
         public static final By cartIcon = By.xpath("//img[@title='Cart' or @alt='Cart'] | //a[contains(@href, 'cart')]");
 
         // Navigation Menu Links - Updated to be more flexible and reliable
-        public static final By tiraRedNavLink = By.xpath("//nav//a[normalize-space(text())='Tira Red' or contains(@href, 'tira-red')]");
-        public static final By offersNavLink = By.xpath("//nav//a[normalize-space(text())='Offers' or contains(@href, 'offers')]");
-        public static final By topShelfNavLink = By.xpath("//nav//a[normalize-space(text())='Top Shelf' or contains(@href, 'top-shelf')]");
-        public static final By forYouNavLink = By.xpath("//nav//a[normalize-space(text())='For You' or contains(@href, 'for-you')]");
-        public static final By whatsNewNavLink = By.xpath("//nav//a[normalize-space(text())=\"What's New\" or contains(@href, 'whats-new')]");
+        public static final By tiraRedNavLink = By.xpath("//div[1]/a[text()=\" Tira Red \"]");
+        public static final By offersNavLink = By.xpath("//div[1]/a[text()=\" Offers \"]");
+        public static final By topShelfNavLink = By.xpath("//div[1]/div/div[1]/div[4]/div/a[text()=\" Top Shelf \"]");
+        public static final By forYouNavLink = By.xpath("//div[1]/div/div[1]/div[5]/div/a[text()=\" For You \"]");
+        public static final By whatsNewNavLink = By.xpath("//div/a[text()=\"What's New\"]");
         public static final By makeupNavLink = By.xpath("//div/a[text()='Makeup']");
         public static final By skinNavLink = By.xpath("//div/a[text()='Skin']");
         public static final By hairNavLink = By.xpath("//div/a[text()='Hair']");
         public static final By fragranceNavLink = By.xpath("//div/a[text()='Fragrance']");
         public static final By menNavLink = By.xpath("//div/a[text()='Men']");
         public static final By bathBodyNavLink = By.xpath("//div/a[text()='Bath & Body']");
-        public static final By toolsAppliancesNavLink = By.xpath("//nav//a[normalize-space(text())='Tools & Appliances' or contains(@href, 'tools')]");
-        public static final By momBabyNavLink = By.xpath("//nav//a[normalize-space(text())='Mom & Baby' or contains(@href, 'mom')]");
-        public static final By wellnessNavLink = By.xpath("//nav//a[normalize-space(text())='Wellness' or contains(@href, 'wellness')]");
-        public static final By minisNavLink = By.xpath("//nav//a[normalize-space(text())='Minis' or contains(@href, 'minis')]");
-        public static final By homegrownNavLink = By.xpath("//nav//a[normalize-space(text())='Homegrown' or contains(@href, 'homegrown')]");
-        public static final By giftsNavLink = By.xpath("//nav//a[normalize-space(text())='Gifts' or normalize-space(text())='Gifting' or contains(@href, 'gift')]");
+        public static final By toolsAppliancesNavLink = By.xpath("//div/a[text()=\"Tools & Appliances\"]");
+        public static final By momBabyNavLink = By.xpath("//div/a[text()=\"Mom & Baby\"]");
+        public static final By wellnessNavLink = By.xpath("//div/a[text()=\"Wellness\"]");
+        public static final By minisNavLink = By.xpath("//div/a[text()=\"Minis\"]");
+        public static final By homegrownNavLink = By.xpath("//div/a[text()=\"Homegrown\"]");
+        public static final By giftsNavLink = By.xpath("//div/a[text()=\"Gifts\"]");
 
         // Makeup hover Subcategories face
         public static final By makeupSubcategoryface = By.xpath("//div/a[text()='Face']");
@@ -407,6 +407,12 @@ public class Locators {
         public static final By pageLoadingIndicator = By.xpath("//*[contains(@class, 'loading') or contains(@class, 'spinner') or contains(@class, 'loader')]");
         public static final By bodyElement = By.tagName("body");
         public static final By anyVisibleElement = By.xpath("//*[normalize-space(text())!='' and not(contains(@style,'display:none')) and not(contains(@style,'visibility:hidden'))]");
+
+        // Empty category page detection locators
+        public static final By nothingToFindHereText = By.xpath("//*[contains(text(), 'Nothing to find here')]");
+        public static final By noResultsFoundText = By.xpath("//*[contains(text(), 'No results found for your search')]");
+        public static final By shopNowButton = By.xpath("//button[text()='Shop Now' or contains(@class, 'shop-now') or contains(text(), 'Shop Now')]");
+        public static final By emptySearchResultsContainer = By.xpath("//*[contains(@class, 'empty-results') or contains(@class, 'no-results') or contains(@class, 'empty-category')]");
     }
     public static class LoginPage {
         public static final By loginIcon = By.xpath("//a/div[@class='profile-icons profile-logout']");
@@ -421,6 +427,7 @@ public class Locators {
         public static final By outSideClickOnLoginPage=By.xpath("//input[contains(@class, 'common-x-input') and contains(@class, 'country-code')]");
         public static final By clickOnEditMobile=By.xpath("//button[contains(text(),'Edit Number')]");
         public static final By wishlistIcon=By.xpath("//div[@class=\"profile-icons hover-profile\"]");
+        public static final By toastNotification=By.cssSelector(".toasted.toasted-primary.success");
 
     }
     public static class WishlistPage
@@ -439,8 +446,8 @@ public class Locators {
         // May need better locator
     }
     public static class CategoryPage {
-        public static final By menuMakeup = By.xpath("//div[2]/div[2]/div/div/div[2]/div/div/a"); // May need better locator
-        public static final By subCategoryNail = By.partialLinkText("Nail");
+        public static final By menuMakeup = By.xpath("//div/a[text()=\"Makeup\"]"); // May need better locator
+        public static final By subCategoryNail = By.xpath("//div/a[text()=\"Nail\"]");
     }
     public static class CheckoutPage {
         // Locator for review order / payment button

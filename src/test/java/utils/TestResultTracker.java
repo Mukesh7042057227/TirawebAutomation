@@ -179,4 +179,9 @@ public class TestResultTracker {
     public static TestMethodResult getMethodResult(String className, String methodName) {
         return allTestResults.get(className + "." + methodName);
     }
+
+    // Get all class results (for email reporting)
+    public static Map<String, TestClassResult> getAllClassResults() {
+        return testClassResults;
+    }
 }

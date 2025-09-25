@@ -51,13 +51,21 @@ public class TestListener implements ITestListener {
 
         TestResultTracker.recordTestResult(className, methodName, false, failureReason, executionTime);
 
-        // Send email notification for failed test
-        EmailUtility.sendTestNotification(className, methodName, "FAILED", failureReason, executionTime);
-
-        testStartTimes.remove(testKey);
-
         Object currentClass = result.getInstance();
         WebDriver driver = ((BaseTest) currentClass).getDriver();
+
+        // Capture current URL for detailed email reporting
+        String currentUrl = null;
+        try {
+            currentUrl = driver != null ? driver.getCurrentUrl() : null;
+        } catch (Exception e) {
+            System.out.println("⚠️ Could not capture current URL: " + e.getMessage());
+        }
+
+        // Send email notification for failed test with current URL
+        EmailUtility.sendTestNotification(className, methodName, "FAILED", failureReason, executionTime, result.getThrowable(), currentUrl);
+
+        testStartTimes.remove(testKey);
 
         if (driver != null) {
             ScreenshotUtil.takeScreenshot(result.getName());
@@ -78,7 +86,7 @@ public class TestListener implements ITestListener {
         TestResultTracker.recordTestResult(className, methodName, false, "SKIPPED: " + skipReason, executionTime);
 
         // Send email notification for skipped test
-        EmailUtility.sendTestNotification(className, methodName, "SKIPPED", skipReason, executionTime);
+        EmailUtility.sendTestNotification(className, methodName, "SKIPPED", skipReason, executionTime, result.getThrowable());
 
         testStartTimes.remove(testKey);
     }

@@ -6,6 +6,7 @@ import org.testng.ITestContext;
 import org.testng.ISuite;
 import utils.TestResultTracker;
 import utils.EmailUtility;
+import utils.ConfigReader;
 
 public class TestSummaryListener implements ITestListener, ISuiteListener {
 
@@ -27,6 +28,14 @@ public class TestSummaryListener implements ITestListener, ISuiteListener {
 
         // Send suite-level email notification
         try {
+            // Check if suite summary emails are enabled
+            ConfigReader.loadConfig();
+            if (!Boolean.parseBoolean(ConfigReader.get("email.enabled")) ||
+                !Boolean.parseBoolean(ConfigReader.get("email.send.suite.summary"))) {
+                System.out.println("🔍 Suite summary email notifications are disabled");
+                return;
+            }
+
             int totalTests = suite.getResults().values().stream()
                 .mapToInt(result -> result.getTestContext().getAllTestMethods().length)
                 .sum();

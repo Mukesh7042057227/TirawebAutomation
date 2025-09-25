@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.openqa.selenium.TimeoutException;
 import org.testng.Assert;
 
 import java.time.Duration;
@@ -17,6 +18,7 @@ public class HomePage {
     private static final String SUCCESS_PREFIX = "✅ ";
     private static final String ERROR_PREFIX = "❌ ";
     private static final String INFO_PREFIX = "🔍 ";
+    private static final String WARNING_PREFIX = "⚠️ ";
 
     private final WebDriver driver;
     private final WebDriverWait wait;
@@ -2273,6 +2275,126 @@ public class HomePage {
         } catch (Exception e) {
             System.out.println(ERROR_PREFIX + "Failed to test " + subcategoryName + ": " + e.getMessage());
             navigateToHomePage();
+        }
+    }
+
+    /**
+     * Global utility method to check if current page shows "Nothing to find here" scenario
+     * This will be called after every subcategory click to detect empty categories
+     */
+    public EmptyCategoryResult checkForEmptyCategory(String subcategoryName, String categoryType) {
+        try {
+            waitForPageToLoad();
+
+            String currentUrl = driver.getCurrentUrl();
+            boolean hasNothingToFindText = false;
+            boolean hasNoResultsText = false;
+            boolean hasShopNowButton = false;
+            boolean hasEmptyResultsContainer = false;
+
+            // Check for "Nothing to find here" text
+            try {
+                WebElement nothingToFindElement = wait.until(ExpectedConditions.presenceOfElementLocated(Locators.HomePage.nothingToFindHereText));
+                hasNothingToFindText = nothingToFindElement.isDisplayed();
+                System.out.println(WARNING_PREFIX + "Detected 'Nothing to find here' text for " + categoryType + " > " + subcategoryName);
+            } catch (TimeoutException e) {
+                // Element not found, which is normal for pages with products
+            }
+
+            // Check for "No results found" text
+            try {
+                WebElement noResultsElement = wait.until(ExpectedConditions.presenceOfElementLocated(Locators.HomePage.noResultsFoundText));
+                hasNoResultsText = noResultsElement.isDisplayed();
+                System.out.println(WARNING_PREFIX + "Detected 'No results found' text for " + categoryType + " > " + subcategoryName);
+            } catch (TimeoutException e) {
+                // Element not found, which is normal for pages with products
+            }
+
+            // Check for "Shop Now" button
+            try {
+                WebElement shopNowElement = wait.until(ExpectedConditions.presenceOfElementLocated(Locators.HomePage.shopNowButton));
+                hasShopNowButton = shopNowElement.isDisplayed();
+                System.out.println(WARNING_PREFIX + "Detected 'Shop Now' button for " + categoryType + " > " + subcategoryName);
+            } catch (TimeoutException e) {
+                // Element not found, which is normal for pages with products
+            }
+
+            // Check for empty results container
+            try {
+                WebElement emptyContainerElement = wait.until(ExpectedConditions.presenceOfElementLocated(Locators.HomePage.emptySearchResultsContainer));
+                hasEmptyResultsContainer = emptyContainerElement.isDisplayed();
+                System.out.println(WARNING_PREFIX + "Detected empty results container for " + categoryType + " > " + subcategoryName);
+            } catch (TimeoutException e) {
+                // Element not found, which is normal for pages with products
+            }
+
+            // Determine if this is an empty category based on multiple indicators
+            boolean isEmptyCategory = hasNothingToFindText || (hasNoResultsText && hasShopNowButton) || hasEmptyResultsContainer;
+
+            if (isEmptyCategory) {
+                System.out.println(ERROR_PREFIX + "EMPTY CATEGORY DETECTED: " + categoryType + " > " + subcategoryName);
+                System.out.println(ERROR_PREFIX + "URL with no products: " + currentUrl);
+
+                return new EmptyCategoryResult(true, currentUrl, subcategoryName, categoryType,
+                    hasNothingToFindText, hasNoResultsText, hasShopNowButton, hasEmptyResultsContainer);
+            } else {
+                System.out.println(SUCCESS_PREFIX + "Category has products: " + categoryType + " > " + subcategoryName);
+                return new EmptyCategoryResult(false, currentUrl, subcategoryName, categoryType,
+                    false, false, false, false);
+            }
+
+        } catch (Exception e) {
+            System.out.println(ERROR_PREFIX + "Error checking for empty category " + categoryType + " > " + subcategoryName + ": " + e.getMessage());
+            return new EmptyCategoryResult(false, driver.getCurrentUrl(), subcategoryName, categoryType,
+                false, false, false, false);
+        }
+    }
+
+    /**
+     * Inner class to hold empty category detection results
+     */
+    public static class EmptyCategoryResult {
+        private final boolean isEmpty;
+        private final String url;
+        private final String subcategoryName;
+        private final String categoryType;
+        private final boolean hasNothingToFindText;
+        private final boolean hasNoResultsText;
+        private final boolean hasShopNowButton;
+        private final boolean hasEmptyResultsContainer;
+
+        public EmptyCategoryResult(boolean isEmpty, String url, String subcategoryName, String categoryType,
+                                 boolean hasNothingToFindText, boolean hasNoResultsText,
+                                 boolean hasShopNowButton, boolean hasEmptyResultsContainer) {
+            this.isEmpty = isEmpty;
+            this.url = url;
+            this.subcategoryName = subcategoryName;
+            this.categoryType = categoryType;
+            this.hasNothingToFindText = hasNothingToFindText;
+            this.hasNoResultsText = hasNoResultsText;
+            this.hasShopNowButton = hasShopNowButton;
+            this.hasEmptyResultsContainer = hasEmptyResultsContainer;
+        }
+
+        // Getters
+        public boolean isEmpty() { return isEmpty; }
+        public String getUrl() { return url; }
+        public String getSubcategoryName() { return subcategoryName; }
+        public String getCategoryType() { return categoryType; }
+        public boolean hasNothingToFindText() { return hasNothingToFindText; }
+        public boolean hasNoResultsText() { return hasNoResultsText; }
+        public boolean hasShopNowButton() { return hasShopNowButton; }
+        public boolean hasEmptyResultsContainer() { return hasEmptyResultsContainer; }
+
+        public String getDetailedDescription() {
+            StringBuilder desc = new StringBuilder();
+            desc.append("Empty category detected for ").append(categoryType).append(" > ").append(subcategoryName);
+            desc.append(" at URL: ").append(url);
+            if (hasNothingToFindText) desc.append(" | Has 'Nothing to find here' text");
+            if (hasNoResultsText) desc.append(" | Has 'No results found' text");
+            if (hasShopNowButton) desc.append(" | Has 'Shop Now' button");
+            if (hasEmptyResultsContainer) desc.append(" | Has empty results container");
+            return desc.toString();
         }
     }
 }

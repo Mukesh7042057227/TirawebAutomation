@@ -44,42 +44,32 @@ public class PlpPage {
     }
 
     public void clickOnProduct() {
-        for (int attempt = 0; attempt < 2; attempt++) {
-            try {
-                // 🔁 Re-fetch element every time
-                WebElement product = wait.until(ExpectedConditions.elementToBeClickable(clickOnProduct));
+        try {
+            WebElement product = wait.until(ExpectedConditions.elementToBeClickable(clickOnProduct));
 
-                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", product);
-                new Actions(driver).moveToElement(product).perform();
-                System.out.println("✅ Hovered on product");
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", product);
+            new Actions(driver).moveToElement(product).perform();
+            System.out.println("✅ Hovered on product");
 
-                String originalWindow = driver.getWindowHandle();
+            String originalWindow = driver.getWindowHandle();
 
-                product.click();
-                System.out.println("✅ Clicked on product");
+            product.click();
+            System.out.println("✅ Clicked on product");
 
-                // Switch to new tab
-                wait.until(driver -> driver.getWindowHandles().size() > 1);
-                for (String handle : driver.getWindowHandles()) {
-                    if (!handle.equals(originalWindow)) {
-                        driver.switchTo().window(handle);
-                        System.out.println("✅ Switched to new tab");
-                        break;
-                    }
+            // Switch to new tab
+            wait.until(driver -> driver.getWindowHandles().size() > 1);
+            for (String handle : driver.getWindowHandles()) {
+                if (!handle.equals(originalWindow)) {
+                    driver.switchTo().window(handle);
+                    System.out.println("✅ Switched to new tab");
+                    break;
                 }
-
-                System.out.println("🌐 New tab URL: " + driver.getCurrentUrl());
-                break;
-
-            } catch (StaleElementReferenceException e) {
-                System.out.println("⚠️ StaleElementReferenceException in clickOnProduct() — retrying...");
-            } catch (TimeoutException te) {
-                System.out.println("❌ TimeoutException in clickOnProduct(): " + te.getMessage());
-                break;
-            } catch (Exception e) {
-                System.out.println("❌ General Exception in clickOnProduct(): " + e.getMessage());
-                break;
             }
+
+            System.out.println("🌐 New tab URL: " + driver.getCurrentUrl());
+
+        } catch (Exception e) {
+            System.out.println("❌ Failed to click on product: " + e.getMessage());
         }
     }
 

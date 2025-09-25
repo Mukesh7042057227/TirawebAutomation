@@ -28,7 +28,15 @@ public class LoginPage {
         String otp = ConfigReader.get("otp");
         WebElement outSideCLick = wait.until(ExpectedConditions.visibilityOfElementLocated(mobileInput));
         outSideCLick.sendKeys(mobile);
-        WebElement selectCheckbox = wait.until(ExpectedConditions.visibilityOfElementLocated(Locators.LoginPage.selectCheckbox));
+
+        // Wait for any toast notifications to disappear and checkbox to be clickable
+        try {
+            wait.until(ExpectedConditions.invisibilityOfElementLocated(toastNotification));
+        } catch (Exception e) {
+            // Toast might not appear, continue
+        }
+
+        WebElement selectCheckbox = wait.until(ExpectedConditions.elementToBeClickable(Locators.LoginPage.selectCheckbox));
         selectCheckbox.click();
         this.driver.findElement(clickSendOtpButton).click();
         WebElement submitOtp = wait.until(ExpectedConditions.visibilityOfElementLocated(enterOtp));
@@ -60,6 +68,7 @@ public class LoginPage {
 
     public void loginPageValidation() {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(validateLoginPage));
+
         String actualText = element.getText();
         Assert.assertTrue(actualText.contains("Sign up now"), "❌ Text mismatch: Expected 'Sign up now'");
         System.out.println("✅ Verified text: " + actualText);
