@@ -440,8 +440,8 @@ public class Locators {
         public static final By hoveredOnProduct= By.xpath("//div[contains(@class, 'product-card')]");
         public static final By productRemoveToastMsg= By.xpath("//div[contains(text(),'Product has been')]");
         public static final By productMoveToBagFromWishlist= By.xpath("//div[contains(text(),'Product has been added to cart')]");
-
-
+        public static final By productAddedFromCart= By.xpath("//div[contains(text(),'//div[1]/a/div/div/div[2]/div/div/button[text()=' Add to Bag ']')]");
+        public static final By emptyCartPage= By.xpath("//a/button[text()=' Shop Now ']");
 
         // May need better locator
     }
@@ -468,8 +468,13 @@ public class Locators {
         public static final By validateCartPageWithoutLogin = By.xpath("//div[text()=\" Login to Apply Coupons & Bank Offers \"]");
         public static final By IncreaseQty = By.xpath("//button[2][@class=\"operator\"]");
         public static final By DicreaseQty = By.xpath("//button[1][@class=\"operator\"]");
+        public static final By QtyDisplay = By.xpath("//div[@class='qty-amount']");
         public static final By RemoveFromCart = By.xpath("//div/button[1][text()=\"Remove\"]");
         public static final By MoveToWishlist = By.xpath("//div/button[2][text()=\" Move to Wishlist \"]");
+        public static final By RemoveMoveSidebar = By.xpath("//div[contains(@class,'sidebar') or contains(@class,'modal')] | //div[contains(text(),'Remove') or contains(text(),'Move to Wishlist')]");
+        public static final By RemoveToastMessage = By.xpath("//div[contains(text(),'removed') or contains(text(),'deleted')] | //div[contains(@class,'toast')] | //div[contains(@class,'notification')]");
+        public static final By YouMayAlsoLIke = By.xpath("//div/h1[text()=' You May Also Like ']");
+        public static final By AddToBagFromCart = By.xpath("//div[1]/a/div/div/div[2]//div/button[1][text()=' Add to Bag ']");
     }
     public static class PlpPage {
         public static final By sortByDropdown = By.xpath("//div[@class='selected-options']");
