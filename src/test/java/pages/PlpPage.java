@@ -45,32 +45,66 @@ public class PlpPage {
 
     public void clickOnProduct() {
         try {
-            WebElement product = wait.until(ExpectedConditions.elementToBeClickable(clickOnProduct));
+            clickOnProductWithRetry();
+        } catch (Exception e) {
+            System.out.println("❌ Failed to click on product after retries: " + e.getMessage());
+        }
+    }
 
-            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", product);
-            new Actions(driver).moveToElement(product).perform();
-            System.out.println("✅ Hovered on product");
+    private void clickOnProductWithRetry() throws Exception {
+        int maxRetries = 3;
+        Exception lastException = null;
 
-            String originalWindow = driver.getWindowHandle();
+        for (int attempt = 1; attempt <= maxRetries; attempt++) {
+            try {
+                // 🔁 Always fetch fresh element to avoid stale reference
+                WebElement product = wait.until(ExpectedConditions.elementToBeClickable(clickOnProduct));
 
-            product.click();
-            System.out.println("✅ Clicked on product");
+                ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block: 'center'});", product);
 
-            // Switch to new tab
-            wait.until(driver -> driver.getWindowHandles().size() > 1);
-            for (String handle : driver.getWindowHandles()) {
-                if (!handle.equals(originalWindow)) {
-                    driver.switchTo().window(handle);
-                    System.out.println("✅ Switched to new tab");
-                    break;
+                // Re-fetch element after scroll to ensure it's still fresh
+                product = wait.until(ExpectedConditions.elementToBeClickable(clickOnProduct));
+                new Actions(driver).moveToElement(product).perform();
+                System.out.println("✅ Hovered on product");
+
+                String originalWindow = driver.getWindowHandle();
+
+                // Re-fetch element one more time before clicking
+                product = wait.until(ExpectedConditions.elementToBeClickable(clickOnProduct));
+                product.click();
+                System.out.println("✅ Clicked on product (attempt " + attempt + ")");
+
+                // Switch to new tab
+                wait.until(driver -> driver.getWindowHandles().size() > 1);
+                for (String handle : driver.getWindowHandles()) {
+                    if (!handle.equals(originalWindow)) {
+                        driver.switchTo().window(handle);
+                        System.out.println("✅ Switched to new tab");
+                        break;
+                    }
+                }
+
+                System.out.println("🌐 New tab URL: " + driver.getCurrentUrl());
+                return; // Success, exit the retry loop
+
+            } catch (StaleElementReferenceException e) {
+                lastException = e;
+                System.out.println("⚠️ StaleElementReferenceException on attempt " + attempt + ". Retrying...");
+                if (attempt < maxRetries) {
+                    Thread.sleep(1000); // Wait 1 second before retry
+                }
+            } catch (Exception e) {
+                lastException = e;
+                System.out.println("❌ Error on attempt " + attempt + ": " + e.getMessage());
+                if (attempt < maxRetries) {
+                    Thread.sleep(1000); // Wait 1 second before retry
                 }
             }
-
-            System.out.println("🌐 New tab URL: " + driver.getCurrentUrl());
-
-        } catch (Exception e) {
-            System.out.println("❌ Failed to click on product: " + e.getMessage());
         }
+
+        // If we get here, all retries failed
+        throw new Exception("Failed to click product after " + maxRetries + " attempts. Last error: " +
+            (lastException != null ? lastException.getMessage() : "Unknown error"));
     }
 
     public void validatePlpPage() {

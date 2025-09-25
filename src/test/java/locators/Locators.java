@@ -464,9 +464,12 @@ public class Locators {
     public static class CartPage {
         public static final By openCart=By.xpath("//div/img[@title='Cart']");
         public static final By proceedToCheckout = By.xpath("//button[text()=' Checkout ']");
-        public static final By validateCartPage = By.xpath("//div[contains(text(),\"Coupons & Bank Offers\")]");
-
-
+        public static final By validateCartPageWithLogin = By.xpath("//div[contains(text(),\"Coupons & Bank Offers\")]");
+        public static final By validateCartPageWithoutLogin = By.xpath("//div[text()=\" Login to Apply Coupons & Bank Offers \"]");
+        public static final By IncreaseQty = By.xpath("//button[2][@class=\"operator\"]");
+        public static final By DicreaseQty = By.xpath("//button[1][@class=\"operator\"]");
+        public static final By RemoveFromCart = By.xpath("//div/button[1][text()=\"Remove\"]");
+        public static final By MoveToWishlist = By.xpath("//div/button[2][text()=\" Move to Wishlist \"]");
     }
     public static class PlpPage {
         public static final By sortByDropdown = By.xpath("//div[@class='selected-options']");

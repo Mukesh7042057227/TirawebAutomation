@@ -50,7 +50,7 @@ public class CheckoutPageTest extends BaseTest {
         //calling Cart Page
         CartPage cart= new CartPage(driver);
         cart.openCart();
-        cart.validateCartPage();
+        cart.validateCartPageWithLogin();
         cart.proceedToCheckout();
 
     }

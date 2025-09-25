@@ -8,7 +8,6 @@ import org.testng.Assert;
 
 import java.time.Duration;
 
-import static locators.Locators.CartPage.validateCartPage;
 import static locators.Locators.CheckoutPage.*;
 
 public class CheckoutPage {
