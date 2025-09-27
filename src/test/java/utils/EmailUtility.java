@@ -164,8 +164,8 @@ public class EmailUtility {
                 ConfigReader.get("email.subject.prefix"), suiteName, passPercentage);
             message.setSubject(subject);
 
-            // Create email content
-            String content = createSuiteEmailContent(suiteName, totalTests, passedTests, failedTests, skippedTests, totalDuration, timestamp);
+            // Create enhanced email content with pie chart
+            String content = EmailReportGenerator.generateEnhancedEmailReport();
             message.setContent(content, "text/html; charset=utf-8");
 
             // Send email

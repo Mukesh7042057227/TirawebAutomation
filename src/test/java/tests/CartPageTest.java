@@ -156,4 +156,20 @@ public class CartPageTest extends BaseTest {
         cart.openCart();
         cart.ProductAddedFromCart();
     }
+//    @Test(priority = 7)
+//    public void cartPageTestCaseCouponPageWithoutlogin() throws InterruptedException {
+//        //calling Cart Page
+//        CartPage cart= new CartPage(driver);
+//        ProductPage product = new ProductPage(driver);
+//        LoginPage login = new LoginPage(driver);
+//        HomePage home = new HomePage(driver);
+//        PlpPage plp = new PlpPage(driver);
+//        CategoryPage category= new CategoryPage(driver);
+//        home.assertHomePageLoaded();
+//        home.clickLoginIcon();
+//        login.loginWithValidDetail();
+//        cart.waitForPageStabilityAfterLogin();
+//        cart.openCart();
+//        cart.ProductAddedFromCart();
+//    }
 }
