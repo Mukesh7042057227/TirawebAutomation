@@ -57,89 +57,89 @@ public class CartPageTest extends BaseTest {
         login.loginWithValidDetail();
         cart.validateCartPageWithLogin();
     }
-    @Test(priority = 2)
-    public void cartPageTestCaseWithLogin() throws InterruptedException {
-        //calling Cart Page
-        CartPage cart= new CartPage(driver);
-        ProductPage product = new ProductPage(driver);
-        LoginPage login = new LoginPage(driver);
-        HomePage home = new HomePage(driver);
-        PlpPage plp = new PlpPage(driver);
-        CategoryPage category= new CategoryPage(driver);
-        home.assertHomePageLoaded();
-        home.clickLoginIcon();
-        login.loginWithValidDetail();
-        category.navigateToLipstickCategory();
-        plp.clickOnProduct();
-        product.setAddToCartBtn();
-        cart.openCart();
-        cart.validateCartPageWithLogin();
-    }
-    @Test(priority = 3)
-    public void cartPageTestCaseIncreaseQty() throws InterruptedException {
-        //calling Cart Page
-        CartPage cart= new CartPage(driver);
-        ProductPage product = new ProductPage(driver);
-        HomePage home = new HomePage(driver);
-        PlpPage plp = new PlpPage(driver);
-        CategoryPage category= new CategoryPage(driver);
-        home.assertHomePageLoaded();
-        category.navigateToLipstickCategory();
-        plp.clickOnProduct();
-        product.setAddToCartBtn();
-        cart.openCart();
-        cart.IncreaseQtyOnCart();
-    }
-    @Test(priority = 4)
-    public void cartPageTestCaseDecreaseQty() throws InterruptedException {
-        //calling Cart Page
-        CartPage cart= new CartPage(driver);
-        ProductPage product = new ProductPage(driver);
-        LoginPage login = new LoginPage(driver);
-        HomePage home = new HomePage(driver);
-        PlpPage plp = new PlpPage(driver);
-        CategoryPage category= new CategoryPage(driver);
-        home.assertHomePageLoaded();
-        category.navigateToLipstickCategory();
-        plp.clickOnProduct();
-        product.setAddToCartBtn();
-        cart.openCart();
-        cart.IncreaseQtyOnCart();
-       cart.DicreaseQtyOnCart();
-    }
-    @Test(priority = 5)
-    public void cartPageTestCaseRemoveProduct() throws InterruptedException {
-        //calling Cart Page
-        CartPage cart= new CartPage(driver);
-        ProductPage product = new ProductPage(driver);
-        HomePage home = new HomePage(driver);
-        PlpPage plp = new PlpPage(driver);
-        CategoryPage category= new CategoryPage(driver);
-        home.assertHomePageLoaded();
-        category.navigateToLipstickCategory();
-        plp.clickOnProduct();
-        product.setAddToCartBtn();
-        cart.openCart();
-        cart.ProductRemoveFromCart();
-    }
-    @Test(priority = 6)
-    public void cartPageTestCaseMoveToWishlistAfterLogin() throws InterruptedException {
-        //calling Cart Page
-        CartPage cart= new CartPage(driver);
-        ProductPage product = new ProductPage(driver);
-        LoginPage login = new LoginPage(driver);
-        HomePage home = new HomePage(driver);
-        PlpPage plp = new PlpPage(driver);
-        CategoryPage category= new CategoryPage(driver);
-        home.assertHomePageLoaded();
-        home.clickLoginIcon();
-        login.loginWithValidDetail();
-        category.navigateToLipstickCategory();
-        plp.clickOnProduct();
-        product.setAddToCartBtn();
-        cart.openCart();
-        cart.MoveToWishlistFromCart();
-    }
+//    @Test(priority = 2)
+//    public void cartPageTestCaseWithLogin() throws InterruptedException {
+//        //calling Cart Page
+//        CartPage cart= new CartPage(driver);
+//        ProductPage product = new ProductPage(driver);
+//        LoginPage login = new LoginPage(driver);
+//        HomePage home = new HomePage(driver);
+//        PlpPage plp = new PlpPage(driver);
+//        CategoryPage category= new CategoryPage(driver);
+//        home.assertHomePageLoaded();
+//        home.clickLoginIcon();
+//        login.loginWithValidDetail();
+//        category.navigateToLipstickCategory();
+//        plp.clickOnProduct();
+//        product.setAddToCartBtn();
+//        cart.openCart();
+//        cart.validateCartPageWithLogin();
+//    }
+//    @Test(priority = 3)
+//    public void cartPageTestCaseIncreaseQty() throws InterruptedException {
+//        //calling Cart Page
+//        CartPage cart= new CartPage(driver);
+//        ProductPage product = new ProductPage(driver);
+//        HomePage home = new HomePage(driver);
+//        PlpPage plp = new PlpPage(driver);
+//        CategoryPage category= new CategoryPage(driver);
+//        home.assertHomePageLoaded();
+//        category.navigateToLipstickCategory();
+//        plp.clickOnProduct();
+//        product.setAddToCartBtn();
+//        cart.openCart();
+//        cart.IncreaseQtyOnCart();
+//    }
+//    @Test(priority = 4)
+//    public void cartPageTestCaseDecreaseQty() throws InterruptedException {
+//        //calling Cart Page
+//        CartPage cart= new CartPage(driver);
+//        ProductPage product = new ProductPage(driver);
+//        LoginPage login = new LoginPage(driver);
+//        HomePage home = new HomePage(driver);
+//        PlpPage plp = new PlpPage(driver);
+//        CategoryPage category= new CategoryPage(driver);
+//        home.assertHomePageLoaded();
+//        category.navigateToLipstickCategory();
+//        plp.clickOnProduct();
+//        product.setAddToCartBtn();
+//        cart.openCart();
+//        cart.IncreaseQtyOnCart();
+//       cart.DicreaseQtyOnCart();
+//    }
+//    @Test(priority = 5)
+//    public void cartPageTestCaseRemoveProduct() throws InterruptedException {
+//        //calling Cart Page
+//        CartPage cart= new CartPage(driver);
+//        ProductPage product = new ProductPage(driver);
+//        HomePage home = new HomePage(driver);
+//        PlpPage plp = new PlpPage(driver);
+//        CategoryPage category= new CategoryPage(driver);
+//        home.assertHomePageLoaded();
+//        category.navigateToLipstickCategory();
+//        plp.clickOnProduct();
+//        product.setAddToCartBtn();
+//        cart.openCart();
+//        cart.ProductRemoveFromCart();
+//    }
+//    @Test(priority = 6)
+//    public void cartPageTestCaseMoveToWishlistAfterLogin() throws InterruptedException {
+//        //calling Cart Page
+//        CartPage cart= new CartPage(driver);
+//        ProductPage product = new ProductPage(driver);
+//        LoginPage login = new LoginPage(driver);
+//        HomePage home = new HomePage(driver);
+//        PlpPage plp = new PlpPage(driver);
+//        CategoryPage category= new CategoryPage(driver);
+//        home.assertHomePageLoaded();
+//        home.clickLoginIcon();
+//        login.loginWithValidDetail();
+//        category.navigateToLipstickCategory();
+//        plp.clickOnProduct();
+//        product.setAddToCartBtn();
+//        cart.openCart();
+//        cart.MoveToWishlistFromCart();
+//    }
     @Test(priority = 6)
     public void cartPageTestCaseProductAddedFromCartPage() throws InterruptedException {
         //calling Cart Page

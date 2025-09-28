@@ -8,6 +8,9 @@ import java.util.Date;
 import java.util.Set;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import javax.activation.DataHandler;
+import javax.activation.FileDataSource;
+import java.io.File;
 
 public class EmailUtility {
 
@@ -164,9 +167,9 @@ public class EmailUtility {
                 ConfigReader.get("email.subject.prefix"), suiteName, passPercentage);
             message.setSubject(subject);
 
-            // Create enhanced email content with pie chart
-            String content = EmailReportGenerator.generateEnhancedEmailReport();
-            message.setContent(content, "text/html; charset=utf-8");
+            // Create dashboard-style email content
+            String dashboardContent = createDashboardEmailContent(suiteName, totalTests, passedTests, failedTests, skippedTests, totalDuration, timestamp);
+            message.setContent(dashboardContent, "text/html; charset=utf-8");
 
             // Send email
             Transport.send(message);
@@ -228,131 +231,6 @@ public class EmailUtility {
         return content.toString();
     }
 
-    private static String createSuiteEmailContent(String suiteName, int totalTests, int passedTests,
-                                                int failedTests, int skippedTests, long totalDuration, String timestamp) {
-        StringBuilder content = new StringBuilder();
-        double passPercentage = totalTests > 0 ? (double) passedTests / totalTests * 100 : 0;
-
-        content.append("<!DOCTYPE html>");
-        content.append("<html><head><style>");
-        content.append("body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }");
-        content.append(".header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 20px; }");
-        content.append(".summary { background: #e9ecef; padding: 15px; margin: 15px 0; border-radius: 5px; border-left: 4px solid #007bff; }");
-        content.append(".stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 20px 0; }");
-        content.append(".stat-box { text-align: center; padding: 15px; border-radius: 8px; background: #f8f9fa; border: 1px solid #dee2e6; }");
-        content.append(".passed { color: #28a745; font-weight: bold; }");
-        content.append(".failed { color: #dc3545; font-weight: bold; }");
-        content.append(".skipped { color: #ffc107; font-weight: bold; }");
-        content.append(".test-details { margin: 20px 0; }");
-        content.append(".test-item { background: #f8f9fa; padding: 12px; margin: 8px 0; border-radius: 5px; border-left: 4px solid #007bff; }");
-        content.append(".test-item.passed { border-left-color: #28a745; }");
-        content.append(".test-item.failed { border-left-color: #dc3545; background: #f8d7da; }");
-        content.append(".test-item.skipped { border-left-color: #ffc107; background: #fff3cd; }");
-        content.append(".test-name { font-weight: bold; color: #495057; }");
-        content.append(".test-method { font-size: 14px; color: #6c757d; margin: 5px 0; }");
-        content.append(".test-status { display: inline-block; padding: 3px 8px; border-radius: 12px; font-size: 11px; font-weight: bold; }");
-        content.append(".status-passed { background: #28a745; color: white; }");
-        content.append(".status-failed { background: #dc3545; color: white; }");
-        content.append(".status-skipped { background: #ffc107; color: #212529; }");
-        content.append(".error-details { font-size: 12px; color: #721c24; margin-top: 8px; padding: 8px; background: #f5c6cb; border-radius: 3px; }");
-        content.append(".duration { font-size: 12px; color: #6c757d; }");
-        content.append("</style></head><body>");
-
-        // Header
-        content.append("<div class='header'>");
-        content.append("<h1>🎯 Tira Beauty Test Suite Report</h1>");
-        content.append("<p>Complete Test Execution Summary with Individual Results</p>");
-        content.append("</div>");
-
-        // Suite Summary
-        content.append("<div class='summary'>");
-        content.append("<h3>📊 Execution Summary</h3>");
-        content.append("<p><strong>Suite:</strong> ").append(suiteName).append("</p>");
-        content.append("<p><strong>Execution Time:</strong> ").append(timestamp).append("</p>");
-        content.append("<p><strong>Total Duration:</strong> ").append(String.format("%.2f", totalDuration / 1000.0)).append(" seconds</p>");
-        content.append("<p><strong>Environment:</strong> ").append(ConfigReader.get("baseUrl")).append(" | ").append(ConfigReader.get("browser")).append("</p>");
-        content.append("</div>");
-
-        // Statistics
-        content.append("<div class='stats'>");
-        content.append("<div class='stat-box'>");
-        content.append("<h3>").append(totalTests).append("</h3>");
-        content.append("<p>Total Tests</p>");
-        content.append("</div>");
-        content.append("<div class='stat-box'>");
-        content.append("<h3 class='passed'>").append(passedTests).append("</h3>");
-        content.append("<p>✅ Passed</p>");
-        content.append("</div>");
-        content.append("<div class='stat-box'>");
-        content.append("<h3 class='failed'>").append(failedTests).append("</h3>");
-        content.append("<p>❌ Failed</p>");
-        content.append("</div>");
-        content.append("<div class='stat-box'>");
-        content.append("<h3 class='skipped'>").append(skippedTests).append("</h3>");
-        content.append("<p>⚠️ Skipped</p>");
-        content.append("</div>");
-        content.append("<div class='stat-box'>");
-        content.append("<h3 style='color: #007bff;'>").append(String.format("%.1f%%", passPercentage)).append("</h3>");
-        content.append("<p>Pass Rate</p>");
-        content.append("</div>");
-        content.append("</div>");
-
-        // Overall Assessment
-        content.append("<div class='summary'>");
-        content.append("<h3>📈 Overall Assessment</h3>");
-        if (passPercentage >= 90) {
-            content.append("<p class='passed'>🎉 Excellent! High success rate achieved.</p>");
-        } else if (passPercentage >= 70) {
-            content.append("<p style='color: #fd7e14;'>⚠️ Good, but room for improvement.</p>");
-        } else {
-            content.append("<p class='failed'>🚨 Attention needed - Low success rate.</p>");
-        }
-        content.append("</div>");
-
-        // Individual Test Results
-        content.append("<div class='test-details'>");
-        content.append("<h3>📋 Individual Test Results</h3>");
-
-        // Get test results from TestResultTracker
-        Map<String, utils.TestResultTracker.TestClassResult> classResults = utils.TestResultTracker.getAllClassResults();
-
-        for (utils.TestResultTracker.TestClassResult classResult : classResults.values()) {
-            for (utils.TestResultTracker.TestMethodResult methodResult : classResult.getMethodResults()) {
-                String status = methodResult.isPassed() ? "passed" : "failed";
-                String statusText = methodResult.isPassed() ? "PASSED" : "FAILED";
-
-                content.append("<div class='test-item ").append(status).append("'>");
-                content.append("<div class='test-name'>").append(methodResult.getClassName()).append("</div>");
-                content.append("<div class='test-method'>Method: ").append(methodResult.getMethodName()).append("</div>");
-                content.append("<div>");
-                if (methodResult.isPassed()) {
-                    content.append("<span class='test-status status-passed'>✅ ").append(statusText).append("</span>");
-                } else {
-                    content.append("<span class='test-status status-failed'>❌ ").append(statusText).append("</span>");
-                }
-                content.append("<span class='duration'> | ").append(String.format("%.2f", methodResult.getExecutionTime() / 1000.0)).append("s</span>");
-                content.append("</div>");
-
-                // Show error details for failed tests
-                if (!methodResult.isPassed() && methodResult.getFailureReason() != null && !methodResult.getFailureReason().isEmpty()) {
-                    content.append("<div class='error-details'>");
-                    content.append("<strong>Error:</strong> ").append(escapeHtml(methodResult.getFailureReason()));
-                    content.append("</div>");
-                }
-                content.append("</div>");
-            }
-        }
-        content.append("</div>");
-
-        // Footer
-        content.append("<div style='margin-top: 30px; padding-top: 20px; border-top: 1px solid #dee2e6; text-align: center; color: #6c757d; font-size: 12px;'>");
-        content.append("<p>This is an automated notification from the Tira Beauty Test Automation Framework</p>");
-        content.append("<p>For technical support, please contact the QA team</p>");
-        content.append("</div>");
-
-        content.append("</body></html>");
-        return content.toString();
-    }
 
     private static String createDetailedEmailContent(String testClassName, String testMethodName,
                                                    String status, String errorMessage, long duration,
@@ -672,5 +550,249 @@ public class EmailUtility {
         }
 
         return false;
+    }
+
+    private static String createSimpleEmailContent(String suiteName, int totalTests, int passedTests,
+                                                  int failedTests, int skippedTests, long totalDuration, String timestamp) {
+        StringBuilder content = new StringBuilder();
+        double passPercentage = totalTests > 0 ? (double) passedTests / totalTests * 100 : 0;
+
+        content.append("<!DOCTYPE html>");
+        content.append("<html><head><style>");
+        content.append("body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.6; }");
+        content.append(".header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; border-radius: 8px; text-align: center; margin-bottom: 20px; }");
+        content.append(".summary { background: #e9ecef; padding: 15px; margin: 15px 0; border-radius: 5px; border-left: 4px solid #007bff; }");
+        content.append(".attachment-note { background: #d1ecf1; padding: 15px; margin: 15px 0; border-radius: 5px; border-left: 4px solid #0c5460; }");
+        content.append("</style></head><body>");
+
+        content.append("<div class='header'>");
+        content.append("<h1>🎯 Tira Beauty Test Suite Complete</h1>");
+        content.append("<p>Test Execution Summary Report</p>");
+        content.append("</div>");
+
+        content.append("<div class='summary'>");
+        content.append("<h3>📊 Execution Summary</h3>");
+        content.append("<p><strong>Suite:</strong> ").append(suiteName).append("</p>");
+        content.append("<p><strong>Total Tests:</strong> ").append(totalTests).append("</p>");
+        content.append("<p><strong>Passed:</strong> ").append(passedTests).append(" (").append(String.format("%.1f%%", passPercentage)).append(")</p>");
+        content.append("<p><strong>Failed:</strong> ").append(failedTests).append("</p>");
+        content.append("<p><strong>Skipped:</strong> ").append(skippedTests).append("</p>");
+        content.append("<p><strong>Duration:</strong> ").append(String.format("%.2f", totalDuration / 1000.0)).append(" seconds</p>");
+        content.append("<p><strong>Execution Time:</strong> ").append(timestamp).append("</p>");
+        content.append("</div>");
+
+        content.append("<div class='attachment-note'>");
+        content.append("<h3>📸 Detailed Report</h3>");
+        content.append("<p><strong>Weekly Regression Report Dashboard:</strong> Please see the attached screenshot for detailed test results and visual statistics.</p>");
+        content.append("<p><em>The attached report provides comprehensive insights including pass/fail trends, test coverage, and performance metrics.</em></p>");
+        content.append("</div>");
+
+        content.append("<div style='margin-top: 30px; padding-top: 20px; border-top: 1px solid #dee2e6; text-align: center; color: #6c757d; font-size: 12px;'>");
+        content.append("<p>This is an automated notification from the Tira Beauty Test Automation Framework</p>");
+        content.append("</div>");
+
+        content.append("</body></html>");
+        return content.toString();
+    }
+
+    private static String createDashboardEmailContent(String suiteName, int totalTests, int passedTests,
+                                                     int failedTests, int skippedTests, long totalDuration, String timestamp) {
+        StringBuilder content = new StringBuilder();
+        double passPercentage = totalTests > 0 ? (double) passedTests / totalTests * 100 : 0;
+        double failedPercentage = totalTests > 0 ? (double) failedTests / totalTests * 100 : 0;
+        double skippedPercentage = totalTests > 0 ? (double) skippedTests / totalTests * 100 : 0;
+
+        content.append("<!DOCTYPE html>");
+        content.append("<html><head>");
+        content.append("<meta charset='UTF-8'>");
+        content.append("<meta name='viewport' content='width=device-width, initial-scale=1.0'>");
+        content.append("<style>");
+
+        // Email-compatible CSS using tables instead of advanced CSS
+        content.append("body { margin: 0; padding: 20px; font-family: Arial, sans-serif; background-color: #f4f5f7; color: #333; }");
+        content.append(".container { max-width: 800px; margin: 0 auto; background: #f4f5f7; }");
+        content.append(".header { background: #2E8B57; color: white; padding: 30px; text-align: center; border-radius: 10px; margin-bottom: 30px; }");
+        content.append(".header h1 { margin: 0 0 10px 0; font-size: 36px; font-weight: normal; }");
+        content.append(".header p { margin: 0; font-size: 18px; opacity: 0.9; }");
+
+        // Card styles using tables for email compatibility
+        content.append(".card-table { width: 100%; margin-bottom: 20px; }");
+        content.append(".card { background: white; padding: 25px; border-radius: 10px; border: 1px solid #e1e5e9; vertical-align: top; }");
+        content.append(".card h3 { margin: 0 0 20px 0; font-size: 18px; color: #5a6c7d; text-align: center; font-weight: normal; }");
+
+        // Simple progress circles using background colors
+        content.append(".progress-container { text-align: center; margin-bottom: 20px; }");
+        content.append(".circle-progress { width: 120px; height: 120px; border-radius: 50%; margin: 0 auto 15px; position: relative; display: inline-block; }");
+        content.append(".circle-inner { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; background: white; border-radius: 50%; width: 80px; height: 80px; display: flex; flex-direction: column; justify-content: center; }");
+        content.append(".circle-number { font-size: 24px; font-weight: bold; color: #2c3e50; display: block; }");
+        content.append(".circle-label { font-size: 10px; color: #7f8c8d; text-transform: uppercase; letter-spacing: 1px; }");
+
+        // Statistics list
+        content.append(".stats-list { margin-top: 15px; }");
+        content.append(".stat-row { padding: 8px 0; border-bottom: 1px solid #ecf0f1; }");
+        content.append(".stat-row table { width: 100%; }");
+        content.append(".stat-label { font-weight: 500; font-size: 14px; }");
+        content.append(".stat-dot { width: 10px; height: 10px; border-radius: 50%; margin-right: 8px; display: inline-block; }");
+        content.append(".stat-value { font-weight: bold; color: #2c3e50; font-size: 14px; text-align: right; }");
+        content.append(".passed { background: #28a745; }");
+        content.append(".failed { background: #dc3545; }");
+        content.append(".skipped { background: #ffc107; }");
+        content.append(".queued { background: #6c757d; }");
+        content.append(".aborted { background: #6f42c1; }");
+
+        // Table styles for weekly details
+        content.append(".details-section { background: white; padding: 30px; border-radius: 10px; border: 1px solid #e1e5e9; margin-top: 20px; }");
+        content.append(".details-section h2 { margin: 0 0 25px 0; color: #2c3e50; font-size: 22px; font-weight: normal; }");
+        content.append(".details-table { width: 100%; border-collapse: collapse; }");
+        content.append(".details-table th { background: #f8f9fa; color: #5a6c7d; padding: 12px 8px; text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase; border-bottom: 1px solid #ecf0f1; }");
+        content.append(".details-table td { padding: 12px 8px; color: #2c3e50; border-bottom: 1px solid #ecf0f1; font-size: 14px; }");
+        content.append(".passed-pct { color: #28a745; font-weight: bold; }");
+        content.append(".failed-pct { color: #dc3545; font-weight: bold; }");
+
+        // Footer
+        content.append(".footer { text-align: center; padding: 30px 0; color: #7f8c8d; font-size: 14px; }");
+
+        content.append("</style></head><body>");
+
+        content.append("<div class='container'>");
+
+        // Header section
+        content.append("<div class='header'>");
+        content.append("<h1>Weekly Regression</h1>");
+        content.append("<p>Web AutomationSuite Dashboard Report</p>");
+        content.append("</div>");
+
+        // Main statistics using table layout for email compatibility
+        content.append("<table class='card-table' cellpadding='0' cellspacing='10'>");
+        content.append("<tr>");
+
+        // Weekly Total Card
+        content.append("<td class='card' width='33%'>");
+        content.append("<h3>WEEKLY TOTAL</h3>");
+        content.append("<div class='progress-container'>");
+        // Simple circular design using background color based on pass rate
+        String circleColor = passPercentage > 80 ? "#28a745" : passPercentage > 60 ? "#ffc107" : "#dc3545";
+        content.append("<div class='circle-progress' style='background: ").append(circleColor).append(";'>");
+        content.append("<div class='circle-inner'>");
+        content.append("<span class='circle-number'>").append(totalTests).append("</span>");
+        content.append("<span class='circle-label'>TOTAL</span>");
+        content.append("</div>");
+        content.append("</div>");
+        content.append("</div>");
+        content.append("<div class='stats-list'>");
+        content.append("<div class='stat-row'>");
+        content.append("<table><tr><td class='stat-label'><span class='stat-dot passed'></span>PASSED</td><td class='stat-value'>").append(passedTests).append("</td></tr></table>");
+        content.append("</div>");
+        content.append("<div class='stat-row'>");
+        content.append("<table><tr><td class='stat-label'><span class='stat-dot failed'></span>FAILED</td><td class='stat-value'>").append(failedTests).append("</td></tr></table>");
+        content.append("</div>");
+        content.append("<div class='stat-row'>");
+        content.append("<table><tr><td class='stat-label'><span class='stat-dot skipped'></span>SKIPPED</td><td class='stat-value'>").append(skippedTests).append("</td></tr></table>");
+        content.append("</div>");
+        content.append("<div class='stat-row'>");
+        content.append("<table><tr><td class='stat-label'><span class='stat-dot queued'></span>QUEUED</td><td class='stat-value'>0</td></tr></table>");
+        content.append("</div>");
+        content.append("<div class='stat-row'>");
+        content.append("<table><tr><td class='stat-label'><span class='stat-dot aborted'></span>ABORTED</td><td class='stat-value'>0</td></tr></table>");
+        content.append("</div>");
+        content.append("</div>");
+        content.append("</td>");
+
+        // Weekly Total Percentage Card
+        content.append("<td class='card' width='33%'>");
+        content.append("<h3>WEEKLY TOTAL (%)</h3>");
+        content.append("<div class='progress-container'>");
+        content.append("<div class='circle-progress' style='background: ").append(circleColor).append(";'>");
+        content.append("<div class='circle-inner'>");
+        content.append("<span class='circle-number'>").append(String.format("%.0f", passPercentage)).append("%</span>");
+        content.append("<span class='circle-label'>PASS RATE</span>");
+        content.append("</div>");
+        content.append("</div>");
+        content.append("</div>");
+        content.append("<div class='stats-list'>");
+        content.append("<div class='stat-row'>");
+        content.append("<table><tr><td class='stat-label'><span class='stat-dot passed'></span>PASSED</td><td class='stat-value'>").append(String.format("%.1f", passPercentage)).append("%</td></tr></table>");
+        content.append("</div>");
+        content.append("<div class='stat-row'>");
+        content.append("<table><tr><td class='stat-label'><span class='stat-dot failed'></span>FAILED</td><td class='stat-value'>").append(String.format("%.1f", failedPercentage)).append("%</td></tr></table>");
+        content.append("</div>");
+        content.append("<div class='stat-row'>");
+        content.append("<table><tr><td class='stat-label'><span class='stat-dot skipped'></span>SKIPPED</td><td class='stat-value'>").append(String.format("%.1f", skippedPercentage)).append("%</td></tr></table>");
+        content.append("</div>");
+        content.append("<div class='stat-row'>");
+        content.append("<table><tr><td class='stat-label'><span class='stat-dot queued'></span>QUEUED</td><td class='stat-value'>0%</td></tr></table>");
+        content.append("</div>");
+        content.append("<div class='stat-row'>");
+        content.append("<table><tr><td class='stat-label'><span class='stat-dot aborted'></span>ABORTED</td><td class='stat-value'>0%</td></tr></table>");
+        content.append("</div>");
+        content.append("</div>");
+        content.append("</td>");
+
+        // Test Results Card
+        content.append("<td class='card' width='33%'>");
+        content.append("<h3>TEST RESULTS (LAST 7 DAYS)</h3>");
+        content.append("<div style='text-align: center; padding: 20px 0;'>");
+        content.append("<div style='font-size: 48px; color: #28a745; margin-bottom: 15px;'>📊</div>");
+        content.append("<div style='color: #5a6c7d; font-size: 16px; font-weight: bold;'>").append(String.format("%.1f", passPercentage)).append("% Success Rate</div>");
+        content.append("<div style='color: #7f8c8d; font-size: 14px; margin-top: 8px;'>").append(totalTests).append(" tests executed</div>");
+        content.append("<div style='color: #7f8c8d; font-size: 12px; margin-top: 5px;'>Latest execution</div>");
+        content.append("</div>");
+        content.append("</td>");
+
+        content.append("</tr>");
+        content.append("</table>");
+
+        // Weekly Details Section
+        content.append("<div class='details-section'>");
+        content.append("<h2>WEEKLY DETAILS</h2>");
+
+        content.append("<table class='details-table'>");
+        content.append("<thead>");
+        content.append("<tr>");
+        content.append("<th>OWNER</th>");
+        content.append("<th>REPORT</th>");
+        content.append("<th>PASSED</th>");
+        content.append("<th>FAILED</th>");
+        content.append("<th>KNOWN ISSUE</th>");
+        content.append("<th>SKIPPED</th>");
+        content.append("<th>QUEUED</th>");
+        content.append("<th>TOTAL</th>");
+        content.append("<th>PASSED (%)</th>");
+        content.append("<th>FAILED (%)</th>");
+        content.append("<th>KNOWN ISSUE (%)</th>");
+        content.append("<th>SKIPPED (%)</th>");
+        content.append("<th>QUEUED (%)</th>");
+        content.append("</tr>");
+        content.append("</thead>");
+        content.append("<tbody>");
+        content.append("<tr>");
+        content.append("<td><strong>").append(suiteName.contains("@") ? suiteName.split("@")[0] : "Mukesh Misra").append("</strong></td>");
+        content.append("<td><span style='color: #2E8B57; font-weight: bold;'>").append(suiteName).append("</span></td>");
+        content.append("<td>").append(passedTests).append("</td>");
+        content.append("<td>").append(failedTests).append("</td>");
+        content.append("<td>0</td>");
+        content.append("<td>").append(skippedTests).append("</td>");
+        content.append("<td>0</td>");
+        content.append("<td><strong>").append(totalTests).append("</strong></td>");
+        content.append("<td><span class='passed-pct'>").append(String.format("%.0f", passPercentage)).append("</span></td>");
+        content.append("<td><span class='failed-pct'>").append(String.format("%.0f", failedPercentage)).append("</span></td>");
+        content.append("<td>0</td>");
+        content.append("<td>").append(String.format("%.0f", skippedPercentage)).append("</td>");
+        content.append("<td>0</td>");
+        content.append("</tr>");
+        content.append("</tbody>");
+        content.append("</table>");
+        content.append("</div>");
+
+        // Footer
+        content.append("<div class='footer'>");
+        content.append("<p><strong>Execution Time:</strong> ").append(timestamp).append(" | <strong>Duration:</strong> ").append(String.format("%.2f", totalDuration / 1000.0)).append(" seconds</p>");
+        content.append("<p style='margin-top: 10px;'>Generated by Tira Beauty Test Automation Framework</p>");
+        content.append("</div>");
+
+        content.append("</div>");
+        content.append("</body></html>");
+
+        return content.toString();
     }
 }
