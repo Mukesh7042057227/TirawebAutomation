@@ -52,12 +52,28 @@ jobs:
       run: mvn test
       continue-on-error: true
 
+    - name: List generated files
+      if: always()
+      run: |
+        echo "=== Generated directories and files ==="
+        find . -name "target" -o -name "test-output" -o -name "screenshots" -o -name "allure-results" | head -20
+        echo "=== Target directory contents ==="
+        ls -la target/ || echo "target/ directory not found"
+        echo "=== Test-output directory contents ==="
+        ls -la test-output/ || echo "test-output/ directory not found"
+        echo "=== Screenshots directory contents ==="
+        ls -la screenshots/ || echo "screenshots/ directory not found"
+        echo "=== Allure-results directory contents ==="
+        ls -la allure-results/ || echo "allure-results/ directory not found"
+
     - name: Upload Screenshots
       uses: actions/upload-artifact@v4
-      if: failure()
+      if: always()
       with:
         name: screenshots
-        path: screenshots/
+        path: |
+          screenshots/
+          test-output/screenshots/
         retention-days: 7
 
     - name: Upload Test Reports
