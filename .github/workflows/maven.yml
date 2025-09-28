@@ -9,6 +9,7 @@ on:
 
 env:
   MAVEN_OPTS: -Xmx2048m
+  CI: true
 
 jobs:
   test:
@@ -25,31 +26,33 @@ jobs:
         distribution: 'temurin'
         cache: maven
 
-    - name: Install Chrome
+    - name: Install Chrome and Xvfb
       run: |
-        wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-        sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
         sudo apt-get update
-        sudo apt-get install -y google-chrome-stable
+        sudo apt-get install -y google-chrome-stable xvfb
 
-    - name: Install ChromeDriver
+    - name: Setup ChromeDriver
+      uses: nanasess/setup-chromedriver@v2
+
+    - name: Setup Display
       run: |
-        CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+\.\d+')
-        wget -O /tmp/chromedriver.zip "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION%.*}/chromedriver_linux64.zip"
-        sudo unzip /tmp/chromedriver.zip -d /usr/local/bin/
-        sudo chmod +x /usr/local/bin/chromedriver
+        export DISPLAY=:99
+        Xvfb :99 -screen 0 1024x768x24 > /dev/null 2>&1 &
 
     - name: Verify installations
       run: |
         mvn --version
         google-chrome --version
         chromedriver --version
+        echo "DISPLAY=$DISPLAY"
 
     - name: Clean and compile
       run: mvn clean compile
 
-    - name: Run tests
-      run: mvn test
+    - name: Run tests with headless mode
+      run: |
+        export DISPLAY=:99
+        mvn test -Dheadless=true
       continue-on-error: true
 
     - name: List generated files
