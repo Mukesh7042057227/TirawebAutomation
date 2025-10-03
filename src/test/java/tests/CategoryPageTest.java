@@ -23,6 +23,8 @@ public class CategoryPageTest extends BaseTest {
     public void loginPageTestCase() throws InterruptedException
     {
         LoginPage login = new LoginPage(driver);
+        HomePage home = new HomePage(driver);
+        home.clickLoginIcon();
         login.loginPageValidation();
         login.loginWithValidDetail();
     }

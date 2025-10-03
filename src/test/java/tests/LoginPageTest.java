@@ -17,34 +17,43 @@ public class LoginPageTest extends BaseTest {
     private static final Logger log = LoggerFactory.getLogger(LoginPageTest.class);
 
     @BeforeClass()
-    public void homePageTestCase() throws InterruptedException {
+    public void setupLoginPage() throws InterruptedException {
+        // This will be called before any test method, after driver is initialized
+    }
+
+    private void navigateToLoginPage() throws InterruptedException {
         HomePage home = new HomePage(driver);
         home.assertHomePageLoaded();
         home.validateCategoryNavigation();
-         home.clickLoginIcon();
+        home.clickLoginIcon();
     }
 
 
-    @Test(priority = 2)
-    public void loginWithInValidOtp() throws InterruptedException
-    {
-        LoginPage login = new LoginPage(driver);
-        login.loginWithInValidOtp();
-        login.invalidOtpVaidation();
-        login.editMobileNo();
-    }
     @Test(priority = 1)
     public void loginWithInValidPhone() throws InterruptedException
     {
+        navigateToLoginPage();
         LoginPage login = new LoginPage(driver);
         login.loginPageValidation();
         login.loginWithInValidPhone();
         login.invalidPhoneValidation();
         login.clearPhoneNo();
     }
+
+    @Test(priority = 2)
+    public void loginWithInValidOtp() throws InterruptedException
+    {
+        navigateToLoginPage();
+        LoginPage login = new LoginPage(driver);
+        login.loginWithInValidOtp();
+        login.invalidOtpVaidation();
+        login.editMobileNo();
+    }
+
     @Test(priority = 3)
     public void loginWithValidDetail() throws InterruptedException
     {
+        navigateToLoginPage();
         LoginPage login = new LoginPage(driver);
         login.loginPageValidation();
         login.loginWithValidDetail();

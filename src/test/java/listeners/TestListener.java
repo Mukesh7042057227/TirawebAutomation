@@ -10,10 +10,23 @@ import utils.EmailUtility;
 import utils.ConfigReader;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.Map;
+import java.io.StringWriter;
+import java.io.PrintWriter;
 
 public class TestListener implements ITestListener {
 
     private static final Map<String, Long> testStartTimes = new ConcurrentHashMap<>();
+
+    private String getStackTraceAsString(Throwable throwable) {
+        if (throwable == null) {
+            return null;
+        }
+
+        StringWriter sw = new StringWriter();
+        PrintWriter pw = new PrintWriter(sw);
+        throwable.printStackTrace(pw);
+        return sw.toString();
+    }
 
     @Override
     public void onTestStart(ITestResult result) {
@@ -49,7 +62,10 @@ public class TestListener implements ITestListener {
         long executionTime = System.currentTimeMillis() - testStartTimes.getOrDefault(testKey, System.currentTimeMillis());
         String failureReason = result.getThrowable() != null ? result.getThrowable().getMessage() : "Unknown error";
 
-        TestResultTracker.recordTestResult(className, methodName, false, failureReason, executionTime);
+        // Capture stack trace
+        String stackTrace = getStackTraceAsString(result.getThrowable());
+
+        TestResultTracker.recordTestResult(className, methodName, false, failureReason, stackTrace, executionTime);
 
         Object currentClass = result.getInstance();
         WebDriver driver = ((BaseTest) currentClass).getDriver();

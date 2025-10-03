@@ -506,6 +506,11 @@ public class Locators {
     public static class ProductPage {
         public static final By addToCartBtn = By.xpath("//span[text()='Add to Bag']");
         public static final By validatePdpPage= By.xpath("//span[contains(text(),\"Add to Bag\")]");
+        public static final By wishlistIconClick= By.xpath("//span[text()='Save to Wishlist']");
+        public static final By wishlistToastMsg = By.xpath("//div[contains(text(),'Product has been added to Wishlist')]");
+        public static final By wishlistIconHeader = By.xpath("//img[@title='Wishlist']");
+        public static final By wishlistCount = By.xpath("//div[2]/div[1]/div/div[3]/div[1]/div/a/div[2][@class='favourite-count']");
+        public static final By wishlistIconClickForRemove= By.xpath("//span[text()='Save to Wishlist']");
 
     }
     public static class MyOrderPage {

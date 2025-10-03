@@ -9,18 +9,46 @@ public class TestResultTracker {
     private static final Map<String, TestMethodResult> allTestResults = new ConcurrentHashMap<>();
     private static final DecimalFormat df = new DecimalFormat("#.##");
 
+    public enum TestStatus {
+        PASSED, FAILED, SKIPPED, KNOWN_ISSUE, QUEUED, ABORTED, IN_PROGRESS
+    }
+
     public static class TestMethodResult {
         private String methodName;
         private String className;
         private boolean passed;
+        private TestStatus status;
         private String failureReason;
+        private String stackTrace;
         private long executionTime;
 
         public TestMethodResult(String className, String methodName, boolean passed, String failureReason, long executionTime) {
             this.className = className;
             this.methodName = methodName;
             this.passed = passed;
+            this.status = passed ? TestStatus.PASSED : TestStatus.FAILED;
             this.failureReason = failureReason;
+            this.executionTime = executionTime;
+            this.stackTrace = null;
+        }
+
+        public TestMethodResult(String className, String methodName, boolean passed, String failureReason, String stackTrace, long executionTime) {
+            this.className = className;
+            this.methodName = methodName;
+            this.passed = passed;
+            this.status = passed ? TestStatus.PASSED : TestStatus.FAILED;
+            this.failureReason = failureReason;
+            this.stackTrace = stackTrace;
+            this.executionTime = executionTime;
+        }
+
+        public TestMethodResult(String className, String methodName, TestStatus status, String failureReason, String stackTrace, long executionTime) {
+            this.className = className;
+            this.methodName = methodName;
+            this.passed = status == TestStatus.PASSED;
+            this.status = status;
+            this.failureReason = failureReason;
+            this.stackTrace = stackTrace;
             this.executionTime = executionTime;
         }
 
@@ -28,7 +56,9 @@ public class TestResultTracker {
         public String getMethodName() { return methodName; }
         public String getClassName() { return className; }
         public boolean isPassed() { return passed; }
+        public TestStatus getStatus() { return status; }
         public String getFailureReason() { return failureReason; }
+        public String getStackTrace() { return stackTrace; }
         public long getExecutionTime() { return executionTime; }
     }
 
@@ -37,6 +67,10 @@ public class TestResultTracker {
         private int totalTests = 0;
         private int passedTests = 0;
         private int failedTests = 0;
+        private int skippedTests = 0;
+        private int knownIssueTests = 0;
+        private int queuedTests = 0;
+        private int abortedTests = 0;
         private List<TestMethodResult> methodResults = new ArrayList<>();
 
         public TestClassResult(String className) {
@@ -46,10 +80,26 @@ public class TestResultTracker {
         public void addTestResult(TestMethodResult result) {
             methodResults.add(result);
             totalTests++;
-            if (result.isPassed()) {
-                passedTests++;
-            } else {
-                failedTests++;
+
+            switch (result.getStatus()) {
+                case PASSED:
+                    passedTests++;
+                    break;
+                case FAILED:
+                    failedTests++;
+                    break;
+                case SKIPPED:
+                    skippedTests++;
+                    break;
+                case KNOWN_ISSUE:
+                    knownIssueTests++;
+                    break;
+                case QUEUED:
+                    queuedTests++;
+                    break;
+                case ABORTED:
+                    abortedTests++;
+                    break;
             }
         }
 
@@ -63,11 +113,30 @@ public class TestResultTracker {
             return (double) failedTests / totalTests * 100;
         }
 
+        public double getSkippedPercentage() {
+            if (totalTests == 0) return 0.0;
+            return (double) skippedTests / totalTests * 100;
+        }
+
+        public double getKnownIssuePercentage() {
+            if (totalTests == 0) return 0.0;
+            return (double) knownIssueTests / totalTests * 100;
+        }
+
+        public double getQueuedPercentage() {
+            if (totalTests == 0) return 0.0;
+            return (double) queuedTests / totalTests * 100;
+        }
+
         // Getters
         public String getClassName() { return className; }
         public int getTotalTests() { return totalTests; }
         public int getPassedTests() { return passedTests; }
         public int getFailedTests() { return failedTests; }
+        public int getSkippedTests() { return skippedTests; }
+        public int getKnownIssueTests() { return knownIssueTests; }
+        public int getQueuedTests() { return queuedTests; }
+        public int getAbortedTests() { return abortedTests; }
         public List<TestMethodResult> getMethodResults() { return methodResults; }
     }
 
@@ -79,6 +148,26 @@ public class TestResultTracker {
     // Record test result
     public static void recordTestResult(String className, String methodName, boolean passed, String failureReason, long executionTime) {
         TestMethodResult methodResult = new TestMethodResult(className, methodName, passed, failureReason, executionTime);
+
+        // Store individual test result
+        String testKey = className + "." + methodName;
+        allTestResults.put(testKey, methodResult);
+
+        // Update class-level results
+        TestClassResult classResult = testClassResults.computeIfAbsent(className, TestClassResult::new);
+        classResult.addTestResult(methodResult);
+
+        // Print immediate result
+        if (passed) {
+            System.out.println("✅ Test PASSED: " + methodName + " (" + executionTime + "ms)");
+        } else {
+            System.out.println("❌ Test FAILED: " + methodName + " - " + failureReason + " (" + executionTime + "ms)");
+        }
+    }
+
+    // Record test result with stack trace
+    public static void recordTestResult(String className, String methodName, boolean passed, String failureReason, String stackTrace, long executionTime) {
+        TestMethodResult methodResult = new TestMethodResult(className, methodName, passed, failureReason, stackTrace, executionTime);
 
         // Store individual test result
         String testKey = className + "." + methodName;
