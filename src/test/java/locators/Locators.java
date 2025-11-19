@@ -415,18 +415,18 @@ public class Locators {
         public static final By emptySearchResultsContainer = By.xpath("//*[contains(@class, 'empty-results') or contains(@class, 'no-results') or contains(@class, 'empty-category')]");
     }
     public static class LoginPage {
-        public static final By loginIcon = By.xpath("//a/div[@class='profile-icons profile-logout']");
+        public static final By loginIcon = By.xpath("//div/div[1]/div/div/div/p/span/span[text()='Login/Sign Up']");
         public static final By mobileInput = By.xpath("//input[@name='mobile-number']"); // replace with correct locator
-        public static final By selectCheckbox = By.xpath("//img[@alt='checkbox']");
-        public static final By clickSendOtpButton = By.xpath("//button[text()=' Send OTP ']");
-        public static final By enterOtp= By.xpath("//div/input[@class='otp-input']");
-        public static final By verifyOtp = By.xpath("//button[text()=' Verify OTP ']");
-        public static final By validateLoginPage=By.xpath("//p[contains(text(),'Sign up now')]");
-        public static final By validateInvalidPhone=By.xpath("//span[contains(text(),' Invalid Phone Number ')]");
-        public static final By validateInvalidOtp=By.xpath("//span[contains(text(),'Entered OTP is invalid, please retry')]");
-        public static final By outSideClickOnLoginPage=By.xpath("//input[contains(@class, 'common-x-input') and contains(@class, 'country-code')]");
-        public static final By clickOnEditMobile=By.xpath("//button[contains(text(),'Edit Number')]");
-        public static final By wishlistIcon=By.xpath("//div[@class=\"profile-icons hover-profile\"]");
+        public static final By selectCheckbox = By.xpath("//div/div/div/div[1]/div[2]/div/div");
+        public static final By clickSendOtpButton = By.xpath("//button[text()='Send OTP']");
+        public static final By otpInputFields = By.xpath("//input[contains(@class, 'otpInput') or contains(@aria-label, 'Please enter OTP character')]");
+        public static final By verifyOtp = By.xpath("//button[text()='Verify OTP']");
+        public static final By validateLoginPage=By.xpath("//p[text()='Log In Or Sign Up']");
+        public static final By validateInvalidPhone=By.xpath("//span[contains(text(),'Invalid Phone Number')]");
+        public static final By validateInvalidOtp=By.xpath("//p[contains(text(),'Entered OTP is invalid, please retry')]");
+        public static final By outSideClickOnLoginPage=By.xpath("//p[text()='Log In Or Sign Up']");
+        public static final By clickOnEditMobile=By.xpath("//img[@alt='Edit number']");
+        public static final By wishlistIcon=By.xpath("//div[4]/div[1]/a/div[1]/img[@alt='wishlist-icon']");
         public static final By toastNotification=By.cssSelector(".toasted.toasted-primary.success");
 
     }
@@ -508,9 +508,10 @@ public class Locators {
         public static final By validatePdpPage= By.xpath("//span[contains(text(),\"Add to Bag\")]");
         public static final By wishlistIconClick= By.xpath("//span[text()='Save to Wishlist']");
         public static final By wishlistToastMsg = By.xpath("//div[contains(text(),'Product has been added to Wishlist')]");
+        public static final By wishlistRemoveToastMsg = By.xpath("//div[contains(text(),'Product has been removed from Wishlist') or contains(text(),'removed from wishlist')]");
         public static final By wishlistIconHeader = By.xpath("//img[@title='Wishlist']");
         public static final By wishlistCount = By.xpath("//div[2]/div[1]/div/div[3]/div[1]/div/a/div[2][@class='favourite-count']");
-        public static final By wishlistIconClickForRemove= By.xpath("//span[text()='Save to Wishlist']");
+        public static final By wishlistIconClickForRemove= By.xpath("//span[text()='Saved to Wishlist']");
 
     }
     public static class MyOrderPage {

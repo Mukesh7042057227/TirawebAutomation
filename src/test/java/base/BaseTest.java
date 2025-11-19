@@ -36,12 +36,12 @@ public class BaseTest {
         driver.get(ConfigReader.get("baseUrl"));
     }
 
-    @AfterMethod
-   public void tearDown() {
-       if (driver != null) {
-           driver.quit();
-        }
-   }
+//    @AfterMethod
+//   public void tearDown() {
+//       if (driver != null) {
+//           driver.quit();
+//        }
+//   }
 
     public WebDriver getDriver() {
         return driver;

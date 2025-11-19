@@ -10,41 +10,8 @@ import pages.*;
 @Listeners({ExtentReportListener.class, TestListener.class, listeners.TestSummaryListener.class})
 public class ProductPageTest extends BaseTest {
 
-//    @Test(priority = 1)
-//    public void productPageTestCaseAddtoBagWithLogin() throws InterruptedException {
-//        HomePage home = new HomePage(driver);
-//        ProductPage product = new ProductPage(driver);
-//        PlpPage plp = new PlpPage(driver);
-//        CategoryPage category= new CategoryPage(driver);
-//        LoginPage login = new LoginPage(driver);
-//        home.assertHomePageLoaded();
-//        home.validateCategoryNavigation();
-//        home.clickLoginIcon();
-//        login.loginWithValidDetail();
-//        category.navigateToLipstickCategory();
-//        plp.validatePlpPage();
-//        plp.sortBy();
-//        plp.clickOnProduct();
-//        product.validatePdpPage();
-//        product.setAddToCartBtn();
-//    }
-//    @Test(priority = 2)
-//    public void productPageTestCaseAddtoBagWithOutLogin() throws InterruptedException {
-//        HomePage home = new HomePage(driver);
-//        ProductPage product = new ProductPage(driver);
-//        PlpPage plp = new PlpPage(driver);
-//        CategoryPage category= new CategoryPage(driver);
-//        home.assertHomePageLoaded();
-//        home.validateCategoryNavigation();
-//        category.navigateToLipstickCategory();
-//        plp.validatePlpPage();
-//        plp.sortBy();
-//        plp.clickOnProduct();
-//        product.validatePdpPage();
-//        product.setAddToCartBtn();
-//    }
-    @Test(priority = 3)
-    public void productPageTestCaseWishlistWithLogin() throws InterruptedException {
+    @Test(priority = 1)
+    public void productPageTestCaseAddtoBagWithLogin() throws InterruptedException {
         HomePage home = new HomePage(driver);
         ProductPage product = new ProductPage(driver);
         PlpPage plp = new PlpPage(driver);
@@ -56,13 +23,25 @@ public class ProductPageTest extends BaseTest {
         login.loginWithValidDetail();
         category.navigateToLipstickCategory();
         plp.validatePlpPage();
-        plp.sortBy();
         plp.clickOnProduct();
         product.validatePdpPage();
-       product.setSaveToWishlist();
-       product.validateSaveToWishlist();
+        product.setAddToCartBtn();
     }
-//    @Test(priority = 4)
+//    @Test(priority = 2)
+//    public void productPageTestCaseAddtoBagWithOutLogin() throws InterruptedException {
+//        HomePage home = new HomePage(driver);
+//        ProductPage product = new ProductPage(driver);
+//        PlpPage plp = new PlpPage(driver);
+//        CategoryPage category= new CategoryPage(driver);
+//        home.assertHomePageLoaded();
+//        home.validateCategoryNavigation();
+//        category.navigateToLipstickCategory();
+//        plp.validatePlpPage();
+//        plp.clickOnProduct();
+//        product.validatePdpPage();
+//        product.setAddToCartBtn();
+//    }
+//    @Test(priority = 3)
 //    public void productPageTestCaseWishlistWithOutLogin() throws InterruptedException {
 //        HomePage home = new HomePage(driver);
 //        ProductPage product = new ProductPage(driver);
@@ -71,13 +50,11 @@ public class ProductPageTest extends BaseTest {
 //        LoginPage login = new LoginPage(driver);
 //        home.assertHomePageLoaded();
 //        home.validateCategoryNavigation();
-//        home.clickLoginIcon();
-//        login.loginWithValidDetail();
 //        category.navigateToLipstickCategory();
 //        plp.validatePlpPage();
-//        plp.sortBy();
 //        plp.clickOnProduct();
 //        product.validatePdpPage();
-//        product.setAddToCartBtn();
+//        product.setSaveToWishlist(login);// Already validates toast and count internally
+//        product.validateSaveToWishlist();
 //    }
 }

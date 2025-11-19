@@ -49,10 +49,22 @@ jobs:
     - name: Clean and compile
       run: mvn clean compile
 
-    - name: Run tests with headless mode
+    - name: Run tests with headless mode and code coverage
       run: |
         export DISPLAY=:99
-        mvn test -Dheadless=true
+        mvn clean test -Dheadless=true
+      continue-on-error: true
+
+    - name: Run SonarQube Analysis
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      run: |
+        mvn sonar:sonar \
+          -Dsonar.projectKey=tira-beauty-framework \
+          -Dsonar.organization=tirabeauty \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.token=${{ secrets.SONAR_TOKEN }}
       continue-on-error: true
 
     - name: List generated files
@@ -95,4 +107,12 @@ jobs:
       with:
         name: allure-results
         path: allure-results/
+        retention-days: 30
+
+    - name: Upload JaCoCo Coverage Report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: jacoco-coverage-report
+        path: target/site/jacoco/
         retention-days: 30

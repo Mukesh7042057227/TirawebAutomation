@@ -385,9 +385,9 @@ public class EmailReportGenerator {
             "}\n" +
             "\n" +
             "document.addEventListener('DOMContentLoaded', function() {\n" +
-            "    // Pie charts configuration (changed from doughnut)\n" +
+            "    // Donut charts configuration\n" +
             "    const chartConfig = {\n" +
-            "        type: 'pie',\n" +
+            "        type: 'doughnut',\n" +
             "        data: {\n" +
             "            labels: ['Passed', 'Known Issue', 'Failed', 'Queued', 'Aborted', 'Skipped'],\n" +
             "            datasets: [{\n" +
@@ -400,6 +400,7 @@ public class EmailReportGenerator {
             "        options: {\n" +
             "            responsive: true,\n" +
             "            maintainAspectRatio: true,\n" +
+            "            cutout: '60%',\n" +
             "            plugins: {\n" +
             "                legend: { display: false },\n" +
             "                tooltip: { enabled: true }\n" +
@@ -455,11 +456,15 @@ public class EmailReportGenerator {
             "                maintainAspectRatio: false,\n" +
             "                scales: {\n" +
             "                    y: {\n" +
+            "                        stacked: true,\n" +
             "                        beginAtZero: true,\n" +
             "                        max: 60,\n" +
             "                        ticks: {\n" +
             "                            stepSize: 5\n" +
             "                        }\n" +
+            "                    },\n" +
+            "                    x: {\n" +
+            "                        stacked: true\n" +
             "                    }\n" +
             "                },\n" +
             "                plugins: {\n" +

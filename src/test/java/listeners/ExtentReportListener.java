@@ -8,7 +8,6 @@ import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
 import utils.ScreenshotUtil;
-import utils.EnhancedReportGenerator;
 import utils.TestResultTracker;
 import java.io.File;
 import java.io.FileWriter;
@@ -71,11 +70,7 @@ public class ExtentReportListener implements ITestListener {
     @Override
     public void onFinish(ITestContext context) {
         extent.flush();
-
-        // Generate enhanced report with pie chart and clickable failed tests
-        System.out.println("🎨 Generating enhanced test report with pie chart...");
-        EnhancedReportGenerator.generateEnhancedReport("test-output/EnhancedReport.html");
-        System.out.println("✅ Enhanced report generated: test-output/EnhancedReport.html");
+        System.out.println("✅ ExtentReports generated: test-output/ExtentReport.html");
     }
 
     private void generateFailureLog(String className, String methodName, Throwable throwable) {

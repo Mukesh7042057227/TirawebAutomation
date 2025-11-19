@@ -39,8 +39,15 @@ public class LoginPage {
         WebElement selectCheckbox = wait.until(ExpectedConditions.elementToBeClickable(Locators.LoginPage.selectCheckbox));
         selectCheckbox.click();
         this.driver.findElement(clickSendOtpButton).click();
-        WebElement submitOtp = wait.until(ExpectedConditions.visibilityOfElementLocated(enterOtp));
-        submitOtp.sendKeys(otp);
+
+        // Wait for OTP fields to be visible and enter OTP
+        wait.until(ExpectedConditions.visibilityOfElementLocated(otpInputFields));
+        String[] otpDigits = otp.split("");
+        var otpFields = driver.findElements(otpInputFields);
+        for (int i = 0; i < Math.min(otpDigits.length, otpFields.size()); i++) {
+            otpFields.get(i).sendKeys(otpDigits[i]);
+        }
+
         this.driver.findElement(verifyOtp).click();
         System.out.println("✅ Login flow completed.");
     }
@@ -61,8 +68,15 @@ public class LoginPage {
         outSideCLick.sendKeys(mobile);
         driver.findElement(selectCheckbox).click();
         driver.findElement(clickSendOtpButton).click();
-        WebElement submitOtp = wait.until(ExpectedConditions.visibilityOfElementLocated(enterOtp));
-        submitOtp.sendKeys(otp);
+
+        // Wait for OTP fields to be visible and enter OTP
+        wait.until(ExpectedConditions.visibilityOfElementLocated(otpInputFields));
+        String[] otpDigits = otp.split("");
+        var otpFields = driver.findElements(otpInputFields);
+        for (int i = 0; i < Math.min(otpDigits.length, otpFields.size()); i++) {
+            otpFields.get(i).sendKeys(otpDigits[i]);
+        }
+
         driver.findElement(verifyOtp).click();
     }
 
@@ -70,7 +84,8 @@ public class LoginPage {
         WebElement element = wait.until(ExpectedConditions.visibilityOfElementLocated(validateLoginPage));
 
         String actualText = element.getText();
-        Assert.assertTrue(actualText.contains("Sign up now"), "❌ Text mismatch: Expected 'Sign up now'");
+        Assert.assertTrue(actualText.contains("Log In Or Sign Up"), "❌ Text mismatch: Expected 'Log In Or Sign Up\n" +
+                "\n'");
         System.out.println("✅ Verified text: " + actualText);
     }
 
